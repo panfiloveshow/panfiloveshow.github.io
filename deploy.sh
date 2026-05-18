@@ -7,7 +7,7 @@
 #
 # Override env vars to retarget (subdomain not finalised yet):
 #   DEPLOY_REMOTE         user@host (default crm_admin@sellico.ru)
-#   DEPLOY_DIST_PATH      remote dist target (default /var/www/html/landing/dist)
+#   DEPLOY_DIST_PATH      remote dist target (default /var/www/html/frontend/dist)
 #   DEPLOY_BACKUP_DIR     remote backup directory (default /home/crm_admin/archive)
 #   DEPLOY_SSH_OPTS       extra ssh options
 #   DEPLOY_BUILD_CMD      build command (default 'pnpm build')
@@ -18,7 +18,7 @@ set -euo pipefail
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 REMOTE="${DEPLOY_REMOTE:-crm_admin@sellico.ru}"
-REMOTE_DIST_PATH="${DEPLOY_DIST_PATH:-/var/www/html/landing/dist}"
+REMOTE_DIST_PATH="${DEPLOY_DIST_PATH:-/var/www/html/frontend/dist}"
 REMOTE_BACKUP_DIR="${DEPLOY_BACKUP_DIR:-/home/crm_admin/archive}"
 SSH_OPTS="${DEPLOY_SSH_OPTS:--o StrictHostKeyChecking=no}"
 BUILD_CMD="${DEPLOY_BUILD_CMD:-pnpm build}"
