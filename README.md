@@ -77,6 +77,23 @@ pnpm lint           # ESLint
 
 ## Деплой
 
+### GitHub Pages
+
+Для публикации на `panfiloveshow.github.io` используется GitHub Pages из папки `docs/`.
+
+```bash
+pnpm build
+rm -rf docs
+cp -R dist docs
+git add .
+git commit -m "Deploy site"
+git push pages main
+```
+
+В настройках Pages источник: `main` / `docs`.
+
+### Сервер Sellico
+
 ```bash
 bash deploy.sh
 ```
