@@ -4,12 +4,18 @@ High-conversion B2B SaaS landing page для Sellico — операционно�
 
 ## Stack
 
-- **Vite 5** + **React 18** + **TypeScript 5**
+- **Vite 8** + **React 19** + **TypeScript 5**
 - **Tailwind CSS 3.4** + кастомные токены и анимации
 - **Framer Motion 11** для скролл-анимаций, parallax, spotlight
 - **lucide-react** иконки
 - **@fontsource-variable/inter** (self-host, без CLS)
 - **pnpm** package manager
+
+## Production
+
+- Live: https://panfiloveshow.github.io/
+- GitHub Pages source: `main` / `docs`
+- Current frontend runtime: React 19 + Vite 8
 
 ## Команды
 
