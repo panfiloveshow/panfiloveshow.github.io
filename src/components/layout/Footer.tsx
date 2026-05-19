@@ -76,7 +76,7 @@ export function Footer() {
               >
                 <span>
                   <span className="block text-sm font-semibold">Начать бесплатно</span>
-                  <span className="mt-1 block text-xs font-medium text-ink-900/70">14 дней без карты</span>
+                  <span className="mt-1 block text-xs font-medium text-ink-900/70">3 дня без карты</span>
                 </span>
                 <ArrowUpRight className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" size={20} />
               </a>

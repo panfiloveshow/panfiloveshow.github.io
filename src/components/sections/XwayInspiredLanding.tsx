@@ -69,7 +69,7 @@ const stats = [
 const heroProofStats = [
   ['3 маркетплейса', 'WB, Ozon и Яндекс Маркет в едином рабочем контуре'],
   ['5 минут', 'быстрое подключение магазинов и ролей команды'],
-  ['14 дней', 'бесплатный старт без привязки карты'],
+  ['3 дня', 'бесплатный старт без привязки карты'],
 ];
 
 const funnel = [
@@ -805,7 +805,7 @@ export function XwayInspiredLanding() {
 
               {/* Trust markers */}
               <div className="mt-6 flex flex-wrap gap-x-5 gap-y-3 text-sm font-medium text-ink-700">
-                {['14 дней бесплатно', 'Без привязки карты', 'Поддержка в Telegram'].map((item) => (
+                {['3 дня бесплатно', 'Без привязки карты', 'Поддержка в Telegram'].map((item) => (
                   <span key={item} className="flex items-center gap-2">
                     <ShieldCheck size={16} className="text-brand-500" />
                     {item}
