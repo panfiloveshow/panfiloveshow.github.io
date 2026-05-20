@@ -150,6 +150,17 @@ export function Footer() {
 
           <div className="flex flex-col gap-5 border-t border-white/10 pt-6 text-xs text-white/42 xl:flex-row xl:items-center xl:justify-between">
             <p>© {year} Sellico. Все права защищены.</p>
+            <div className="w-full max-w-[420px] xl:w-[32vw] xl:max-w-[520px]" aria-label="Платежные системы и эквайринг">
+              <img
+                src="/brand/horizontal-logos.png"
+                alt="МИР, СБП, Visa, Mastercard, PayKeeper"
+                width={3056}
+                height={238}
+                loading="lazy"
+                decoding="async"
+                className="h-auto w-full object-contain opacity-90"
+              />
+            </div>
             <div className="flex flex-col items-start gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-5 sm:gap-y-2 xl:justify-end">
               <a href="/privacy" className="transition-colors hover:text-white">
                 Политика обработки персональных данных
