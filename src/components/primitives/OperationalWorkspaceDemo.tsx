@@ -2681,7 +2681,7 @@ function ChatWidget({
 }
 
 export function OperationalWorkspaceDemo() {
-  const [activeArea, setActiveArea] = useState<WorkspaceArea>('tasks');
+  const [activeArea, setActiveArea] = useState<WorkspaceArea>('finance');
   const [viewMode, setViewMode] = useState<ViewMode>('kanban');
   const [tasks, setTasks] = useState<DemoTask[]>(initialTasks);
   const [selectedTask, setSelectedTask] = useState<DemoTask | null>(null);
