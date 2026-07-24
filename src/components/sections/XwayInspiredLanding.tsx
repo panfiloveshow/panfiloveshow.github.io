@@ -706,8 +706,9 @@ function Hero() {
                       </feMerge>
                     </filter>
                   </defs>
-                  <motion.circle
+                  <circle
                     data-hero-orbit="outer"
+                    className="hero-orbit hero-orbit--outer"
                     cx="50"
                     cy="50"
                     r="42"
@@ -715,12 +716,10 @@ function Hero() {
                     stroke="#91a69b"
                     strokeWidth=".34"
                     strokeDasharray="1.15 1.55"
-                    animate={{ rotate: heroMotionEnabled ? 360 : 0 }}
-                    transition={heroMotionEnabled ? { duration: 36, ease: 'linear', repeat: Infinity } : { duration: 0 }}
-                    style={{ transformOrigin: '50% 50%' }}
                   />
-                  <motion.circle
+                  <circle
                     data-hero-orbit="inner"
+                    className="hero-orbit hero-orbit--inner"
                     cx="50"
                     cy="50"
                     r="27.5"
@@ -728,9 +727,6 @@ function Hero() {
                     stroke="#b2c0b9"
                     strokeWidth=".3"
                     strokeDasharray=".9 1.4"
-                    animate={{ rotate: heroMotionEnabled ? -360 : 0 }}
-                    transition={heroMotionEnabled ? { duration: 26, ease: 'linear', repeat: Infinity } : { duration: 0 }}
-                    style={{ transformOrigin: '50% 50%' }}
                   />
                   <path d="M50 8V33M92 50H67M50 92V67M8 50H33" stroke="#cedad4" strokeWidth=".5" />
                   <circle cx="50" cy="8" r="1.3" fill="#1a6b49" stroke="#f7f9f7" strokeWidth=".65" />
