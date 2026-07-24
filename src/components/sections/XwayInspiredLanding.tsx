@@ -615,9 +615,13 @@ function StockSyncCard() {
 
 function Hero() {
   const heroDiagramRef = useRef<HTMLDivElement>(null);
-  const heroDiagramInView = useInView(heroDiagramRef, { amount: 0.35 });
+  const heroDiagramInView = useInView(heroDiagramRef, {
+    once: true,
+    amount: 0.05,
+    margin: '160px 0px',
+  });
   const prefersReducedMotion = useReducedMotion();
-  const heroMotionEnabled = heroDiagramInView && !prefersReducedMotion;
+  const heroMotionEnabled = heroDiagramInView && prefersReducedMotion !== true;
 
   return (
     <section
@@ -774,9 +778,8 @@ function Hero() {
 
                 <motion.div
                   className="relative z-20 col-start-2 row-start-2 grid aspect-square w-[88%] max-w-[148px] place-items-center rounded-full bg-[radial-gradient(circle_at_35%_25%,#2c875d_0%,#10563b_48%,#073c29_100%)] shadow-[0_24px_50px_-26px_rgba(10,73,48,.7)]"
-                  initial={{ opacity: 0, scale: 0.86 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
+                  initial={prefersReducedMotion ? false : { opacity: 0, scale: 0.86 }}
+                  animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.7, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
                 >
                   <motion.span
@@ -814,9 +817,8 @@ function Hero() {
                       'relative z-10 flex aspect-[1.02/1] w-[92%] max-w-[126px] flex-col items-center justify-center self-center rounded-[18px] border border-[#dfe6e2] bg-white/95 px-1.5 text-center shadow-[0_22px_42px_-32px_rgba(20,66,46,.38)] backdrop-blur sm:rounded-[22px] sm:px-2',
                       placement,
                     )}
-                    initial={{ opacity: 0, scale: 0.92 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
+                    initial={prefersReducedMotion ? false : { opacity: 0, scale: 0.92 }}
+                    animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.5, delay: 0.08 * index }}
                   >
                     <motion.span

@@ -2686,7 +2686,7 @@ export function OperationalWorkspaceDemo() {
   const [tasks, setTasks] = useState<DemoTask[]>(initialTasks);
   const [selectedTask, setSelectedTask] = useState<DemoTask | null>(null);
   const [createOpen, setCreateOpen] = useState(false);
-  const [chatOpen, setChatOpen] = useState(true);
+  const [chatOpen, setChatOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [mobileColumn, setMobileColumn] = useState(0);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
