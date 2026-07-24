@@ -179,13 +179,13 @@ export function Footer() {
             </p>
             <div className="w-full max-w-[420px] xl:w-[30vw] xl:max-w-[500px]" aria-label="Платежные системы и эквайринг">
               <img
-                src="/brand/horizontal-logos.svg"
+                src="/brand/horizontal-logos.png"
                 alt="МИР, СБП, Visa, Mastercard, PayKeeper"
-                width={1320}
-                height={100}
+                width={3056}
+                height={238}
                 loading="lazy"
                 decoding="async"
-                className="h-auto w-full object-contain opacity-90"
+                className="h-auto w-full object-contain"
               />
             </div>
             <div className="flex flex-col items-start gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-5 sm:gap-y-2 xl:justify-end">
