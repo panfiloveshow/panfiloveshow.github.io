@@ -1,0 +1,145 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2400 720" width="2400" height="720" fill="none" shape-rendering="geometricPrecision">
+  <defs>
+    <radialGradient id="particle-front-0" cx="30%" cy="24%" r="76%">
+      <stop offset="0" stop-color="#f9fffc"/>
+      <stop offset="0.34" stop-color="#bfe8d3"/>
+      <stop offset="0.78" stop-color="#3c9f74"/>
+      <stop offset="1" stop-color="#3c9f74"/>
+    </radialGradient>
+    <radialGradient id="particle-front-1" cx="30%" cy="24%" r="76%">
+      <stop offset="0" stop-color="#eafff4"/>
+      <stop offset="0.34" stop-color="#72c89f"/>
+      <stop offset="0.78" stop-color="#167452"/>
+      <stop offset="1" stop-color="#167452"/>
+    </radialGradient>
+    <radialGradient id="particle-front-2" cx="30%" cy="24%" r="76%">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="0.34" stop-color="#d8eee3"/>
+      <stop offset="0.78" stop-color="#76ad91"/>
+      <stop offset="1" stop-color="#76ad91"/>
+    </radialGradient>
+    <radialGradient id="particle-front-3" cx="30%" cy="24%" r="76%">
+      <stop offset="0" stop-color="#dff8ec"/>
+      <stop offset="0.34" stop-color="#53b88a"/>
+      <stop offset="0.78" stop-color="#0b6246"/>
+      <stop offset="1" stop-color="#0b6246"/>
+    </radialGradient>
+    <radialGradient id="particle-front-4" cx="30%" cy="24%" r="76%">
+      <stop offset="0" stop-color="#f2fff8"/>
+      <stop offset="0.34" stop-color="#9cdbbc"/>
+      <stop offset="0.78" stop-color="#25865f"/>
+      <stop offset="1" stop-color="#25865f"/>
+    </radialGradient>
+  </defs>
+  <g>
+
+    <circle cx="287.31" cy="45.06" r="25.23" fill="url(#particle-front-1)" fill-opacity="0.87" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="150.22" cy="413.19" r="25.42" fill="url(#particle-front-0)" fill-opacity="0.87" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="546.86" cy="190.46" r="26.07" fill="url(#particle-front-2)" fill-opacity="0.86" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="-22.4" cy="263.95" r="26.28" fill="url(#particle-front-4)" fill-opacity="0.87" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="-8.36" cy="156.2" r="26.34" fill="url(#particle-front-0)" fill-opacity="0.96" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="941.38" cy="278.48" r="26.48" fill="url(#particle-front-2)" fill-opacity="0.92" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="189.72" cy="391.86" r="27.15" fill="url(#particle-front-0)" fill-opacity="1" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="215.7" cy="89.11" r="27.19" fill="url(#particle-front-1)" fill-opacity="0.92" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="621.99" cy="239.25" r="27.23" fill="url(#particle-front-3)" fill-opacity="0.83" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="165.35" cy="218.52" r="27.34" fill="url(#particle-front-2)" fill-opacity="0.95" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="1198.58" cy="677.78" r="27.51" fill="url(#particle-front-4)" fill-opacity="0.87" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="481.06" cy="67.13" r="27.53" fill="url(#particle-front-4)" fill-opacity="0.82" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="1189.74" cy="-12.13" r="27.56" fill="url(#particle-front-2)" fill-opacity="0.99" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="709.08" cy="106.62" r="28.2" fill="url(#particle-front-4)" fill-opacity="0.97" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="1284.6" cy="588.75" r="28.39" fill="url(#particle-front-1)" fill-opacity="0.98" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="89.21" cy="-0.18" r="28.86" fill="url(#particle-front-2)" fill-opacity="0.97" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="525.68" cy="38.95" r="29.02" fill="url(#particle-front-4)" fill-opacity="0.84" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="1319.14" cy="213.05" r="29.37" fill="url(#particle-front-4)" fill-opacity="1" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="919.36" cy="376.68" r="29.37" fill="url(#particle-front-1)" fill-opacity="0.96" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="318.04" cy="226.97" r="30.55" fill="url(#particle-front-4)" fill-opacity="0.87" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="888.26" cy="348.26" r="30.83" fill="url(#particle-front-4)" fill-opacity="0.87" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="1193.66" cy="122.25" r="30.87" fill="url(#particle-front-2)" fill-opacity="0.98" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="1022.48" cy="13.54" r="31.01" fill="url(#particle-front-2)" fill-opacity="0.89" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="522.06" cy="756.73" r="31.45" fill="url(#particle-front-3)" fill-opacity="0.83" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="783.07" cy="338.61" r="31.88" fill="url(#particle-front-4)" fill-opacity="0.91" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="907.49" cy="375.01" r="31.97" fill="url(#particle-front-2)" fill-opacity="0.87" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="17.44" cy="711.94" r="32.67" fill="url(#particle-front-4)" fill-opacity="0.84" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="1359.88" cy="488.48" r="32.72" fill="url(#particle-front-0)" fill-opacity="0.83" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="215.18" cy="581.92" r="32.88" fill="url(#particle-front-3)" fill-opacity="0.9" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="216.85" cy="275.98" r="33.79" fill="url(#particle-front-1)" fill-opacity="0.92" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="-27.88" cy="587.83" r="34.01" fill="url(#particle-front-3)" fill-opacity="0.98" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="334.11" cy="178.39" r="34.18" fill="url(#particle-front-3)" fill-opacity="0.87" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="1443.17" cy="185.39" r="34.34" fill="url(#particle-front-4)" fill-opacity="0.91" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="634.86" cy="601.11" r="34.79" fill="url(#particle-front-1)" fill-opacity="0.85" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="-30.19" cy="729.32" r="35.02" fill="url(#particle-front-1)" fill-opacity="0.89" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="265.21" cy="556.41" r="35.88" fill="url(#particle-front-0)" fill-opacity="0.97" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="352.71" cy="487.23" r="35.97" fill="url(#particle-front-3)" fill-opacity="0.84" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="1061.48" cy="242.57" r="36.31" fill="url(#particle-front-3)" fill-opacity="0.94" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="588.24" cy="388.41" r="36.73" fill="url(#particle-front-0)" fill-opacity="0.9" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="572.24" cy="528.41" r="36.77" fill="url(#particle-front-4)" fill-opacity="0.87" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="1351.99" cy="734.58" r="36.9" fill="url(#particle-front-2)" fill-opacity="0.87" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="611.02" cy="-7.94" r="37.23" fill="url(#particle-front-4)" fill-opacity="0.84" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="1.5" cy="446.38" r="37.29" fill="url(#particle-front-3)" fill-opacity="0.99" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="858.5" cy="66.59" r="37.41" fill="url(#particle-front-0)" fill-opacity="0.84" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="-37.75" cy="582.59" r="37.78" fill="url(#particle-front-3)" fill-opacity="0.89" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="228.99" cy="759.95" r="37.81" fill="url(#particle-front-4)" fill-opacity="0.88" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="141.91" cy="370.97" r="38.14" fill="url(#particle-front-2)" fill-opacity="0.85" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="1083.14" cy="431.62" r="38.48" fill="url(#particle-front-1)" fill-opacity="0.88" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="86.76" cy="597.45" r="38.57" fill="url(#particle-front-4)" fill-opacity="0.82" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="298.88" cy="595.41" r="39.03" fill="url(#particle-front-4)" fill-opacity="1" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="1525.64" cy="144.82" r="39.69" fill="url(#particle-front-1)" fill-opacity="0.94" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="288.25" cy="417.03" r="40.15" fill="url(#particle-front-1)" fill-opacity="0.94" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="-17.11" cy="130.19" r="40.45" fill="url(#particle-front-0)" fill-opacity="0.96" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="84.88" cy="170.65" r="40.48" fill="url(#particle-front-3)" fill-opacity="0.86" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="401.43" cy="404.26" r="41.64" fill="url(#particle-front-0)" fill-opacity="0.9" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="916.31" cy="631.48" r="42.29" fill="url(#particle-front-0)" fill-opacity="0.86" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="294.17" cy="674.98" r="43.08" fill="url(#particle-front-0)" fill-opacity="0.96" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="71.67" cy="727.65" r="43.23" fill="url(#particle-front-0)" fill-opacity="0.96" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="250.33" cy="561.76" r="43.26" fill="url(#particle-front-1)" fill-opacity="0.96" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="2.24" cy="592.19" r="43.27" fill="url(#particle-front-2)" fill-opacity="0.94" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="1283.15" cy="75.96" r="43.47" fill="url(#particle-front-2)" fill-opacity="0.95" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="79.23" cy="21.4" r="43.75" fill="url(#particle-front-2)" fill-opacity="0.85" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="458.53" cy="343.06" r="44.34" fill="url(#particle-front-0)" fill-opacity="0.85" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="625.45" cy="665.91" r="44.69" fill="url(#particle-front-0)" fill-opacity="0.98" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="851.98" cy="205.1" r="44.72" fill="url(#particle-front-1)" fill-opacity="0.87" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="967.25" cy="207.4" r="44.74" fill="url(#particle-front-0)" fill-opacity="0.82" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="1292.44" cy="552.94" r="44.78" fill="url(#particle-front-0)" fill-opacity="0.85" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="47.4" cy="254.23" r="45.02" fill="url(#particle-front-0)" fill-opacity="0.94" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="64.94" cy="280.67" r="45.2" fill="url(#particle-front-1)" fill-opacity="0.84" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="38.67" cy="651.52" r="45.37" fill="url(#particle-front-4)" fill-opacity="0.96" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="1271.62" cy="570.97" r="45.42" fill="url(#particle-front-4)" fill-opacity="0.94" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="280.49" cy="194.96" r="45.57" fill="url(#particle-front-0)" fill-opacity="0.85" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="269.58" cy="436.7" r="45.59" fill="url(#particle-front-1)" fill-opacity="0.92" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="12.14" cy="66.78" r="45.71" fill="url(#particle-front-2)" fill-opacity="0.86" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="388.24" cy="45.74" r="46.86" fill="url(#particle-front-3)" fill-opacity="0.82" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="989.19" cy="469.38" r="46.94" fill="url(#particle-front-0)" fill-opacity="0.85" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="844.61" cy="111.73" r="47.69" fill="url(#particle-front-3)" fill-opacity="0.85" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="436.14" cy="301.25" r="47.76" fill="url(#particle-front-2)" fill-opacity="0.83" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="1042.27" cy="256.6" r="47.97" fill="url(#particle-front-2)" fill-opacity="0.99" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="568.52" cy="624.25" r="48.51" fill="url(#particle-front-2)" fill-opacity="0.89" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="1445.32" cy="275.94" r="48.64" fill="url(#particle-front-4)" fill-opacity="0.85" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="-48.07" cy="27.75" r="48.88" fill="url(#particle-front-1)" fill-opacity="0.9" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="1246.69" cy="466.73" r="49.01" fill="url(#particle-front-0)" fill-opacity="0.87" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="396.05" cy="105.78" r="49.53" fill="url(#particle-front-2)" fill-opacity="0.96" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="1382.59" cy="603.3" r="49.85" fill="url(#particle-front-1)" fill-opacity="0.98" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="1382.27" cy="554.36" r="50.5" fill="url(#particle-front-4)" fill-opacity="0.96" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="855.06" cy="445.92" r="50.64" fill="url(#particle-front-0)" fill-opacity="0.99" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="38.16" cy="535.47" r="50.64" fill="url(#particle-front-3)" fill-opacity="0.93" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="537.32" cy="638.71" r="50.72" fill="url(#particle-front-1)" fill-opacity="0.82" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="-33.49" cy="568.88" r="50.94" fill="url(#particle-front-1)" fill-opacity="0.99" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="733.94" cy="46.82" r="51.03" fill="url(#particle-front-0)" fill-opacity="0.94" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="165" cy="42.52" r="51.7" fill="url(#particle-front-1)" fill-opacity="1" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="1114.76" cy="75.4" r="51.85" fill="url(#particle-front-1)" fill-opacity="0.83" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="19.15" cy="70.48" r="52.36" fill="url(#particle-front-2)" fill-opacity="0.87" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="561.18" cy="392.08" r="53.8" fill="url(#particle-front-1)" fill-opacity="0.85" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="57.62" cy="135.56" r="54.03" fill="url(#particle-front-2)" fill-opacity="0.84" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="-54.09" cy="565.17" r="54.1" fill="url(#particle-front-2)" fill-opacity="0.85" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="614.41" cy="185.93" r="54.16" fill="url(#particle-front-1)" fill-opacity="0.88" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="408.84" cy="168.85" r="54.59" fill="url(#particle-front-2)" fill-opacity="0.94" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="217.6" cy="560.06" r="54.68" fill="url(#particle-front-3)" fill-opacity="0.92" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="676.13" cy="664.04" r="54.92" fill="url(#particle-front-1)" fill-opacity="0.9" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="405.97" cy="269.9" r="55.44" fill="url(#particle-front-3)" fill-opacity="0.89" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="33.12" cy="672.45" r="55.52" fill="url(#particle-front-0)" fill-opacity="0.96" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="190.79" cy="600" r="55.78" fill="url(#particle-front-4)" fill-opacity="0.86" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="1467.65" cy="212.59" r="56.12" fill="url(#particle-front-4)" fill-opacity="0.97" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="670.9" cy="-19.67" r="56.82" fill="url(#particle-front-2)" fill-opacity="0.96" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="786.05" cy="-66.18" r="56.89" fill="url(#particle-front-2)" fill-opacity="0.84" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+    <circle cx="258.79" cy="99.66" r="56.94" fill="url(#particle-front-0)" fill-opacity="0.83" stroke="#edfff6" stroke-width="0.9" stroke-opacity="0.5" vector-effect="non-scaling-stroke"/>
+  </g>
+</svg>

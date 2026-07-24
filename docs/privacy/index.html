@@ -2,7 +2,9 @@
 <html lang="ru">
   <head>
     <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/logo.svg" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="icon" type="image/png" sizes="512x512" href="/favicon-512x512.png" />
     <link rel="apple-touch-icon" sizes="192x192" href="/apple-touch-icon.png" />
     <link rel="shortcut icon" href="/favicon.ico" />
@@ -19,7 +21,7 @@
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="ru_RU" />
     <meta property="og:site_name" content="Sellico" />
-    <meta property="og:url" content="https://sellico.ru/privacy" />
+    <meta property="og:url" content="https://sellico.ru/privacy/" />
     <meta property="og:title" content="Политика обработки персональных данных — Sellico" />
     <meta property="og:description" content="Политика Sellico: какие персональные данные и cookies обрабатываются, цели, правовые основания, сроки хранения и права пользователя." />
     <meta property="og:image" content="https://sellico.ru/og-image.png" />
@@ -32,71 +34,91 @@
     <meta name="twitter:description" content="Политика Sellico: какие персональные данные и cookies обрабатываются, цели, правовые основания, сроки хранения и права пользователя." />
     <meta name="twitter:image" content="https://sellico.ru/og-image.png" />
 
-    <link rel="canonical" href="https://sellico.ru/privacy" />
+    <link rel="canonical" href="https://sellico.ru/privacy/" />
+    <link rel="alternate" type="text/markdown" href="https://sellico.ru/pricing.md" title="Тарифы Sellico" />
 
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@graph": [
-          {
-            "@type": "Organization",
-            "@id": "https://sellico.ru/#organization",
-            "name": "Sellico",
-            "url": "https://sellico.ru",
-            "logo": "https://sellico.ru/logo.svg",
-            "email": "hello@sellico.ru"
-          },
-          {
-            "@type": "WebSite",
-            "@id": "https://sellico.ru/#website",
-            "url": "https://sellico.ru",
-            "name": "Sellico",
-            "inLanguage": "ru-RU",
-            "publisher": {
-              "@id": "https://sellico.ru/#organization"
-            }
-          },
-          {
-            "@type": "SoftwareApplication",
-            "@id": "https://sellico.ru/#software",
-            "name": "Sellico",
-            "url": "https://sellico.ru",
-            "image": "https://sellico.ru/og-image.png",
-            "applicationCategory": "BusinessApplication",
-            "applicationSubCategory": "Marketplace analytics and operations",
-            "operatingSystem": "Web",
-            "inLanguage": "ru-RU",
-            "description": "Операционная система для продавцов на Wildberries, Ozon и Яндекс Маркет: финансы, юнит-экономика, SEO, реклама, поставки, CRM и задачи команды.",
-            "featureList": [
-              "Финансы и юнит-экономика по SKU",
-              "CRM и задачи команды",
-              "SEO-инструменты и AI-генерация карточек",
-              "Автоматизация рекламы и ставок",
-              "Планирование поставок и контроль остатков",
-              "Отзывы, почта и коммуникации"
-            ],
-            "publisher": {
-              "@id": "https://sellico.ru/#organization"
-            },
-            "offers": {
-              "@type": "AggregateOffer",
-              "priceCurrency": "RUB",
-              "lowPrice": "3000",
-              "highPrice": "40000",
-              "url": "https://sellico.ru/#pricing",
-              "availability": "https://schema.org/InStock"
-            }
-          }
-        ]
-      }
+    <script>
+      (() => {
+        const normalizedPath = window.location.pathname.length > 1
+          ? window.location.pathname.replace(/\/+$/, '')
+          : window.location.pathname;
+        const publicPages = new Set(['/', '/privacy', '/personal-data-consent', '/pricing', '/features', '/marketplaces']);
+        if (!publicPages.has(normalizedPath)) {
+          const robots = document.querySelector('meta[name="robots"]');
+          if (robots) robots.setAttribute('content', 'noindex, nofollow');
+        }
+      })();
     </script>
-    <script type="module" crossorigin src="/assets/index-BQipQB5A.js"></script>
+
+    <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://sellico.ru/#organization","name":"Sellico","legalName":"ИП ЗУБАРЕВ ДАНИЛ ВИКТОРОВИЧ","url":"https://sellico.ru/","logo":"https://sellico.ru/logo.svg","email":"hello@sellico.ru","description":"Российская операционная система для продавцов и команд, управляющих магазинами на Wildberries, Ozon и Яндекс Маркете.","identifier":{"@type":"PropertyValue","propertyID":"ИНН","value":"644154992160"},"areaServed":{"@type":"Country","name":"Россия"},"sameAs":["https://t.me/sellico"]},{"@type":"WebPage","@id":"https://sellico.ru/privacy/#webpage","url":"https://sellico.ru/privacy/","name":"Политика обработки персональных данных — Sellico","description":"Политика Sellico: какие персональные данные и cookies обрабатываются, цели, правовые основания, сроки хранения и права пользователя.","inLanguage":"ru-RU","dateModified":"2026-07-24","publisher":{"@id":"https://sellico.ru/#organization"},"breadcrumb":{"@id":"https://sellico.ru/privacy/#breadcrumb"}},{"@type":"BreadcrumbList","@id":"https://sellico.ru/privacy/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Главная","item":"https://sellico.ru/"},{"@type":"ListItem","position":2,"name":"Юридическая информация","item":"https://sellico.ru/privacy/"}]}]}</script>
+    <script type="module" crossorigin src="/assets/index-BfGXes9b.js"></script>
     <link rel="modulepreload" crossorigin href="/assets/rolldown-runtime-BYbx6iT9.js">
-    <link rel="modulepreload" crossorigin href="/assets/icons-CEXDurEc.js">
-    <link rel="modulepreload" crossorigin href="/assets/react-6eM31aDd.js">
-    <link rel="stylesheet" crossorigin href="/assets/index-Bw-cAz8C.css">
+    <link rel="modulepreload" crossorigin href="/assets/icons-bpDgMFyp.js">
+    <link rel="modulepreload" crossorigin href="/assets/motion-CQjqhR3q.js">
+    <link rel="modulepreload" crossorigin href="/assets/react-C4MlWLC4.js">
+    <link rel="stylesheet" crossorigin href="/assets/index-klil35S8.css">
   </head>
   <body class="antialiased">
-    <div id="root"><main><section style="max-width:960px;margin:0 auto;padding:120px 24px 64px;font-family:Inter,system-ui,sans-serif;color:#090E17"><p style="margin:0 0 12px;color:#177357;font-weight:700;letter-spacing:.12em;text-transform:uppercase;font-size:12px">Sellico</p><h1 style="margin:0;font-size:42px;line-height:1.05">Политика обработки персональных данных</h1><p style="max-width:720px;margin:24px 0 0;color:#3D5482;font-size:18px;line-height:1.7">Документ описывает, какие данные обрабатывает Sellico, зачем они нужны, как хранятся и как пользователь может отозвать согласие.</p></section></main></div>
+    <div id="root">
+    <main id="main-content" style="min-height:100vh;background:#f4f8f6;padding:104px 24px 72px;font-family:Inter,system-ui,sans-serif;color:#101a15">
+      <div style="max-width:1180px;margin:0 auto">
+
+    <header style="margin-bottom:18px;display:flex;align-items:center;justify-content:space-between;gap:20px">
+      <a href="/" style="display:flex;align-items:center;gap:10px;color:#101a15;font-weight:800;text-decoration:none">
+        <img src="/logo.svg" alt="" width="30" height="30"><span>sellico</span>
+      </a>
+      <nav aria-label="Основная навигация" style="display:flex;flex-wrap:wrap;justify-content:flex-end;gap:14px;font-size:14px">
+        <a href="/features/" style="color:#11543f">Возможности</a>
+        <a href="/marketplaces/" style="color:#11543f">Маркетплейсы</a>
+        <a href="/pricing/" style="color:#11543f">Тарифы</a>
+      </nav>
+    </header>
+        <section style="border-radius:28px;background:#0d4d35;padding:clamp(32px,6vw,68px);color:white">
+          <nav aria-label="Хлебные крошки" style="font-size:13px;color:rgba(255,255,255,.75)"><a href="/" style="color:white">Главная</a> / Юридическая информация</nav>
+          <p style="margin:34px 0 0;color:#b8efd8;font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase">Юридическая информация</p>
+          <h1 style="max-width:920px;margin:18px 0 0;font-size:clamp(38px,6vw,70px);line-height:1;letter-spacing:-.052em">Политика обработки персональных данных</h1>
+          <p style="max-width:790px;margin:24px 0 0;color:rgba(255,255,255,.8);font-size:18px;line-height:1.7">Документ описывает, какие данные обрабатывает Sellico, зачем они нужны, как хранятся и как пользователь может отозвать согласие.</p>
+        </section>
+        <section aria-label="Юридическая информация" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;padding-top:42px">
+
+                <article style="border:1px solid #dfe7e2;border-radius:20px;background:white;padding:24px">
+                  <h2 style="margin:0;font-size:23px;letter-spacing:-.025em">1. Оператор персональных данных</h2>
+                  <p style="margin:14px 0 0;color:#53635b;line-height:1.7">Оператор: ИП ЗУБАРЕВ ДАНИЛ ВИКТОРОВИЧ, ИНН 644154992160. Email для обращений: hello@sellico.ru.</p>
+
+                </article>
+                <article style="border:1px solid #dfe7e2;border-radius:20px;background:white;padding:24px">
+                  <h2 style="margin:0;font-size:23px;letter-spacing:-.025em">2. Какие данные обрабатываются</h2>
+                  <p style="margin:14px 0 0;color:#53635b;line-height:1.7">Email, сведения из обращений, IP-адрес, тип устройства и браузера, источник перехода, страницы просмотра, дата и время визита, cookie-идентификаторы.</p>
+
+                </article>
+                <article style="border:1px solid #dfe7e2;border-radius:20px;background:white;padding:24px">
+                  <h2 style="margin:0;font-size:23px;letter-spacing:-.025em">3. Цели и основания обработки</h2>
+                  <p style="margin:14px 0 0;color:#53635b;line-height:1.7">Регистрация и доступ к сервису, обработка заявок, поддержка, исполнение договора, улучшение сайта и исполнение требований законодательства. Основания: согласие, договор и требования закона.</p>
+
+                </article>
+                <article style="border:1px solid #dfe7e2;border-radius:20px;background:white;padding:24px">
+                  <h2 style="margin:0;font-size:23px;letter-spacing:-.025em">4. Cookies и аналитика</h2>
+                  <p style="margin:14px 0 0;color:#53635b;line-height:1.7">Необходимые cookies используются для работы интерфейса. Аналитические cookies применяются после согласия пользователя. Отказ доступен в cookie-баннере и настройках браузера.</p>
+
+                </article>
+                <article style="border:1px solid #dfe7e2;border-radius:20px;background:white;padding:24px">
+                  <h2 style="margin:0;font-size:23px;letter-spacing:-.025em">5. Срок хранения и права пользователя</h2>
+                  <p style="margin:14px 0 0;color:#53635b;line-height:1.7">Данные хранятся до достижения целей, отзыва согласия или окончания обязательного срока. Пользователь может запросить сведения, уточнение, блокирование или удаление данных по адресу hello@sellico.ru.</p>
+
+                </article>
+                <article style="border:1px solid #dfe7e2;border-radius:20px;background:white;padding:24px">
+                  <h2 style="margin:0;font-size:23px;letter-spacing:-.025em">6. Защита данных</h2>
+                  <p style="margin:14px 0 0;color:#53635b;line-height:1.7">Оператор принимает правовые, организационные и технические меры защиты от неправомерного доступа, изменения, блокирования, копирования и распространения.</p>
+
+                </article>
+        </section>
+
+
+    <footer style="margin-top:64px;border-top:1px solid #dfe7e2;padding-top:26px;color:#53635b;font-size:13px;line-height:1.6">
+      <p>© 2026 Sellico · ИП ЗУБАРЕВ ДАНИЛ ВИКТОРОВИЧ · ИНН 644154992160 · hello@sellico.ru</p>
+      <p><a href="/privacy/" style="color:#11543f">Политика обработки персональных данных</a> · <a href="/personal-data-consent/" style="color:#11543f">Согласие на обработку данных</a></p>
+    </footer>
+      </div>
+    </main></div>
   </body>
 </html>

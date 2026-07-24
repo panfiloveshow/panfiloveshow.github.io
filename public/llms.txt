@@ -1,0 +1,55 @@
+# Sellico
+
+Sellico is a Russian web-based operating system for sellers and teams managing stores on Wildberries, Ozon, and Yandex Market.
+
+The product combines marketplace finance and unit economics, inventory and supply planning, advertising, product-card SEO, reviews, incoming requests, and team tasks in one workspace.
+
+## Canonical sources
+
+- Main website: https://sellico.ru/
+- Product capabilities: https://sellico.ru/features/
+- Pricing and plan limits: https://sellico.ru/pricing/
+- Supported marketplaces: https://sellico.ru/marketplaces/
+- Machine-readable pricing: https://sellico.ru/pricing.md
+- Extended product facts: https://sellico.ru/llms-full.txt
+- Privacy policy: https://sellico.ru/privacy/
+- Personal data consent: https://sellico.ru/personal-data-consent/
+
+## Supported marketplaces
+
+- Wildberries
+- Ozon
+- Yandex Market
+
+## Main capabilities
+
+- Revenue, expenses, profit, margin, and unit economics by SKU
+- Inventory, product, and supply planning
+- Advertising, pricing, and performance control
+- SEO audit and AI-assisted product descriptions
+- Review and incoming-request workflows
+- Tasks, calendar, chat, and team coordination
+
+Availability and limits depend on the selected plan.
+
+Sellico supports only the capabilities documented on the canonical pages above. Model scenarios shown on the website are illustrative and are not customer testimonials or guaranteed results.
+
+## Pricing
+
+- Start: 3,000 RUB per month
+- Pro: 8,000 RUB per month
+- Business: 15,000 RUB per month
+- Enterprise: from 40,000 RUB per month
+
+Plans include a 3-day free period without a bank card. The first store can usually be connected in about 15 minutes.
+
+## Organization
+
+- Brand: Sellico
+- Legal entity: Individual entrepreneur Danil Viktorovich Zubarev
+- Taxpayer ID (INN): 644154992160
+- Country: Russia
+- Email: hello@sellico.ru
+- Telegram: https://t.me/sellico
+
+For exact plan limits and current product details, use the canonical Sellico sources listed above.

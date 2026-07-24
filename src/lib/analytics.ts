@@ -5,7 +5,8 @@ declare global {
   }
 }
 
-export const YM_COUNTER_ID = 0;
+const configuredCounterId = Number(import.meta.env.VITE_YM_COUNTER_ID ?? 0);
+export const YM_COUNTER_ID = Number.isFinite(configuredCounterId) ? configuredCounterId : 0;
 
 export type AnalyticsEvent =
   | 'cta_click_hero'

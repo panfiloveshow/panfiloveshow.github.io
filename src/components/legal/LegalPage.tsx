@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Container } from '@/components/ui/Container';
 
 const UPDATED_AT = '14 мая 2026 года';
@@ -251,8 +252,27 @@ function PersonalDataConsent() {
 }
 
 export function LegalPage({ type }: LegalPageProps) {
+  useEffect(() => {
+    const privacy = type === 'privacy';
+    const title = privacy
+      ? 'Политика обработки персональных данных — Sellico'
+      : 'Согласие на обработку персональных данных — Sellico';
+    const description = privacy
+      ? 'Политика Sellico: какие персональные данные и cookies обрабатываются, цели, основания, сроки хранения и права пользователя.'
+      : 'Согласие пользователя Sellico на обработку персональных данных: перечень данных, цели, срок действия и порядок отзыва.';
+    const canonical = `https://sellico.ru/${privacy ? 'privacy' : 'personal-data-consent'}/`;
+
+    document.title = title;
+    document.querySelector('meta[name="description"]')?.setAttribute('content', description);
+    document.querySelector('meta[name="robots"]')?.setAttribute('content', 'index, follow');
+    document.querySelector('meta[property="og:title"]')?.setAttribute('content', title);
+    document.querySelector('meta[property="og:description"]')?.setAttribute('content', description);
+    document.querySelector('meta[property="og:url"]')?.setAttribute('content', canonical);
+    document.querySelector('link[rel="canonical"]')?.setAttribute('href', canonical);
+  }, [type]);
+
   return (
-    <main className="bg-surface-light py-24 text-ink-700">
+    <main id="main-content" tabIndex={-1} className="bg-surface-light py-24 text-ink-700 outline-none">
       <Container>{type === 'privacy' ? <PrivacyPolicy /> : <PersonalDataConsent />}</Container>
     </main>
   );

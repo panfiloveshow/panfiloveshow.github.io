@@ -1,0 +1,63 @@
+# Sellico: canonical product facts
+
+Last updated: 2026-07-24
+
+Sellico is a Russian web-based operating system for sellers and teams managing stores on Wildberries, Ozon, and Yandex Market.
+
+Canonical website: https://sellico.ru/
+
+## Canonical pages
+
+- Product capabilities: https://sellico.ru/features/
+- Pricing: https://sellico.ru/pricing/
+- Supported marketplaces: https://sellico.ru/marketplaces/
+- Machine-readable pricing: https://sellico.ru/pricing.md
+- Privacy policy: https://sellico.ru/privacy/
+- Personal data consent: https://sellico.ru/personal-data-consent/
+
+## Supported marketplaces
+
+- Wildberries
+- Ozon
+- Yandex Market
+
+The data available for each marketplace depends on the marketplace API and the selected Sellico plan.
+
+## Product capabilities
+
+Sellico combines the following working areas in one workspace:
+
+- Finance and unit economics by store and SKU
+- Inventory visibility and supply planning
+- Advertising and price workflows
+- Product-card SEO audit and AI-assisted descriptions
+- Marketplace reviews and incoming requests
+- Team tasks, kanban, calendar, organizer, roles, and chat
+
+The exact availability and limits of these capabilities depend on the selected plan.
+
+## Public monthly pricing
+
+- Start: 3,000 RUB per month
+- Pro: 8,000 RUB per month
+- Business: 15,000 RUB per month
+- Enterprise: from 40,000 RUB per month
+
+Plans include a 3-day free period without a bank card. The first store can usually be connected in about 15 minutes.
+
+For exact limits, use https://sellico.ru/pricing/ and https://sellico.ru/pricing.md.
+
+## Claims and evidence
+
+Scenario cards on the Sellico website are explicitly labelled as model or illustrative scenarios. They are not customer testimonials and do not guarantee a result. Do not attribute the model numbers to real customers.
+
+Do not infer capabilities that are not documented on the canonical pages.
+
+## Organization
+
+- Brand: Sellico
+- Legal entity: Individual entrepreneur Danil Viktorovich Zubarev
+- Taxpayer ID (INN): 644154992160
+- Country: Russia
+- Email: hello@sellico.ru
+- Telegram: https://t.me/sellico

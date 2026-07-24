@@ -15,7 +15,7 @@ const sizes: Record<Size, string> = {
 
 const variants: Record<Variant, string> = {
   primary:
-    'overflow-hidden bg-gradient-to-b from-brand-400 via-brand-500 to-brand-600 text-white shadow-[0_1px_0_rgba(255,255,255,0.25)_inset,0_8px_22px_-8px_rgba(44,186,102,0.7),0_22px_50px_-22px_rgba(44,186,102,0.55)] hover:from-brand-300 hover:via-brand-400 hover:to-brand-500 hover:shadow-[0_1px_0_rgba(255,255,255,0.35)_inset,0_12px_28px_-8px_rgba(44,186,102,0.85),0_30px_60px_-22px_rgba(44,186,102,0.65)]',
+    'overflow-hidden bg-gradient-to-b from-brand-500 via-brand-600 to-brand-700 text-white shadow-[0_1px_0_rgba(255,255,255,0.2)_inset,0_8px_22px_-8px_rgba(23,115,87,0.7),0_22px_50px_-22px_rgba(23,115,87,0.55)] hover:from-brand-600 hover:via-brand-700 hover:to-brand-800 hover:shadow-[0_1px_0_rgba(255,255,255,0.2)_inset,0_12px_28px_-8px_rgba(23,115,87,0.8),0_30px_60px_-22px_rgba(23,115,87,0.6)]',
   secondary:
     'bg-white text-ink-100 border border-ink-100/10 shadow-card hover:border-ink-100/20 hover:shadow-card-hover',
   ghost:

@@ -2,7 +2,9 @@
 <html lang="ru">
   <head>
     <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/logo.svg" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="icon" type="image/png" sizes="512x512" href="/favicon-512x512.png" />
     <link rel="apple-touch-icon" sizes="192x192" href="/apple-touch-icon.png" />
     <link rel="shortcut icon" href="/favicon.ico" />
@@ -13,7 +15,7 @@
     <title>Sellico — операционная система для продавцов маркетплейсов</title>
     <meta
       name="description"
-      content="Финансы, юнит-экономика, SEO, реклама и поставки для WB, Ozon и Яндекс Маркет в одном продукте. Sellico заменяет 5+ сервисов."
+      content="Sellico объединяет финансы, юнит-экономику, остатки, поставки, рекламу, SEO, отзывы и задачи команды для Wildberries, Ozon и Яндекс Маркета."
     />
     <meta name="keywords" content="Sellico, маркетплейсы, Wildberries, Ozon, Яндекс Маркет, аналитика продаж, юнит-экономика, автобиддер" />
     <meta name="author" content="Sellico" />
@@ -39,6 +41,20 @@
     <meta name="twitter:image" content="https://sellico.ru/og-image.png" />
 
     <link rel="canonical" href="https://sellico.ru/" />
+    <link rel="alternate" type="text/markdown" href="https://sellico.ru/pricing.md" title="Тарифы Sellico" />
+
+    <script>
+      (() => {
+        const normalizedPath = window.location.pathname.length > 1
+          ? window.location.pathname.replace(/\/+$/, '')
+          : window.location.pathname;
+        const publicPages = new Set(['/', '/privacy', '/personal-data-consent', '/pricing', '/features', '/marketplaces']);
+        if (!publicPages.has(normalizedPath)) {
+          const robots = document.querySelector('meta[name="robots"]');
+          if (robots) robots.setAttribute('content', 'noindex, nofollow');
+        }
+      })();
+    </script>
 
     <script type="application/ld+json">
       {
@@ -48,9 +64,38 @@
             "@type": "Organization",
             "@id": "https://sellico.ru/#organization",
             "name": "Sellico",
+            "legalName": "ИП ЗУБАРЕВ ДАНИЛ ВИКТОРОВИЧ",
+            "alternateName": "Sellico — операционная система для продавцов маркетплейсов",
             "url": "https://sellico.ru",
             "logo": "https://sellico.ru/logo.svg",
-            "email": "hello@sellico.ru"
+            "email": "hello@sellico.ru",
+            "description": "Российская операционная система для продавцов и команд, управляющих магазинами на Wildberries, Ozon и Яндекс Маркете.",
+            "identifier": {
+              "@type": "PropertyValue",
+              "propertyID": "ИНН",
+              "value": "644154992160"
+            },
+            "areaServed": {
+              "@type": "Country",
+              "name": "Россия"
+            },
+            "contactPoint": {
+              "@type": "ContactPoint",
+              "contactType": "customer support",
+              "email": "hello@sellico.ru",
+              "availableLanguage": "Russian"
+            },
+            "sameAs": [
+              "https://t.me/sellico"
+            ],
+            "knowsAbout": [
+              "аналитика маркетплейсов",
+              "юнит-экономика",
+              "управление остатками",
+              "SEO карточек товаров",
+              "реклама на маркетплейсах",
+              "координация команды продавца"
+            ]
           },
           {
             "@type": "WebSite",
@@ -58,6 +103,7 @@
             "url": "https://sellico.ru",
             "name": "Sellico",
             "inLanguage": "ru-RU",
+            "dateModified": "2026-07-24",
             "publisher": {
               "@id": "https://sellico.ru/#organization"
             }
@@ -89,20 +135,235 @@
               "priceCurrency": "RUB",
               "lowPrice": "3000",
               "highPrice": "40000",
-              "url": "https://sellico.ru/#pricing",
-              "availability": "https://schema.org/InStock"
+              "offerCount": "4",
+              "url": "https://sellico.ru/pricing/",
+              "availability": "https://schema.org/InStock",
+              "offers": [
+                {
+                  "@type": "Offer",
+                  "name": "Старт",
+                  "price": "3000",
+                  "priceCurrency": "RUB",
+                  "url": "https://sellico.ru/pricing/",
+                  "priceSpecification": {
+                    "@type": "UnitPriceSpecification",
+                    "price": "3000",
+                    "priceCurrency": "RUB",
+                    "unitText": "MONTH",
+                    "billingDuration": "P1M"
+                  }
+                },
+                {
+                  "@type": "Offer",
+                  "name": "Про",
+                  "price": "8000",
+                  "priceCurrency": "RUB",
+                  "url": "https://sellico.ru/pricing/",
+                  "priceSpecification": {
+                    "@type": "UnitPriceSpecification",
+                    "price": "8000",
+                    "priceCurrency": "RUB",
+                    "unitText": "MONTH",
+                    "billingDuration": "P1M"
+                  }
+                },
+                {
+                  "@type": "Offer",
+                  "name": "Бизнес",
+                  "price": "15000",
+                  "priceCurrency": "RUB",
+                  "url": "https://sellico.ru/pricing/",
+                  "priceSpecification": {
+                    "@type": "UnitPriceSpecification",
+                    "price": "15000",
+                    "priceCurrency": "RUB",
+                    "unitText": "MONTH",
+                    "billingDuration": "P1M"
+                  }
+                },
+                {
+                  "@type": "Offer",
+                  "name": "Enterprise — от 40 000 ₽",
+                  "price": "40000",
+                  "priceCurrency": "RUB",
+                  "url": "https://sellico.ru/pricing/",
+                  "priceSpecification": {
+                    "@type": "UnitPriceSpecification",
+                    "price": "40000",
+                    "priceCurrency": "RUB",
+                    "unitText": "MONTH",
+                    "billingDuration": "P1M"
+                  }
+                }
+              ]
             }
+          },
+          {
+            "@type": "FAQPage",
+            "@id": "https://sellico.ru/#faq",
+            "inLanguage": "ru-RU",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "Что такое Sellico?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Sellico — российская операционная система для продавцов и команд, управляющих магазинами на Wildberries, Ozon и Яндекс Маркете. Сервис объединяет финансы, юнит-экономику, остатки, поставки, рекламу, SEO карточек, отзывы и задачи команды в одном рабочем пространстве."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "С какими маркетплейсами работает Sellico?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Sellico поддерживает Wildberries, Ozon и Яндекс Маркет. Данные подключённых магазинов собираются в одном кабинете для сравнения показателей и управления ежедневными процессами."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Какие задачи продавца решает Sellico?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "В Sellico можно анализировать выручку и прибыль по SKU, контролировать остатки и поставки, работать с рекламой, отзывами и SEO карточек, а также ставить задачи сотрудникам. Набор функций и лимиты зависят от выбранного тарифа."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Сколько времени занимает подключение магазина?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Первый магазин можно подключить примерно за 15 минут. Для старта не требуется переносить рабочие таблицы или привязывать банковскую карту."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Есть ли бесплатный период?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Да. Для тарифов Sellico предусмотрено 3 дня бесплатного доступа без привязки банковской карты."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Сколько стоит Sellico?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Тариф «Старт» стоит 3 000 ₽ в месяц, «Про» — 8 000 ₽, «Бизнес» — 15 000 ₽. Enterprise начинается от 40 000 ₽ в месяц."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Кому подходит тариф Enterprise?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Enterprise предназначен для крупного бизнеса, агентств и команд со сложным контуром данных. В него входят договорные лимиты, индивидуальные условия SEO и автопланирования, настройка ролей и интеграций, а также согласованный сценарий внедрения."
+                }
+              }
+            ]
           }
         ]
       }
     </script>
-    <script type="module" crossorigin src="/assets/index-BQipQB5A.js"></script>
+    <script type="module" crossorigin src="/assets/index-BfGXes9b.js"></script>
     <link rel="modulepreload" crossorigin href="/assets/rolldown-runtime-BYbx6iT9.js">
-    <link rel="modulepreload" crossorigin href="/assets/icons-CEXDurEc.js">
-    <link rel="modulepreload" crossorigin href="/assets/react-6eM31aDd.js">
-    <link rel="stylesheet" crossorigin href="/assets/index-Bw-cAz8C.css">
+    <link rel="modulepreload" crossorigin href="/assets/icons-bpDgMFyp.js">
+    <link rel="modulepreload" crossorigin href="/assets/motion-CQjqhR3q.js">
+    <link rel="modulepreload" crossorigin href="/assets/react-C4MlWLC4.js">
+    <link rel="stylesheet" crossorigin href="/assets/index-klil35S8.css">
   </head>
   <body class="antialiased">
-    <div id="root"></div>
+    <div id="root">
+    <main id="main-content" style="min-height:100vh;background:#f4f8f6;padding:104px 24px 72px;font-family:Inter,system-ui,sans-serif;color:#101a15">
+      <div style="max-width:1180px;margin:0 auto">
+
+    <header style="margin-bottom:18px;display:flex;align-items:center;justify-content:space-between;gap:20px">
+      <a href="/" style="display:flex;align-items:center;gap:10px;color:#101a15;font-weight:800;text-decoration:none">
+        <img src="/logo.svg" alt="" width="30" height="30"><span>sellico</span>
+      </a>
+      <nav aria-label="Основная навигация" style="display:flex;flex-wrap:wrap;justify-content:flex-end;gap:14px;font-size:14px">
+        <a href="/features/" style="color:#11543f">Возможности</a>
+        <a href="/marketplaces/" style="color:#11543f">Маркетплейсы</a>
+        <a href="/pricing/" style="color:#11543f">Тарифы</a>
+      </nav>
+    </header>
+        <section style="border:1px solid #dfe7e2;border-radius:28px;background:#0d4d35;padding:clamp(32px,6vw,72px);color:white">
+          <h1 style="max-width:900px;margin:0;font-size:clamp(42px,7vw,82px);line-height:.98;letter-spacing:-.055em">
+            <span style="display:block;margin:0 0 18px;color:#c8f44d;font-size:12px;font-weight:700;line-height:1.4;letter-spacing:.16em;text-transform:uppercase">Операционная система для продавцов маркетплейсов</span>
+            Управляйте прибылью. Не таблицами.
+          </h1>
+          <p style="max-width:780px;margin:28px 0 0;color:rgba(255,255,255,.8);font-size:18px;line-height:1.65">Sellico объединяет финансы, остатки, рекламу, SEO и задачи команды для Wildberries, Ozon и Яндекс Маркета.</p>
+          <p style="margin:30px 0 0"><a href="https://sellico.ru/register" style="display:inline-block;border-radius:12px;background:#c8f44d;padding:15px 22px;color:#123525;font-weight:700;text-decoration:none">Подключить магазин бесплатно</a></p>
+        </section>
+
+        <section aria-labelledby="fallback-features-title" style="padding:72px 0 24px">
+          <h2 id="fallback-features-title" style="margin:0;font-size:clamp(34px,5vw,58px);letter-spacing:-.045em">Что объединяет Sellico</h2>
+          <ul style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;margin:28px 0 0;padding:0;list-style:none">
+            <li style="border:1px solid #dfe7e2;border-radius:18px;background:white;padding:22px;font-size:16px;line-height:1.5">Финансы и юнит-экономика по SKU</li><li style="border:1px solid #dfe7e2;border-radius:18px;background:white;padding:22px;font-size:16px;line-height:1.5">Остатки, товары и планирование поставок</li><li style="border:1px solid #dfe7e2;border-radius:18px;background:white;padding:22px;font-size:16px;line-height:1.5">Реклама, цены и контроль эффективности</li><li style="border:1px solid #dfe7e2;border-radius:18px;background:white;padding:22px;font-size:16px;line-height:1.5">SEO-аудит и AI-генерация описаний</li><li style="border:1px solid #dfe7e2;border-radius:18px;background:white;padding:22px;font-size:16px;line-height:1.5">Отзывы, заявки и коммуникации</li><li style="border:1px solid #dfe7e2;border-radius:18px;background:white;padding:22px;font-size:16px;line-height:1.5">Задачи, календарь и координация команды</li>
+          </ul>
+          <p style="margin:24px 0 0"><a href="/features/" style="color:#11543f;font-weight:700">Подробно о возможностях</a></p>
+        </section>
+
+        <section id="pricing" aria-labelledby="fallback-pricing-title" style="padding:64px 0 24px">
+          <h2 id="fallback-pricing-title" style="margin:0;font-size:clamp(34px,5vw,58px);letter-spacing:-.045em">Тарифы Sellico</h2>
+          <p style="margin:14px 0 0;color:#53635b">3 дня бесплатно, подключение первого магазина примерно за 15 минут, без привязки карты.</p>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin-top:28px">
+
+                  <article style="border:1px solid #dfe7e2;border-radius:20px;background:white;padding:24px">
+                    <h3 style="margin:0;color:#177357;font-size:15px;text-transform:uppercase;letter-spacing:.12em">Старт</h3>
+                    <p style="margin:18px 0 0;font-size:30px;font-weight:700;letter-spacing:-.04em">3 000 ₽/мес.</p>
+                    <p style="margin:12px 0 0;color:#53635b;line-height:1.55">1 API, 3 пользователя, 50 товаров</p>
+                  </article>
+                  <article style="border:1px solid #dfe7e2;border-radius:20px;background:white;padding:24px">
+                    <h3 style="margin:0;color:#177357;font-size:15px;text-transform:uppercase;letter-spacing:.12em">Про</h3>
+                    <p style="margin:18px 0 0;font-size:30px;font-weight:700;letter-spacing:-.04em">8 000 ₽/мес.</p>
+                    <p style="margin:12px 0 0;color:#53635b;line-height:1.55">3 API, 10 пользователей, 150 товаров</p>
+                  </article>
+                  <article style="border:1px solid #dfe7e2;border-radius:20px;background:white;padding:24px">
+                    <h3 style="margin:0;color:#177357;font-size:15px;text-transform:uppercase;letter-spacing:.12em">Бизнес</h3>
+                    <p style="margin:18px 0 0;font-size:30px;font-weight:700;letter-spacing:-.04em">15 000 ₽/мес.</p>
+                    <p style="margin:12px 0 0;color:#53635b;line-height:1.55">6 API, 20 пользователей, 300 товаров</p>
+                  </article>
+                  <article style="border:1px solid #dfe7e2;border-radius:20px;background:white;padding:24px">
+                    <h3 style="margin:0;color:#177357;font-size:15px;text-transform:uppercase;letter-spacing:.12em">Enterprise</h3>
+                    <p style="margin:18px 0 0;font-size:30px;font-weight:700;letter-spacing:-.04em">от 40 000 ₽/мес.</p>
+                    <p style="margin:12px 0 0;color:#53635b;line-height:1.55">Договорные лимиты и индивидуальное внедрение</p>
+                  </article>
+          </div>
+          <p style="margin:22px 0 0"><a href="/pricing/" style="color:#11543f;font-weight:700">Все лимиты и возможности тарифов</a></p>
+        </section>
+
+        <section id="faq" aria-labelledby="fallback-faq-title" style="padding:64px 0">
+          <h2 id="fallback-faq-title" style="margin:0;font-size:clamp(34px,5vw,58px);letter-spacing:-.045em">Вопросы о Sellico</h2>
+          <div style="display:grid;gap:12px;margin-top:28px">
+
+                  <article style="border:1px solid #dfe7e2;border-radius:18px;background:white;padding:22px">
+                    <h3 style="margin:0;font-size:20px">Что такое Sellico?</h3>
+                    <p style="margin:12px 0 0;color:#53635b;line-height:1.65">Sellico — российская операционная система для продавцов и команд, управляющих магазинами на Wildberries, Ozon и Яндекс Маркете.</p>
+                  </article>
+                  <article style="border:1px solid #dfe7e2;border-radius:18px;background:white;padding:22px">
+                    <h3 style="margin:0;font-size:20px">С какими маркетплейсами работает Sellico?</h3>
+                    <p style="margin:12px 0 0;color:#53635b;line-height:1.65">Sellico поддерживает Wildberries, Ozon и Яндекс Маркет. Доступность данных определяется API площадки и выбранным тарифом.</p>
+                  </article>
+                  <article style="border:1px solid #dfe7e2;border-radius:18px;background:white;padding:22px">
+                    <h3 style="margin:0;font-size:20px">Сколько времени занимает подключение магазина?</h3>
+                    <p style="margin:12px 0 0;color:#53635b;line-height:1.65">Первый магазин можно подключить примерно за 15 минут. Для старта не требуется переносить рабочие таблицы или привязывать банковскую карту.</p>
+                  </article>
+                  <article style="border:1px solid #dfe7e2;border-radius:18px;background:white;padding:22px">
+                    <h3 style="margin:0;font-size:20px">Есть ли бесплатный период?</h3>
+                    <p style="margin:12px 0 0;color:#53635b;line-height:1.65">Да. Для тарифов Sellico предусмотрено 3 дня бесплатного доступа без привязки банковской карты.</p>
+                  </article>
+                  <article style="border:1px solid #dfe7e2;border-radius:18px;background:white;padding:22px">
+                    <h3 style="margin:0;font-size:20px">Сколько стоит Sellico?</h3>
+                    <p style="margin:12px 0 0;color:#53635b;line-height:1.65">Тариф «Старт» стоит 3 000 ₽ в месяц, «Про» — 8 000 ₽, «Бизнес» — 15 000 ₽. Enterprise начинается от 40 000 ₽ в месяц.</p>
+                  </article>
+          </div>
+        </section>
+
+    <footer style="margin-top:64px;border-top:1px solid #dfe7e2;padding-top:26px;color:#53635b;font-size:13px;line-height:1.6">
+      <p>© 2026 Sellico · ИП ЗУБАРЕВ ДАНИЛ ВИКТОРОВИЧ · ИНН 644154992160 · hello@sellico.ru</p>
+      <p><a href="/privacy/" style="color:#11543f">Политика обработки персональных данных</a> · <a href="/personal-data-consent/" style="color:#11543f">Согласие на обработку данных</a></p>
+    </footer>
+      </div>
+    </main></div>
   </body>
 </html>

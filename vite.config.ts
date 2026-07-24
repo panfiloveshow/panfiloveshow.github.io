@@ -1,5 +1,5 @@
 import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react-swc';
+import react from '@vitejs/plugin-react';
 import path from 'node:path';
 
 export default defineConfig({
@@ -12,11 +12,6 @@ export default defineConfig({
   build: {
     target: 'es2020',
     cssCodeSplit: true,
-    modulePreload: {
-      resolveDependencies(_url, deps) {
-        return deps.filter((dep) => !dep.includes('/motion-') && !dep.includes('motion-'));
-      },
-    },
     rollupOptions: {
       output: {
         manualChunks(id) {
@@ -36,5 +31,12 @@ export default defineConfig({
   },
   server: {
     host: true,
+    port: 5173,
+    strictPort: true,
+    // dev-only: баннеры и их картинки берём с прода, чтобы слайдер работал на локалке
+    proxy: {
+      '/api': { target: 'https://sellico.ru', changeOrigin: true },
+      '/storage': { target: 'https://sellico.ru', changeOrigin: true },
+    },
   },
 });
