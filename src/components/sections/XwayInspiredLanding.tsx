@@ -614,14 +614,8 @@ function StockSyncCard() {
 }
 
 function Hero() {
-  const heroDiagramRef = useRef<HTMLDivElement>(null);
-  const heroDiagramInView = useInView(heroDiagramRef, {
-    once: true,
-    amount: 0.05,
-    margin: '160px 0px',
-  });
   const prefersReducedMotion = useReducedMotion();
-  const heroMotionEnabled = heroDiagramInView && prefersReducedMotion !== true;
+  const heroMotionEnabled = prefersReducedMotion !== true;
 
   return (
     <section
@@ -701,10 +695,7 @@ function Hero() {
                 className="absolute inset-0 bg-[radial-gradient(circle_at_50%_49%,rgba(29,116,77,.1),transparent_25%),radial-gradient(circle_at_50%_50%,rgba(255,255,255,.96),transparent_70%)]"
               />
 
-              <div
-                ref={heroDiagramRef}
-                className="relative grid aspect-square w-full max-w-[500px] grid-cols-3 grid-rows-3 items-center justify-items-center gap-2 p-1.5 sm:gap-3 sm:p-3"
-              >
+              <div className="relative grid aspect-square w-full max-w-[500px] grid-cols-3 grid-rows-3 items-center justify-items-center gap-2 p-1.5 sm:gap-3 sm:p-3">
                 <svg aria-hidden className="pointer-events-none absolute inset-[7%] h-[86%] w-[86%]" viewBox="0 0 100 100">
                   <defs>
                     <filter id="hero-signal-glow" x="-250%" y="-250%" width="600%" height="600%">
