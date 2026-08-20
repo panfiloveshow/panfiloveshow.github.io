@@ -1,4 +1,14 @@
 User-agent: *
 Allow: /
+# CRM — приватное приложение за логином; в её index.html стоит noindex.
+Disallow: /crm/
+
+# Рекламные метки не создают отдельные страницы — склеиваем их с чистым адресом.
+Clean-param: utm_source&utm_medium&utm_campaign&utm_term&utm_content&yclid&gclid&_openstat&from&roistat
+
+# Калькуляторы хранят введённые значения в адресе, чтобы расчётом можно было поделиться.
+# Такие ссылки — та же страница, а не отдельные документы.
+Clean-param: price&cost&commissionPct&logistics&buyoutPct&storage&ads&other&taxPct&/calculators/
+Clean-param: avgStock&sold&periodDays&leadTime&adCost&revenue&marginPct&fixedCosts&profitPerUnit&/calculators/
 
 Sitemap: https://sellico.ru/sitemap.xml

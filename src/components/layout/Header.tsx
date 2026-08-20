@@ -2,16 +2,16 @@ import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import {
   ArrowUpRight,
+  Calculator,
   ChartColumn,
   ChevronDown,
   ListChecks,
   Megaphone,
   Menu,
   MessageSquare,
-  Package,
   Search,
+  Store,
   Truck,
-  Users,
   X,
 } from 'lucide-react';
 import { Container } from '@/components/ui/Container';
@@ -21,15 +21,26 @@ import { LOGIN_URL, REGISTER_URL, scrollToSection } from '@/lib/anchors';
 import { track } from '@/lib/analytics';
 import { useDialogFocus } from '@/hooks/useDialogFocus';
 
+// Каждый пункт ведёт на свою страницу: раньше все восемь скроллили в одну секцию лендинга.
 const PRODUCT_ITEMS = [
-  { icon: Users, title: 'CRM и продажи', desc: 'Лиды, заявки и воронка продаж', id: 'wow' },
-  { icon: Package, title: 'Товары и каталог', desc: 'Карточки, остатки, себестоимость', id: 'wow' },
-  { icon: ChartColumn, title: 'Финансы', desc: 'Выручка, расходы, ABC-анализ', id: 'wow' },
-  { icon: Truck, title: 'Поставки', desc: 'Автопланы и контроль остатков', id: 'wow' },
-  { icon: ListChecks, title: 'Задачи и команда', desc: 'Канбан, роли и дедлайны', id: 'wow' },
-  { icon: Search, title: 'SEO и карточки', desc: 'Аудит и AI-генерация описаний', id: 'wow' },
-  { icon: Megaphone, title: 'Реклама', desc: 'Кампании, ставки и фразы', id: 'wow' },
-  { icon: MessageSquare, title: 'Отзывы и связи', desc: 'Автоответы, почта и чат', id: 'wow' },
+  { icon: ChartColumn, title: 'Юнит-экономика', desc: 'Прибыль и маржинальность по SKU', href: '/unit-economics/' },
+  { icon: Truck, title: 'Остатки и поставки', desc: 'Автопланы и контроль запаса', href: '/supply-planning/' },
+  { icon: Search, title: 'SEO карточек', desc: 'Аудит и AI-генерация описаний', href: '/seo-cards/' },
+  { icon: Megaphone, title: 'Реклама и цены', desc: 'Кампании в связке с экономикой', href: '/advertising/' },
+  { icon: MessageSquare, title: 'Отзывы и заявки', desc: 'Очереди, статусы и ответственные', href: '/reviews/' },
+  { icon: ListChecks, title: 'Задачи и команда', desc: 'Канбан, роли и дедлайны', href: '/team/' },
+  { icon: Store, title: 'Маркетплейсы', desc: 'Wildberries, Ozon, Яндекс Маркет', href: '/marketplaces/' },
+  { icon: Calculator, title: 'Калькуляторы', desc: 'Юнит-экономика, ДРР, оборачиваемость', href: '/calculators/' },
+];
+
+// Страницы, доступные из мобильного меню отдельным блоком
+const MOBILE_PAGES = [
+  { label: 'Юнит-экономика', href: '/unit-economics/' },
+  { label: 'Остатки и поставки', href: '/supply-planning/' },
+  { label: 'SEO карточек', href: '/seo-cards/' },
+  { label: 'Маркетплейсы', href: '/marketplaces/' },
+  { label: 'Калькуляторы', href: '/calculators/' },
+  { label: 'Глоссарий', href: '/glossary/' },
 ];
 
 // Секции, при которых пункт «Продукт» считается активным
@@ -192,10 +203,10 @@ export function Header() {
               {productOpen && (
                 <div className="absolute left-1/2 top-[calc(100%+14px)] w-[640px] -translate-x-1/2 animate-rise-fade rounded-3xl border border-white/10 bg-[#0b1512]/95 p-2.5 shadow-[0_1px_0_rgba(255,255,255,0.06)_inset,0_32px_80px_-24px_rgba(9,14,23,0.7)] backdrop-blur-xl">
                   <div className="grid grid-cols-2 gap-1">
-                    {PRODUCT_ITEMS.map(({ icon: Icon, title, desc, id }) => (
-                      <button
+                    {PRODUCT_ITEMS.map(({ icon: Icon, title, desc, href }) => (
+                      <a
                         key={title}
-                        onClick={() => handleNav(id)}
+                        href={href}
                         className="group flex items-start gap-3 rounded-2xl p-3 text-left transition-colors duration-200 hover:bg-white/[0.06]"
                       >
                         <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl border border-brand-300/20 bg-brand-400/10 text-brand-300 transition-colors duration-200 group-hover:bg-brand-400/20">
@@ -205,16 +216,16 @@ export function Header() {
                           <span className="block text-[13.5px] font-semibold text-white">{title}</span>
                           <span className="mt-0.5 block text-xs leading-snug text-white/72">{desc}</span>
                         </span>
-                      </button>
+                      </a>
                     ))}
                   </div>
                   <div className="mt-1.5 flex items-center justify-between border-t border-white/10 px-3 py-2.5">
-                    <button
-                      onClick={() => handleNav('features')}
+                    <a
+                      href="/features/"
                       className="text-[13px] font-medium text-white/75 transition-colors hover:text-white"
                     >
                       Все возможности
-                    </button>
+                    </a>
                     <button
                       onClick={() => handleNav('demo')}
                       className="flex items-center gap-1 text-[13px] font-semibold text-brand-300 transition-colors hover:text-brand-200"
@@ -325,6 +336,18 @@ export function Header() {
                 >
                   {item.label}
                 </button>
+              ))}
+              <span className="mx-3 mt-5 border-t border-white/10 pt-5 text-xs font-bold uppercase tracking-[0.16em] text-white/45">
+                Разделы
+              </span>
+              {MOBILE_PAGES.map((page) => (
+                <a
+                  key={page.href}
+                  href={page.href}
+                  className="rounded-2xl px-3 py-2 text-left text-lg font-semibold text-white/75 transition-colors hover:text-brand-300"
+                >
+                  {page.label}
+                </a>
               ))}
             </nav>
 

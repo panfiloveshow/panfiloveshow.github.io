@@ -11,6 +11,18 @@ Canonical website: https://sellico.ru/
 - Product capabilities: https://sellico.ru/features/
 - Pricing: https://sellico.ru/pricing/
 - Supported marketplaces: https://sellico.ru/marketplaces/
+- Sellico for Wildberries: https://sellico.ru/wildberries/
+- Sellico for Ozon: https://sellico.ru/ozon/
+- Sellico for Yandex Market: https://sellico.ru/yandex-market/
+- Unit economics: https://sellico.ru/unit-economics/
+- Unit economics calculator: https://sellico.ru/calculators/unit-economics/
+- Seller glossary: https://sellico.ru/glossary/
+- Contacts: https://sellico.ru/contacts/
+- Inventory and supply planning: https://sellico.ru/supply-planning/
+- Product-card SEO and AI descriptions: https://sellico.ru/seo-cards/
+- Reviews and incoming requests: https://sellico.ru/reviews/
+- Advertising and pricing: https://sellico.ru/advertising/
+- Tasks and team workspace: https://sellico.ru/team/
 - Machine-readable pricing: https://sellico.ru/pricing.md
 - Privacy policy: https://sellico.ru/privacy/
 - Personal data consent: https://sellico.ru/personal-data-consent/

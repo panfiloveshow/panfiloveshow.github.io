@@ -7,23 +7,28 @@ const COLUMNS = [
     title: 'Продукт',
     items: [
       { label: 'Возможности', href: '/features/' },
+      { label: 'Юнит-экономика', href: '/unit-economics/' },
+      { label: 'Калькуляторы', href: '/calculators/' },
+      { label: 'Остатки и поставки', href: '/supply-planning/' },
+      { label: 'SEO карточек', href: '/seo-cards/' },
       { label: 'Тарифы', href: '/pricing/' },
       { label: 'Интерфейс', href: '/#demo' },
-      { label: 'Сценарии', href: '/#proof' },
     ],
   },
   {
     title: 'Решения',
     items: [
-      { label: 'Wildberries', href: '/marketplaces/#wildberries' },
-      { label: 'Ozon', href: '/marketplaces/#ozon' },
-      { label: 'Яндекс Маркет', href: '/marketplaces/#yandex-market' },
-      { label: 'Для агентств', href: '/features/#team' },
+      { label: 'Wildberries', href: '/wildberries/' },
+      { label: 'Ozon', href: '/ozon/' },
+      { label: 'Яндекс Маркет', href: '/yandex-market/' },
+      { label: 'Все площадки', href: '/marketplaces/' },
+      { label: 'Глоссарий', href: '/glossary/' },
     ],
   },
   {
     title: 'Компания',
     items: [
+      { label: 'Контакты', href: '/contacts/' },
       { label: 'Войти', href: LOGIN_URL },
       { label: 'Регистрация', href: REGISTER_URL },
       { label: 'Telegram', href: 'https://t.me/sellico' },

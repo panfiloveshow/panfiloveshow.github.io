@@ -1,17 +1,8 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: [
-    './index.html',
-    './src/main.tsx',
-    './src/App.tsx',
-    './src/components/layout/**/*.{ts,tsx}',
-    './src/components/legal/**/*.{ts,tsx}',
-    './src/components/primitives/OperationalWorkspaceDemo.tsx',
-    './src/components/primitives/ScrollProgress.tsx',
-    './src/components/sections/XwayInspiredLanding.tsx',
-    './src/components/shared/**/*.{ts,tsx}',
-    './src/components/ui/**/*.{ts,tsx}',
-  ],
+  // Перечисление по файлам ломалось при каждом новом каталоге (seo/, sections/landing/,
+  // primitives/workspace-demo/ выпадали из сборки CSS) — сканируем src целиком.
+  content: ['./index.html', './src/**/*.{ts,tsx}'],
   theme: {
     extend: {
       colors: {

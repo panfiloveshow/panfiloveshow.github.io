@@ -1,4 +1,5 @@
 import { lazy, Suspense, useEffect } from 'react';
+import type { SeoPageType } from '@/components/seo/SeoContentPage';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { scrollToHashOnReady } from '@/lib/anchors';
@@ -50,18 +51,49 @@ function NotFoundPage() {
   );
 }
 
+// Маршруты сайта. При добавлении страницы также заведите запись в scripts/site-routes.mjs —
+// оттуда собираются пререндер, sitemap.xml и список индексируемых путей.
+const LEGAL_ROUTES: Record<string, 'privacy' | 'consent'> = {
+  '/privacy': 'privacy',
+  '/personal-data-consent': 'consent',
+};
+
+const SEO_ROUTES: Record<string, SeoPageType> = {
+  '/features': 'features',
+  '/pricing': 'pricing',
+  '/marketplaces': 'marketplaces',
+  '/wildberries': 'wildberries',
+  '/ozon': 'ozon',
+  '/yandex-market': 'yandex-market',
+  '/unit-economics': 'unit-economics',
+  '/supply-planning': 'supply-planning',
+  '/seo-cards': 'seo-cards',
+  '/reviews': 'reviews',
+  '/advertising': 'advertising',
+  '/team': 'team',
+  '/calculators': 'calculators',
+  '/calculators/unit-economics': 'calculators/unit-economics',
+  '/calculators/turnover': 'calculators/turnover',
+  '/calculators/drr': 'calculators/drr',
+  '/calculators/break-even': 'calculators/break-even',
+  '/contacts': 'contacts',
+  '/glossary': 'glossary',
+  '/glossary/drr': 'glossary/drr',
+  '/glossary/turnover': 'glossary/turnover',
+  '/glossary/margin': 'glossary/margin',
+  '/glossary/abc-analysis': 'glossary/abc-analysis',
+  '/glossary/fbo-fbs': 'glossary/fbo-fbs',
+  '/glossary/buyout-rate': 'glossary/buyout-rate',
+  '/glossary/roi': 'glossary/roi',
+  '/glossary/conversion': 'glossary/conversion',
+  '/glossary/cost-price': 'glossary/cost-price',
+};
+
 export default function App() {
   const rawPath = typeof window === 'undefined' ? '/' : window.location.pathname;
   const path = rawPath.length > 1 ? rawPath.replace(/\/+$/, '') : rawPath;
-  const legalPage = path === '/privacy' ? 'privacy' : path === '/personal-data-consent' ? 'consent' : null;
-  const seoPage =
-    path === '/features'
-      ? 'features'
-      : path === '/pricing'
-        ? 'pricing'
-        : path === '/marketplaces'
-          ? 'marketplaces'
-          : null;
+  const legalPage = LEGAL_ROUTES[path] ?? null;
+  const seoPage = SEO_ROUTES[path] ?? null;
   const notFound = path !== '/' && !legalPage && !seoPage;
 
   useEffect(() => {
