@@ -163,6 +163,7 @@ export function Header() {
         <div
           className={cn(
             'flex h-11 items-center justify-between gap-3 transition-all duration-300',
+            'max-lg:rounded-full max-lg:border max-lg:border-white/[0.09] max-lg:bg-[#0b1512]/95 max-lg:px-3 max-lg:shadow-[0_14px_38px_-24px_rgba(4,20,14,.75)] max-lg:backdrop-blur-xl',
             'lg:h-14 lg:rounded-full lg:border lg:pl-5 lg:pr-2 lg:backdrop-blur-xl',
             scrolled
               ? 'lg:border-white/[0.09] lg:bg-[#0b1512]/95 lg:shadow-[0_1px_0_rgba(255,255,255,0.07)_inset,0_24px_60px_-24px_rgba(9,14,23,0.6)]'
@@ -179,7 +180,7 @@ export function Header() {
             aria-label="Sellico — главная"
           >
             <img src="/logo.svg" alt="" className="h-7 w-7" />
-            <span className="text-[1.08rem] font-bold tracking-[-0.02em] text-ink-950 lg:text-white">
+            <span className="text-[1.08rem] font-bold tracking-[-0.02em] text-white">
               sellico
             </span>
           </a>
@@ -213,7 +214,7 @@ export function Header() {
                           <Icon size={16} />
                         </span>
                         <span>
-                          <span className="block text-[13.5px] font-semibold text-white">{title}</span>
+                          <span className="block text-[13.5px] font-semibold text-white">{title}</span>{' '}
                           <span className="mt-0.5 block text-xs leading-snug text-white/72">{desc}</span>
                         </span>
                       </a>
@@ -256,7 +257,7 @@ export function Header() {
               variant="ghost"
               size="sm"
               className="hidden rounded-full px-4 text-[13px] text-white/75 hover:bg-white/[0.07] hover:text-white xl:inline-flex"
-              onClick={() => track('cta_click_header', { target: 'login' })}
+              onClick={() => track('cta_click_header_login', { target: 'login' })}
             >
               Войти
             </Button>
@@ -272,14 +273,14 @@ export function Header() {
                   className="transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
                 />
               }
-              onClick={() => track('cta_click_header', { target: 'register' })}
+              onClick={() => track('cta_click_header_register', { target: 'register' })}
             >
               Подключить магазин
             </Button>
             <button
               type="button"
               onClick={() => setOpen(true)}
-              className="grid h-10 w-10 place-items-center rounded-full border border-ink-950/10 bg-white/80 text-ink-950 backdrop-blur lg:hidden"
+              className="grid h-10 w-10 place-items-center rounded-full border border-white/15 bg-white/[0.08] text-white backdrop-blur lg:hidden"
               aria-label="Открыть меню"
               aria-expanded={open}
             >
@@ -359,7 +360,7 @@ export function Header() {
                 size="md"
                 className="w-full rounded-full"
                 iconRight={<ArrowUpRight size={16} />}
-                onClick={() => track('cta_click_header', { target: 'register' })}
+                onClick={() => track('cta_click_header_register', { target: 'register' })}
               >
                 Подключить магазин
               </Button>
@@ -369,7 +370,7 @@ export function Header() {
                 variant="dark"
                 size="md"
                 className="w-full rounded-full border-white/15"
-                onClick={() => track('cta_click_header', { target: 'login' })}
+                onClick={() => track('cta_click_header_login', { target: 'login' })}
               >
                 Войти
               </Button>

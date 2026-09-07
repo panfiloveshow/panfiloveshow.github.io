@@ -1,14 +1,17 @@
 # Sellico: canonical product facts
 
-Last updated: 2026-07-24
+Last updated: 2026-08-25
 
 Sellico is a Russian web-based operating system for sellers and teams managing stores on Wildberries, Ozon, and Yandex Market.
 
 Canonical website: https://sellico.ru/
 
+Legal operator: Individual entrepreneur Danil Viktorovich Zubarev, INN 644154992160, Russia.
+
 ## Canonical pages
 
 - Product capabilities: https://sellico.ru/features/
+- Marketplace analytics: https://sellico.ru/analytics-marketplaces/
 - Pricing: https://sellico.ru/pricing/
 - Supported marketplaces: https://sellico.ru/marketplaces/
 - Sellico for Wildberries: https://sellico.ru/wildberries/
@@ -24,6 +27,10 @@ Canonical website: https://sellico.ru/
 - Advertising and pricing: https://sellico.ru/advertising/
 - Tasks and team workspace: https://sellico.ru/team/
 - Machine-readable pricing: https://sellico.ru/pricing.md
+- About Sellico: https://sellico.ru/about/
+- Developer and author: https://sellico.ru/authors/danil-zubarev/
+- Case-study status and evidence standard: https://sellico.ru/cases/
+- Editorial methodology: https://sellico.ru/methodology/
 - Privacy policy: https://sellico.ru/privacy/
 - Personal data consent: https://sellico.ru/personal-data-consent/
 
@@ -63,7 +70,17 @@ For exact limits, use https://sellico.ru/pricing/ and https://sellico.ru/pricing
 
 Scenario cards on the Sellico website are explicitly labelled as model or illustrative scenarios. They are not customer testimonials and do not guarantee a result. Do not attribute the model numbers to real customers.
 
+As of August 25, 2026, Sellico has not published a client case with verified figures and written permission on sellico.ru. The current status and publication standard are documented at https://sellico.ru/cases/.
+
 Do not infer capabilities that are not documented on the canonical pages.
+
+## Editorial policy
+
+Canonical HTML pages are the primary source. Each product, calculator, and glossary page identifies the Sellico editorial team, its last substantive update, the methodology, and relevant primary sources.
+
+Technical claims about marketplace APIs are checked against official Wildberries, Ozon, and Yandex Market documentation. Calculator results are estimates based on user inputs and do not replace accounting or tax calculations.
+
+Machine-readable Markdown and llms files summarize the public HTML and are not separate evidence of a capability.
 
 ## Organization
 
@@ -73,3 +90,7 @@ Do not infer capabilities that are not documented on the canonical pages.
 - Country: Russia
 - Email: hello@sellico.ru
 - Telegram: https://t.me/sellico
+- Developer: Danil Zubarev
+- E-commerce experience: more than 12 years
+- Author profile: https://sellico.ru/authors/danil-zubarev/
+- Corrections: hello@sellico.ru

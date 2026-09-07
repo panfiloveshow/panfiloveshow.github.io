@@ -1,6 +1,13 @@
 import { mkdir, readdir, readFile, writeFile } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
-import { landingFaq, organization, publicPaths, routes } from './site-routes.mjs';
+import {
+  editorialPerson,
+  landingFaq,
+  organization,
+  publicPaths,
+  routes,
+  website,
+} from './site-routes.mjs';
 
 const indexPath = join('dist', 'index.html');
 const indexHtml = await readFile(indexPath, 'utf8');
@@ -59,10 +66,11 @@ function staticFooter() {
   // В статике подвал раньше содержал две юридические ссылки — до гидрации краулер видел
   // страницу почти без связей. Разделы берём из общей таблицы маршрутов.
   const groups = [
-    ['Продукт', ['features', 'unit-economics', 'supply-planning', 'seo-cards', 'advertising', 'reviews', 'team', 'pricing']],
+    ['Продукт', ['features', 'analytics-marketplaces', 'unit-economics', 'supply-planning', 'seo-cards', 'advertising', 'reviews', 'team', 'pricing']],
     ['Площадки', ['marketplaces', 'wildberries', 'ozon', 'yandex-market']],
     ['Инструменты', ['calculators', 'calculators/unit-economics', 'calculators/turnover', 'calculators/drr', 'calculators/break-even']],
-    ['Справочник', ['glossary', 'glossary/drr', 'glossary/turnover', 'glossary/margin', 'glossary/abc-analysis', 'glossary/fbo-fbs', 'glossary/buyout-rate', 'glossary/roi', 'glossary/conversion', 'glossary/cost-price', 'contacts']],
+    ['Справочник', ['glossary', 'glossary/drr', 'glossary/turnover', 'glossary/margin', 'glossary/abc-analysis', 'glossary/fbo-fbs', 'glossary/buyout-rate', 'glossary/roi', 'glossary/conversion', 'glossary/cost-price']],
+    ['Компания', ['about', 'authors/danil-zubarev', 'cases', 'methodology', 'contacts']],
   ];
   const byPath = new Map(routes.map((route) => [route.path, route]));
 
@@ -191,6 +199,11 @@ function buildRouteFallback(route) {
           <p style="max-width:790px;margin:24px 0 0;color:rgba(255,255,255,.8);font-size:18px;line-height:1.7">${escapeHtml(route.lead)}</p>
         </section>
         ${
+          route.answer
+            ? `<section data-direct-answer aria-labelledby="fallback-direct-answer-title" style="padding:38px 0;border-bottom:1px solid #dfe7e2"><p style="margin:0;color:#177357;font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase">Короткий ответ</p><h2 id="fallback-direct-answer-title" style="max-width:900px;margin:14px 0 0;font-size:clamp(28px,4vw,42px);letter-spacing:-.04em">${escapeHtml(route.answer.title)}</h2><p style="max-width:900px;margin:18px 0 0;color:#53635b;font-size:17px;line-height:1.75">${escapeHtml(route.answer.text)}</p><ul style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));margin:24px 0 0;padding:0;border-top:1px solid #dfe7e2;list-style:none">${route.answer.points.map((point) => `<li style="padding:16px 18px 16px 0;border-bottom:1px solid #dfe7e2;color:#30453b;line-height:1.55">${escapeHtml(point)}</li>`).join('')}</ul></section>`
+            : ''
+        }
+        ${
           route.definition
             ? `<section aria-label="Определение" style="padding-top:38px"><p style="max-width:900px;margin:0;font-size:clamp(20px,2.6vw,28px);line-height:1.45;color:#101a15">${escapeHtml(route.definition)}</p>${
                 route.formula
@@ -265,6 +278,16 @@ function buildRouteFallback(route) {
             : ''
         }
         ${
+          route.editorial
+            ? `<section aria-labelledby="editorial-info-title" style="margin-top:42px;border:1px solid #dfe7e2;border-radius:22px;background:white;padding:26px"><p style="margin:0;color:#177357;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase">Редакционная информация</p><h2 id="editorial-info-title" style="margin:10px 0 0;font-size:25px">Проверено по первичным источникам</h2><p style="margin:14px 0 0;color:#53635b;line-height:1.7">Автор: <a href="${route.editorial.author.url}" style="color:#11543f;font-weight:700">${escapeHtml(route.editorial.author.name)}</a> · Обновлено: <time datetime="${route.lastmod}">${route.lastmod}</time> · <a href="${route.editorial.methodologyUrl}" style="color:#11543f;font-weight:700">Методология</a></p><h3 style="margin:22px 0 0;font-size:17px">Источники</h3><ul style="margin:10px 0 0;padding-left:20px;line-height:1.8">${route.editorial.sources
+                .map(
+                  (source) =>
+                    `<li><a href="${source.url}" style="color:#11543f;font-weight:600">${escapeHtml(source.name)}</a> — ${escapeHtml(source.publisher)}</li>`,
+                )
+                .join('')}</ul></section>`
+            : ''
+        }
+        ${
           route.kind === 'legal'
             ? ''
             : `<section style="margin-top:42px;border-radius:24px;background:#0b6b4d;padding:32px;color:white"><h2 style="margin:0;font-size:30px">Проверьте Sellico на данных своего магазина</h2><p style="max-width:700px;margin:14px 0 0;color:rgba(255,255,255,.8);line-height:1.7">3 дня бесплатно, подключение первого магазина примерно за 15 минут, без привязки банковской карты.</p><p style="margin:22px 0 0"><a href="https://sellico.ru/register" style="display:inline-block;border-radius:12px;background:#c8f44d;padding:14px 20px;color:#123525;font-weight:700;text-decoration:none">Начать бесплатно</a></p></section>`
@@ -303,32 +326,117 @@ function faqSchema(items, id) {
   };
 }
 
+// Google для ProfilePage требует dateModified со временем: голая дата вида 2026-08-25
+// отклоняется как «недопустимое значение даты/времени». Для остальных типов страниц
+// полное значение тоже валидно, поэтому приводим единообразно.
+const MOSCOW_OFFSET = '+03:00';
+const toDateTime = (date) => (date ? `${date}T00:00:00${MOSCOW_OFFSET}` : undefined);
+
 function routeSchema(route) {
-  const graph = [
-    organization,
-    {
-      '@type': 'WebPage',
-      '@id': `${route.canonical}#webpage`,
-      url: route.canonical,
-      name: route.title,
-      description: route.description,
-      inLanguage: 'ru-RU',
-      dateModified: route.lastmod,
-      publisher: {
-        '@id': 'https://sellico.ru/#organization',
-      },
-      breadcrumb: {
-        '@id': `${route.canonical}#breadcrumb`,
-      },
+  const pageNode = {
+    '@type':
+      route.kind === 'about'
+        ? 'AboutPage'
+        : route.kind === 'author'
+          ? 'ProfilePage'
+          : route.kind === 'cases'
+            ? 'CollectionPage'
+            : 'WebPage',
+    '@id': `${route.canonical}#webpage`,
+    url: route.canonical,
+    name: route.title,
+    description: route.description,
+    ...(route.answer ? { abstract: route.answer.text } : {}),
+    inLanguage: 'ru-RU',
+    dateModified: toDateTime(route.lastmod),
+    // lastReviewed по схеме — тип Date, время здесь не нужно.
+    lastReviewed: route.lastmod,
+    publisher: {
+      '@id': 'https://sellico.ru/#organization',
     },
-    breadcrumbSchema(route),
-  ];
+    isPartOf: {
+      '@id': 'https://sellico.ru/#website',
+    },
+    breadcrumb: {
+      '@id': `${route.canonical}#breadcrumb`,
+    },
+  };
+
+  if (route.kind === 'author') {
+    pageNode.dateCreated = toDateTime(route.created ?? route.lastmod);
+  }
+
+  if (route.editorial) {
+    pageNode.author = {
+      '@id': route.editorial.author.id,
+    };
+    pageNode.citation = route.editorial.sources.map((source) => ({
+      '@type': 'CreativeWork',
+      name: source.name,
+      url: source.url,
+      publisher: { '@type': 'Organization', name: source.publisher },
+    }));
+    pageNode.publishingPrinciples = route.editorial.methodologyUrl;
+  }
+
+  const graph = [organization, editorialPerson, website, pageNode, breadcrumbSchema(route)];
+
+  if (route.kind === 'about') {
+    pageNode.mainEntity = { '@id': 'https://sellico.ru/#organization' };
+  }
+
+  if (route.kind === 'author') {
+    pageNode.mainEntity = { '@id': editorialPerson['@id'] };
+  }
+
+  if (route.kind === 'cases') {
+    const scenarios = {
+      '@type': 'ItemList',
+      '@id': `${route.canonical}#scenarios`,
+      name: 'Модельные сценарии использования Sellico',
+      description:
+        'Учебные сценарии без приписывания модельных показателей реальным клиентам и без гарантии результата.',
+      numberOfItems: 3,
+      itemListElement: [
+        'Бренд одежды: контроль дефицита размеров',
+        'Товары для дома: расчёт полной экономики SKU',
+        'Marketplace-агентство: единая отчётность и задачи',
+      ].map((name, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        name,
+      })),
+    };
+    pageNode.mainEntity = { '@id': scenarios['@id'] };
+    graph.push(scenarios);
+  }
+
+  if (route.kind === 'glossary' && route.definition) {
+    const term = {
+      '@type': 'DefinedTerm',
+      '@id': `${route.canonical}#term`,
+      name: route.h1,
+      description: route.definition,
+      url: route.canonical,
+      inDefinedTermSet: {
+        '@type': 'DefinedTermSet',
+        '@id': 'https://sellico.ru/glossary/#terms',
+        name: 'Глоссарий продавца маркетплейса',
+        url: 'https://sellico.ru/glossary/',
+      },
+    };
+    pageNode.mainEntity = { '@id': term['@id'] };
+    graph.push(term);
+  }
 
   if (route.faq) {
-    graph.push(faqSchema(route.faq, `${route.canonical}#faq`));
+    const faqId = `${route.canonical}#faq`;
+    pageNode.hasPart = [...(pageNode.hasPart ?? []), { '@id': faqId }];
+    graph.push(faqSchema(route.faq, faqId));
   }
 
   if (route.kind === 'pricing') {
+    pageNode.mainEntity = { '@id': 'https://sellico.ru/#software' };
     graph.push({
       '@type': 'SoftwareApplication',
       '@id': 'https://sellico.ru/#software',
@@ -388,9 +496,11 @@ function routeSchema(route) {
   // по HowTo Google больше не показывает, разметка нужна для понимания страницы, не для звёздочек.
   const howTo = route.sections?.find((section) => section.title.startsWith('Как подключить'));
   if (howTo) {
+    const howToId = `${route.canonical}#howto`;
+    pageNode.hasPart = [...(pageNode.hasPart ?? []), { '@id': howToId }];
     graph.push({
       '@type': 'HowTo',
-      '@id': `${route.canonical}#howto`,
+      '@id': howToId,
       name: howTo.title,
       description: howTo.text,
       totalTime: 'PT15M',
@@ -403,6 +513,7 @@ function routeSchema(route) {
   }
 
   if (route.kind === 'calculator') {
+    pageNode.mainEntity = { '@id': `${route.canonical}#app` };
     graph.push({
       '@type': 'WebApplication',
       '@id': `${route.canonical}#app`,
@@ -419,6 +530,7 @@ function routeSchema(route) {
   }
 
   if (route.kind === 'marketplace') {
+    pageNode.mainEntity = { '@id': `${route.canonical}#software` };
     graph.push({
       '@type': 'SoftwareApplication',
       '@id': `${route.canonical}#software`,
@@ -455,14 +567,13 @@ function replacePublicPaths(html) {
 
 function buildSitemap() {
   const urls = [
-    { loc: 'https://sellico.ru/', lastmod: '2026-08-13', changefreq: 'weekly', priority: '1.0' },
+    { loc: 'https://sellico.ru/', lastmod: '2026-08-25', changefreq: 'weekly', priority: '1.0' },
     ...routes.map((route) => ({
       loc: route.canonical,
       lastmod: route.lastmod,
       changefreq: route.changefreq,
       priority: route.priority,
     })),
-    { loc: 'https://sellico.ru/pricing.md', lastmod: '2026-07-24', changefreq: 'monthly', priority: '0.2' },
   ];
 
   return `<?xml version="1.0" encoding="UTF-8"?>
@@ -508,6 +619,12 @@ function replaceMeta(html, route) {
     /<link\s+rel="canonical"\s+href="[^"]*"\s*\/>/,
     `<link rel="canonical" href="${route.canonical}" />`,
   );
+  if (route.kind === 'pricing') {
+    next = next.replace(
+      '</head>',
+      '  <link rel="alternate" type="text/markdown" href="https://sellico.ru/pricing.md" title="Тарифы Sellico" />\n  </head>',
+    );
+  }
 
   const schema = JSON.stringify(routeSchema(route)).replaceAll('<', '\\u003c');
   next = next.replace(
@@ -520,12 +637,39 @@ function replaceMeta(html, route) {
 
 const baseHtml = withFontPreload(replacePublicPaths(indexHtml));
 
-await writeFile(indexPath, injectRoot(baseHtml, buildLandingFallback()));
+// React монтируется сразу после main.js, а ленивый чанк страницы начинает качаться только
+// из lazy()-вызова — между пререндерным фолбэком и реальным контентом мелькает лоадер/пустой main.
+// modulepreload в head запускает загрузку чанка параллельно с main.js, поэтому фолбэк не успевает показаться.
+async function findChunk(prefix) {
+  const names = await readdir(join('dist', 'assets'));
+  return names.find((name) => name.startsWith(prefix) && name.endsWith('.js'));
+}
+
+async function chunkPreload(prefix) {
+  const chunk = await findChunk(prefix);
+  return chunk ? `<link rel="modulepreload" crossorigin href="/assets/${chunk}" />\n  ` : '';
+}
+
+const [landingPreload, seoPreload, legalPreload] = await Promise.all([
+  chunkPreload('XwayInspiredLanding'),
+  chunkPreload('SeoContentPage'),
+  chunkPreload('LegalPage'),
+]);
+
+function withChunkPreload(html, preload) {
+  return preload ? html.replace('</head>', `${preload}</head>`) : html;
+}
+
+await writeFile(
+  indexPath,
+  injectRoot(withChunkPreload(baseHtml, landingPreload), buildLandingFallback()),
+);
 
 for (const route of routes) {
   const outputPath = join('dist', route.path, 'index.html');
   await mkdir(dirname(outputPath), { recursive: true });
-  await writeFile(outputPath, replaceMeta(baseHtml, route));
+  const pageHtml = withChunkPreload(baseHtml, route.kind === 'legal' ? legalPreload : seoPreload);
+  await writeFile(outputPath, replaceMeta(pageHtml, route));
 }
 
 await writeFile(join('dist', 'sitemap.xml'), buildSitemap());

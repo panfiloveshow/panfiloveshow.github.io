@@ -26,6 +26,8 @@ pnpm build          # production-сборка → dist/
 pnpm preview        # локальный preview production-сборки
 pnpm typecheck      # tsc -b --noEmit
 pnpm lint           # ESLint
+pnpm check:seo      # title/canonical/H1/JSON-LD/sitemap/robots/AI-файлы
+pnpm submit:indexnow # отправить URL из dist/sitemap.xml в IndexNow
 ```
 
 ## Структура секций
@@ -51,7 +53,10 @@ pnpm lint           # ESLint
 - **Primary brand**: `#2CBA66` (brand-500), accent `#5BE49B`.
 - **Dark surfaces**: `#0A0E14` (ink-900), `#06080C` (ink-950) для wow/demo/cta секций.
 - **Light surfaces**: `#FAFAFA` (surface-light), `#F4F6F8` (surface-muted).
-- **Body text**: `#212B36` (ink-100), серые тона ink-300/400/500.
+- **Шкала `ink` — для тёмных поверхностей, инвертирована**: `ink-100 = #E9EEF6` (светлый текст на тёмном),
+  `ink-950 = #090E17` (почти чёрный, основной текст на светлых секциях). Не используйте `text-ink-100`
+  на светлых карточках — получится «белое на белом» (см. REPORT-site-audit-2026-08-24.md, P1).
+  Кнопкам `variant="outline"|"secondary"|"ghost"` на светлых фонах нужны оверрайды `!text-ink-950`.
 - **Шрифты**: Inter Variable (sans), JetBrains Mono (числа/метрики).
 
 Кастомные утилиты в `src/styles/globals.css`:
@@ -67,19 +72,35 @@ pnpm lint           # ESLint
 
 ## Аналитика и события
 
-`src/lib/analytics.ts` оборачивает Yandex.Metrika `reachGoal`:
+`src/lib/analytics.ts` загружает Yandex Metrika только после согласия и оборачивает `reachGoal`:
 
-- `cta_click_hero | _header | _pricing | _final` — CTA-клики
+- `cta_click_hero | _pricing | _final` — CTA-клики по соответствующим блокам
+- `cta_click_header_register | cta_click_header_login` — регистрация и вход из шапки разделены,
+  чтобы вход не засчитывался как конверсия регистрации
 - `pricing_select` — выбор тарифа
 - `faq_open` — раскрытие FAQ
 - `lead_submit` — submit email-формы
 - `scroll_50 | _75 | _100` — глубина скролла
+- `ai_referral` — переходы из ChatGPT, Perplexity, Claude, Gemini и Copilot
+- `js_error` — обезличенный тип ошибки JavaScript без текста и пользовательских данных
 
-Чтобы включить — установи `YM_COUNTER_ID` в `analytics.ts` и подключи Метрику в `index.html` (после согласия cookies).
+Цели Яндекс Метрики для production-счётчика:
+
+- `lead_submit` — основная макроконверсия: отправлена заявка
+- `pricing_select` — микроконверсия: выбран тариф
+- `cta_click_hero` — микроконверсия: регистрация из первого экрана
+- `cta_click_header_register` — микроконверсия: регистрация из шапки
+- `ai_referral` — диагностическая цель для AI-трафика
+- `faq_open` — вовлечённость; не используется как основная конверсия
+
+`cta_click_header_login` и `js_error` остаются диагностическими событиями и не создаются как
+конверсионные цели.
+
+Production-счётчик `111920680` задан в `.env.production`. Для другой среды ID можно переопределить при сборке: `VITE_YM_COUNTER_ID=123456 pnpm build`. Скрипт Метрики не загружается до согласия пользователя.
 
 ## Cookie / 152-ФЗ
 
-`CookieBanner` показывается через 800ms после загрузки на первом визите, состояние хранится в `localStorage:sellico:cookie-consent`. Yandex.Metrika инициализируется только после согласия.
+`CookieBanner` показывается через 800ms после загрузки на первом визите, состояние хранится в `localStorage` по ключу `sellico-cookie-consent`. Yandex Metrika инициализируется только после согласия.
 
 ## Деплой
 
@@ -106,6 +127,9 @@ bash deploy.sh
 
 Скрипт повторяет паттерн `front 2/frontend/deploy-prod-dist.sh`: локальный `pnpm build` → бэкап `dist/` на сервере → `rsync --delete` нового dist на удалённый таргет.
 
+После успешной публикации скрипт отправляет все URL из sitemap в IndexNow. Для отключения
+разовой отправки используйте `DEPLOY_SUBMIT_INDEXNOW=0 bash deploy.sh`.
+
 **Default target:** `crm_admin@sellico.ru:/var/www/html/landing/dist` (ещё не финализирован — поддомен укажет владелец).
 
 Override через env:
@@ -125,10 +149,16 @@ SSHPASS='...' bash deploy.sh
 5. CTA wiring: «Попробовать бесплатно» → `https://sellico.ru/register`.
 6. Email-форма Final CTA → submit → редирект на `/register?email=...`.
 
+### Контроль SEO / AEO / GEO
+
+- `pnpm check:queries` проверяет карту из 24 приоритетных запросов и существование их landing URL.
+- При согласии на аналитику реальные LCP, INP, CLS, FCP и TTFB отправляются в параметры визита Яндекс Метрики в группе `web_vitals`.
+- Приоритетные продуктовые и marketplace-страницы содержат самостоятельный блок «Короткий ответ»; сборка проверяет его длину, видимость и соответствие `WebPage.abstract`.
+- После изменения набора публичных URL production-деплой отправляет sitemap в IndexNow.
+
 ## Что отложено на v2
 
 - **Реальный r3f-сцена** в Hero (сейчас CSS-perspective + Framer parallax — даёт 90% эффекта при 5% сложности).
 - **Реальные скриншоты модулей** в `public/screenshots/` (сейчас высокачественные HTML-mock).
-- **Yandex.Metrika counter ID** — требует подключения после получения counter.
 - **Telegram-бот webhook** для лидов из email-формы (сейчас только редирект на `/register?email=...`).
 - **Prerender** через `vite-plugin-prerender` для FCP-критичной разметки.

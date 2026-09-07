@@ -32,7 +32,13 @@ if (process.argv[1]?.endsWith('build-content-index.mjs')) {
   const index = Object.fromEntries(
     Object.entries(pages).map(([slug, page]) => [
       slug,
-      { kind: page.kind, eyebrow: page.eyebrow, title: page.title, description: page.description },
+      {
+        kind: page.kind,
+        lastmod: page.lastmod,
+        eyebrow: page.eyebrow,
+        title: page.title,
+        description: page.description,
+      },
     ]),
   );
   await writeFile(join('src', 'content', 'pages-index.json'), `${JSON.stringify(index, null, 2)}\n`);

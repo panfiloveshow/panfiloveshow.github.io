@@ -13,6 +13,27 @@ type RemotePromoBanner = {
   alt?: string | null;
 };
 
+// Тяжёлые PNG из текущей CMS-выдачи заменяем локальными оптимизированными JPEG. Ключом служит точный
+// путь файла: новый баннер автоматически останется на исходном URL, пока для него
+// не появится проверенная оптимизированная версия.
+const OPTIMIZED_PROMO_ASSETS: Record<string, string> = {
+  '/storage/promo-banners/cfmvVfdaI3kssMudeK7z4u5gbfuD1QkMtBFLsW4P.png':
+    '/assets/promo-banners/sellico-promo-7-desktop.jpg',
+  '/storage/promo-banners/HxqlM6u0RqDOzn6XVvSvt4WcggKXHn677CxNqOcv.png':
+    '/assets/promo-banners/sellico-promo-7-mobile.jpg',
+};
+
+const PROMO_ALT_BY_IMAGE: Record<string, string> = {
+  '/storage/promo-banners/5VobKJxhylox3v5N1flYYpQ7fUjiLsZ0hffXzDws.jpg':
+    'Школьный сезон: пополняйте товары по темпу продаж, отслеживая остатки и скорость продаж.',
+  '/storage/promo-banners/cfmvVfdaI3kssMudeK7z4u5gbfuD1QkMtBFLsW4P.png':
+    'При оплате трёх месяцев тарифа Pro — один месяц бесплатно.',
+};
+
+function optimizedPromoAsset(src: string): string {
+  return OPTIMIZED_PROMO_ASSETS[src] ?? src;
+}
+
 export function PromoBanner() {
   const [slide, setSlide] = useState(0);
   const [hovered, setHovered] = useState(false);
@@ -46,6 +67,7 @@ export function PromoBanner() {
   const count = banners.length;
   const index = slide % count;
   const banner = banners[index];
+  const bannerAlt = banner.alt ?? PROMO_ALT_BY_IMAGE[banner.image] ?? '';
 
   const changeSlide = (direction: number) => {
     setSlide((value) => (value + direction + count) % count);
@@ -83,19 +105,21 @@ export function PromoBanner() {
             {(() => {
               const img = (
                 <picture>
-                  {banner.image_mobile && <source media="(max-width: 639px)" srcSet={banner.image_mobile} />}
+                  {banner.image_mobile && (
+                    <source media="(max-width: 639px)" srcSet={optimizedPromoAsset(banner.image_mobile)} />
+                  )}
                   <img
-                    src={banner.image}
-                    alt={banner.alt ?? ''}
+                    src={optimizedPromoAsset(banner.image)}
+                    alt={bannerAlt}
                     className="h-full w-full object-cover"
                     decoding="async"
-                    loading="eager"
-                    fetchPriority="high"
+                    loading="lazy"
+                    fetchPriority="low"
                   />
                 </picture>
               );
               return banner.link ? (
-                <a href={banner.link} className="block h-full w-full" aria-label={banner.alt ?? 'Открыть предложение'}>
+                <a href={banner.link} className="block h-full w-full" aria-label={bannerAlt || 'Открыть предложение'}>
                   {img}
                 </a>
               ) : (

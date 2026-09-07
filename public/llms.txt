@@ -1,5 +1,9 @@
 # Sellico
 
+Last updated: 2026-08-25
+
+Canonical domain: https://sellico.ru/
+
 Sellico is a Russian web-based operating system for sellers and teams managing stores on Wildberries, Ozon, and Yandex Market.
 
 The product combines marketplace finance and unit economics, inventory and supply planning, advertising, product-card SEO, reviews, incoming requests, and team tasks in one workspace.
@@ -7,7 +11,12 @@ The product combines marketplace finance and unit economics, inventory and suppl
 ## Canonical sources
 
 - Main website: https://sellico.ru/
+- About Sellico: https://sellico.ru/about/
+- Developer and author: https://sellico.ru/authors/danil-zubarev/
+- Case-study status and evidence standard: https://sellico.ru/cases/
+- Editorial methodology and source policy: https://sellico.ru/methodology/
 - Product capabilities: https://sellico.ru/features/
+- Marketplace analytics: https://sellico.ru/analytics-marketplaces/
 - Pricing and plan limits: https://sellico.ru/pricing/
 - Supported marketplaces: https://sellico.ru/marketplaces/
 - Sellico for Wildberries: https://sellico.ru/wildberries/
@@ -63,5 +72,10 @@ Plans include a 3-day free period without a bank card. The first store can usual
 - Country: Russia
 - Email: hello@sellico.ru
 - Telegram: https://t.me/sellico
+- Developer: Danil Zubarev
+- E-commerce experience: more than 12 years
+- Author profile: https://sellico.ru/authors/danil-zubarev/
 
 For exact plan limits and current product details, use the canonical Sellico sources listed above.
+
+Canonical HTML pages are the primary source. The Markdown and llms files are alternative machine-readable summaries and do not replace the canonical pages.

@@ -5,6 +5,13 @@ import { Button } from '@/components/ui/Button';
 import { Container } from '@/components/ui/Container';
 import { REGISTER_URL, SECTION_IDS } from '@/lib/anchors';
 import { track } from '@/lib/analytics';
+import {
+  PERSONAL_DATA_CONSENT_VERSION,
+  PERSONAL_DATA_CONSENT_PATH,
+  PRIVACY_POLICY_PATH,
+  PRIVACY_POLICY_VERSION,
+  REGISTRATION_PREFILL_STORAGE_KEY,
+} from '@/lib/legal';
 import { reveal } from './data';
 
 // Перелинковка с главной вглубь: без неё внутренние страницы висят на одном подвале.
@@ -78,8 +85,21 @@ export function HelpAndStartSection() {
       setError('Подтвердите согласие на обработку данных.');
       return;
     }
+
+    try {
+      sessionStorage.setItem(REGISTRATION_PREFILL_STORAGE_KEY, JSON.stringify({
+        email,
+        consentAt: new Date().toISOString(),
+        consentVersion: PERSONAL_DATA_CONSENT_VERSION,
+        privacyPolicyVersion: PRIVACY_POLICY_VERSION,
+        expiresAt: Date.now() + 15 * 60 * 1000,
+      }));
+    } catch {
+      // Регистрация останется доступна без автозаполнения.
+    }
+
     track('lead_submit', { source: 'landing_v2_final_cta' });
-    window.location.href = `${REGISTER_URL}?email=${encodeURIComponent(email)}`;
+    window.location.href = REGISTER_URL;
   };
 
   return (
@@ -169,7 +189,7 @@ export function HelpAndStartSection() {
                       className="mt-0.5 h-4 w-4 rounded accent-[#c8f44d]"
                       required
                     />
-                    <span>Согласен с <a href="/privacy/" className="text-white underline underline-offset-2">политикой обработки данных</a>.</span>
+                    <span>Даю <a href={PERSONAL_DATA_CONSENT_PATH} target="_blank" rel="noopener noreferrer" className="text-white underline underline-offset-2">согласие на обработку данных</a> (версия {PERSONAL_DATA_CONSENT_VERSION}) и ознакомлен с <a href={PRIVACY_POLICY_PATH} target="_blank" rel="noopener noreferrer" className="text-white underline underline-offset-2">политикой</a> (версия {PRIVACY_POLICY_VERSION}).</span>
                   </label>
                   {error && <p role="alert" className="mt-2 rounded-lg bg-white/10 px-2.5 py-2 text-xs font-medium text-rose-100">{error}</p>}
                 </form>

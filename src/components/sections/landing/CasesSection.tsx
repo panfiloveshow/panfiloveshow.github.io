@@ -156,7 +156,7 @@ export function CasesSection() {
                         )}
                       >
                         {item.number}
-                      </span>
+                      </span>{' '}
                       <span
                         className={cn(
                           'text-[10px] font-bold uppercase tracking-[0.15em]',
@@ -259,6 +259,14 @@ export function CasesSection() {
             );
           })}
         </div>
+
+        <p className="mt-8 max-w-3xl text-sm leading-relaxed text-ink-600">
+          Модельные истории не являются отзывами клиентов.{' '}
+          <a href="/cases/" className="font-semibold text-brand-800 underline-offset-4 hover:underline">
+            Посмотрите статус подтверждённых кейсов и методику проверки результатов
+          </a>
+          .
+        </p>
 
       </Container>
     </section>

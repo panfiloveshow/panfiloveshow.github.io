@@ -11,4 +11,19 @@ Clean-param: utm_source&utm_medium&utm_campaign&utm_term&utm_content&yclid&gclid
 Clean-param: price&cost&commissionPct&logistics&buyoutPct&storage&ads&other&taxPct&/calculators/
 Clean-param: avgStock&sold&periodDays&leadTime&adCost&revenue&marginPct&fixedCosts&profitPerUnit&/calculators/
 
+# Поисковые и пользовательские AI-агенты могут читать публичную документацию.
+# Приватный CRM-контур для них закрыт так же, как для остальных роботов.
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: GPTBot
+User-agent: PerplexityBot
+User-agent: Perplexity-User
+User-agent: Claude-SearchBot
+User-agent: Claude-User
+User-agent: ClaudeBot
+User-agent: Google-Extended
+User-agent: bingbot
+Allow: /
+Disallow: /crm/
+
 Sitemap: https://sellico.ru/sitemap.xml

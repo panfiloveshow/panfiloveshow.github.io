@@ -1,12 +1,14 @@
 import { ArrowUpRight, Mail, Send } from 'lucide-react';
 import { Container } from '@/components/ui/Container';
 import { REGISTER_URL, LOGIN_URL } from '@/lib/anchors';
+import { OPEN_ANALYTICS_CONSENT_EVENT } from '@/lib/analytics';
 
 const COLUMNS = [
   {
     title: 'Продукт',
     items: [
       { label: 'Возможности', href: '/features/' },
+      { label: 'Аналитика маркетплейсов', href: '/analytics-marketplaces/' },
       { label: 'Юнит-экономика', href: '/unit-economics/' },
       { label: 'Калькуляторы', href: '/calculators/' },
       { label: 'Остатки и поставки', href: '/supply-planning/' },
@@ -28,6 +30,10 @@ const COLUMNS = [
   {
     title: 'Компания',
     items: [
+      { label: 'О Sellico', href: '/about/' },
+      { label: 'Разработчик Sellico', href: '/authors/danil-zubarev/' },
+      { label: 'Кейсы и результаты', href: '/cases/' },
+      { label: 'Методология', href: '/methodology/' },
       { label: 'Контакты', href: '/contacts/' },
       { label: 'Войти', href: LOGIN_URL },
       { label: 'Регистрация', href: REGISTER_URL },
@@ -200,6 +206,13 @@ export function Footer() {
               <a href="/personal-data-consent/" className="transition-colors hover:text-white">
                 Согласие на обработку данных
               </a>
+              <button
+                type="button"
+                onClick={() => window.dispatchEvent(new Event(OPEN_ANALYTICS_CONSENT_EVENT))}
+                className="transition-colors hover:text-white"
+              >
+                Настройки аналитики
+              </button>
               <span className="inline-flex w-fit items-center gap-1.5 rounded-lg border border-brand-300/15 bg-brand-300/[0.08] px-3 py-1.5 text-brand-100/80">
                 <span className="relative grid h-2 w-2 place-items-center">
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-300 opacity-75" />

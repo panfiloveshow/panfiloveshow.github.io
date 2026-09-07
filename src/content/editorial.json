@@ -1,0 +1,125 @@
+{
+  "author": {
+    "id": "https://sellico.ru/authors/danil-zubarev/#person",
+    "name": "Данил Зубарев",
+    "url": "https://sellico.ru/authors/danil-zubarev/",
+    "description": "Разработчик Sellico с опытом работы в e-commerce более 12 лет.",
+    "jobTitle": "Разработчик Sellico",
+    "email": "hello@sellico.ru"
+  },
+  "methodologyUrl": "https://sellico.ru/methodology/",
+  "sources": {
+    "sellico-pricing": {
+      "name": "Публичные тарифы Sellico",
+      "url": "https://sellico.ru/pricing.md",
+      "publisher": "Sellico"
+    },
+    "sellico-privacy": {
+      "name": "Политика обработки персональных данных Sellico",
+      "url": "https://sellico.ru/privacy/",
+      "publisher": "Sellico"
+    },
+    "wb-api": {
+      "name": "Что такое WB API и как с ним работать",
+      "url": "https://seller.wildberries.ru/instructions/ru/ru/material/wb-api",
+      "publisher": "Wildberries"
+    },
+    "wb-economics": {
+      "name": "Отчёт «Юнит-экономика»",
+      "url": "https://seller.wildberries.ru/instructions/ru/kz/material/unit-economy-report",
+      "publisher": "Wildberries"
+    },
+    "wb-finance": {
+      "name": "Отчёт «Доходы и расходы»",
+      "url": "https://seller.wildberries.ru/instructions/ru/ru/material/income-and-expenses-report",
+      "publisher": "Wildberries"
+    },
+    "ozon-seller-api": {
+      "name": "Документация Seller API",
+      "url": "https://docs.ozon.ru/api/seller/",
+      "publisher": "Ozon"
+    },
+    "yandex-api": {
+      "name": "API Яндекс Маркета для продавцов",
+      "url": "https://yandex.ru/dev/market/partner-api/doc/ru/",
+      "publisher": "Яндекс Маркет"
+    },
+    "yandex-methods": {
+      "name": "Общие методы API для кабинета продавца",
+      "url": "https://yandex.ru/dev/market/partner-api/doc/ru/overview/business",
+      "publisher": "Яндекс Маркет"
+    },
+    "fns-usn": {
+      "name": "Упрощённая система налогообложения",
+      "url": "https://www.nalog.gov.ru/rn77/taxation/taxes/usn/",
+      "publisher": "ФНС России"
+    },
+    "google-ai-search": {
+      "name": "AI features and your website",
+      "url": "https://developers.google.com/search/docs/appearance/ai-features",
+      "publisher": "Google Search Central"
+    },
+    "openai-publishers": {
+      "name": "Publishers and developers FAQ",
+      "url": "https://help.openai.com/en/articles/12627856-publishers-and-developers-faq",
+      "publisher": "OpenAI"
+    },
+    "perplexity-crawlers": {
+      "name": "Perplexity crawlers",
+      "url": "https://docs.perplexity.ai/docs/resources/perplexity-crawlers",
+      "publisher": "Perplexity"
+    },
+    "anthropic-crawler": {
+      "name": "Anthropic web crawler guidance",
+      "url": "https://support.anthropic.com/en/articles/8896518-does-anthropic-crawl-data-from-the-web-and-how-can-site-owners-block-the-crawler",
+      "publisher": "Anthropic"
+    }
+  },
+  "groups": {
+    "product": ["wb-api", "ozon-seller-api", "yandex-api"],
+    "pricing": ["sellico-pricing"],
+    "wildberries": ["wb-api", "wb-economics", "wb-finance"],
+    "ozon": ["ozon-seller-api"],
+    "yandex": ["yandex-api", "yandex-methods"],
+    "economics": ["wb-economics", "wb-finance", "ozon-seller-api", "fns-usn"],
+    "inventory": ["wb-api", "ozon-seller-api", "yandex-methods"],
+    "company": ["sellico-pricing", "sellico-privacy"],
+    "cases": ["sellico-pricing"],
+    "methodology": ["google-ai-search", "openai-publishers", "perplexity-crawlers", "anthropic-crawler"]
+  },
+  "pages": {
+    "about": "company",
+    "authors/danil-zubarev": "company",
+    "cases": "cases",
+    "methodology": "methodology",
+    "analytics-marketplaces": "product",
+    "features": "product",
+    "pricing": "pricing",
+    "marketplaces": "product",
+    "wildberries": "wildberries",
+    "ozon": "ozon",
+    "yandex-market": "yandex",
+    "unit-economics": "economics",
+    "supply-planning": "inventory",
+    "seo-cards": "product",
+    "reviews": "product",
+    "advertising": "product",
+    "team": "product",
+    "calculators": "economics",
+    "calculators/unit-economics": "economics",
+    "calculators/turnover": "inventory",
+    "calculators/drr": "economics",
+    "calculators/break-even": "economics",
+    "contacts": "company",
+    "glossary": "economics",
+    "glossary/drr": "economics",
+    "glossary/turnover": "inventory",
+    "glossary/margin": "economics",
+    "glossary/abc-analysis": "economics",
+    "glossary/fbo-fbs": "inventory",
+    "glossary/buyout-rate": "economics",
+    "glossary/roi": "economics",
+    "glossary/conversion": "product",
+    "glossary/cost-price": "economics"
+  }
+}

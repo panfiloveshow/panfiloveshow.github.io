@@ -99,7 +99,8 @@ export function UnitEconomicsCalculator() {
                 ['Логистика с учётом выкупа', money(result.logistics)],
                 ['Налог', money(result.tax)],
                 ['Себестоимость', money(values.cost)],
-                ['Прочие расходы', money(values.storage + values.ads + values.other)],
+                // Сумма хранения, рекламы и «прочих» — название отличаем от одноимённого поля ввода
+                ['Хранение, реклама и прочее', money(values.storage + values.ads + values.other)],
                 ['Итого расходов', money(result.expenses)],
               ].map(([label, value]) => (
                 <div key={label} className="flex items-baseline justify-between gap-4">

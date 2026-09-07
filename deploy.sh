@@ -11,6 +11,7 @@
 #   DEPLOY_BACKUP_DIR     remote backup directory (default /home/crm_admin/archive)
 #   DEPLOY_SSH_OPTS       extra ssh options
 #   DEPLOY_BUILD_CMD      build command (default 'pnpm build')
+#   DEPLOY_SUBMIT_INDEXNOW отправлять sitemap в IndexNow после деплоя (default 1)
 # Optional sshpass: export SSHPASS=... and install sshpass.
 #
 # ВАЖНО: сайт содержит вложенные страницы (/wildberries/, /calculators/unit-economics/,
@@ -61,5 +62,12 @@ echo "==> Backing up remote dist to $REMOTE_BACKUP_DIR/landing-dist-$TIMESTAMP"
 
 echo "==> Deploying dist to $REMOTE:$REMOTE_DIST_PATH"
 "${RSYNC_BASE[@]}" -az --delete -e "ssh $SSH_OPTS" "$ROOT_DIR/dist/" "$REMOTE:$REMOTE_DIST_PATH/"
+
+if [ "${DEPLOY_SUBMIT_INDEXNOW:-1}" = "1" ]; then
+  echo "==> Submitting sitemap URLs to IndexNow"
+  if ! node "$ROOT_DIR/scripts/submit-indexnow.mjs"; then
+    echo "IndexNow submission failed; deployment itself completed successfully" >&2
+  fi
+fi
 
 echo "==> Deployment completed"

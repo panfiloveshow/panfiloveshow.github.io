@@ -59,6 +59,11 @@ const LEGAL_ROUTES: Record<string, 'privacy' | 'consent'> = {
 };
 
 const SEO_ROUTES: Record<string, SeoPageType> = {
+  '/about': 'about',
+  '/authors/danil-zubarev': 'authors/danil-zubarev',
+  '/cases': 'cases',
+  '/methodology': 'methodology',
+  '/analytics-marketplaces': 'analytics-marketplaces',
   '/features': 'features',
   '/pricing': 'pricing',
   '/marketplaces': 'marketplaces',

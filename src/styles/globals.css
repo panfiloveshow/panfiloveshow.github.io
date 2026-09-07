@@ -154,3 +154,16 @@
     stroke-dashoffset: 24;
   }
 }
+
+/* Печать и «сохранить как PDF»: scroll-анимации оставляют секции с opacity:0 —
+   на печати показываем весь контур без transform/анимаций. */
+@media print {
+  *,
+  *::before,
+  *::after {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+    transition: none !important;
+  }
+}

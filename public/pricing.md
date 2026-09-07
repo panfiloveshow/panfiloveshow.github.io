@@ -81,4 +81,6 @@
 - Email: hello@sellico.ru
 - Telegram: https://t.me/sellico
 
-Обновлено: 24 июля 2026 года.
+Обновлено: 25 августа 2026 года.
+
+Каноническая HTML-страница: https://sellico.ru/pricing/

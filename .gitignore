@@ -33,3 +33,17 @@ asset-sources
 .env
 .env.*.local
 deploy.local.sh
+
+# Локальное окружение и конфиги инструментов
+.env.production
+.mcp.json
+.repowise/
+tmp/
+
+# Рабочие материалы дизайна и скриншоты — в репозиторий не нужны
+assets-source/
+design-qa-assets/
+*-mobile.png
+
+# Внутренние отчёты и аудиты: репозиторий публичный
+REPORT-*.md

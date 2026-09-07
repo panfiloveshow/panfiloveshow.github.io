@@ -170,9 +170,9 @@ export function Hero() {
               <h1 className="mt-10 text-[clamp(2.9rem,12vw,4.15rem)] font-semibold leading-[0.98] tracking-[-0.06em] text-white lg:text-[clamp(3.05rem,4.25vw,4rem)]">
                 <span className="mb-5 block max-w-md text-sm font-semibold leading-snug tracking-[-0.015em] text-emerald-100 sm:text-base">
                   Операционная система для продавцов маркетплейсов
-                </span>
-                Управляйте
-                <span className="block">прибылью.</span>
+                </span>{' '}
+                Управляйте{' '}
+                <span className="block">прибылью.</span>{' '}
                 <span className="mt-2 block text-[#b9ef6a]">Не таблицами.</span>
               </h1>
 

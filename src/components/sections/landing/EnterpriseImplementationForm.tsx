@@ -15,6 +15,14 @@ import { Button } from '@/components/ui/Button';
 import { useDialogFocus } from '@/hooks/useDialogFocus';
 import { track } from '@/lib/analytics';
 import { cn } from '@/lib/cn';
+import {
+  PERSONAL_DATA_CONSENT_VERSION,
+  PERSONAL_DATA_CONSENT_PATH,
+  PERSONAL_DATA_CONSENT_URL,
+  PRIVACY_POLICY_PATH,
+  PRIVACY_POLICY_URL,
+  PRIVACY_POLICY_VERSION,
+} from '@/lib/legal';
 
 type EnterpriseLead = {
   name: string;
@@ -92,6 +100,13 @@ export function EnterpriseImplementationForm({ onClose }: { onClose: () => void 
       '',
       'Задача внедрения:',
       lead.goal.trim(),
+      '',
+      'Согласие на обработку персональных данных: да',
+      `Дата согласия: ${new Date().toISOString()}`,
+      `Версия согласия: ${PERSONAL_DATA_CONSENT_VERSION}`,
+      `Версия политики: ${PRIVACY_POLICY_VERSION}`,
+      `Согласие: ${PERSONAL_DATA_CONSENT_URL}`,
+      `Политика: ${PRIVACY_POLICY_URL}`,
     ].join('\n');
 
     track('lead_submit', { source: 'enterprise_implementation' });
@@ -290,11 +305,13 @@ export function EnterpriseImplementationForm({ onClose }: { onClose: () => void 
               placeholder="Например: объединить 12 магазинов, настроить финансовую аналитику и работу команды…"
               className="min-h-28 resize-y rounded-xl border border-ink-950/10 bg-[#f8faf9] px-4 py-3 text-sm leading-relaxed text-ink-950 outline-none transition placeholder:text-ink-400 focus:border-brand-500 focus:bg-white focus:ring-4 focus:ring-brand-500/10"
             />
+            <span className="text-xs font-normal text-ink-400">Не указывайте сведения о здоровье и другие специальные категории персональных данных.</span>
           </label>
 
           <label className="mt-4 flex cursor-pointer items-start gap-3 text-xs leading-relaxed text-ink-500">
             <input
               type="checkbox"
+              required
               checked={consent}
               onChange={(event) => {
                 setConsent(event.target.checked);
@@ -303,11 +320,7 @@ export function EnterpriseImplementationForm({ onClose }: { onClose: () => void 
               className="mt-0.5 h-4 w-4 shrink-0 accent-[#16865d]"
             />
             <span>
-              Я согласен на обработку персональных данных в соответствии с{' '}
-              <a href="/privacy/" className="font-medium text-brand-700 underline-offset-2 hover:underline">
-                политикой конфиденциальности
-              </a>
-              .
+              Я даю <a href={PERSONAL_DATA_CONSENT_PATH} target="_blank" rel="noopener noreferrer" className="font-medium text-brand-700 underline-offset-2 hover:underline">согласие на обработку персональных данных</a> (версия {PERSONAL_DATA_CONSENT_VERSION}) и ознакомлен с <a href={PRIVACY_POLICY_PATH} target="_blank" rel="noopener noreferrer" className="font-medium text-brand-700 underline-offset-2 hover:underline">политикой</a> (версия {PRIVACY_POLICY_VERSION}).
             </span>
           </label>
 

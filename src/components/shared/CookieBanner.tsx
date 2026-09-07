@@ -1,8 +1,14 @@
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { X } from 'lucide-react';
+import {
+  ANALYTICS_CONSENT_KEY,
+  initAnalytics,
+  OPEN_ANALYTICS_CONSENT_EVENT,
+  readAnalyticsConsent,
+} from '@/lib/analytics';
+import { PRIVACY_POLICY_VERSION } from '@/lib/legal';
 
-const STORAGE_KEY = 'sellico-cookie-consent';
 type CookieConsent = 'accepted' | 'declined';
 
 export function CookieBanner() {
@@ -12,21 +18,36 @@ export function CookieBanner() {
   useEffect(() => {
     const t = setTimeout(() => {
       try {
-        if (!localStorage.getItem(STORAGE_KEY)) setVisible(true);
+        const consent = readAnalyticsConsent();
+        if (consent === 'accepted') initAnalytics();
+        else if (!consent) setVisible(true);
       } catch {
         setVisible(true);
       }
     }, 800);
-    return () => clearTimeout(t);
+    const showSettings = () => setVisible(true);
+    window.addEventListener(OPEN_ANALYTICS_CONSENT_EVENT, showSettings);
+
+    return () => {
+      clearTimeout(t);
+      window.removeEventListener(OPEN_ANALYTICS_CONSENT_EVENT, showSettings);
+    };
   }, []);
 
   const saveChoice = (choice: CookieConsent) => {
+    const wasAccepted = readAnalyticsConsent() === 'accepted';
     try {
-      localStorage.setItem(STORAGE_KEY, choice);
+      localStorage.setItem(ANALYTICS_CONSENT_KEY, JSON.stringify({
+        choice,
+        documentVersion: PRIVACY_POLICY_VERSION,
+        decidedAt: new Date().toISOString(),
+      }));
     } catch {
       /* ignore */
     }
     setVisible(false);
+    if (choice === 'accepted') initAnalytics();
+    else if (wasAccepted) window.location.reload();
   };
 
   return (
@@ -53,7 +74,7 @@ export function CookieBanner() {
               <button
                 type="button"
                 onClick={() => saveChoice('declined')}
-                aria-label="Закрыть"
+                aria-label="Отказать в аналитике"
                 className="grid h-7 w-7 shrink-0 place-items-center rounded-md text-ink-600 transition-colors hover:bg-ink-950/5 hover:text-ink-950"
               >
                 <X size={13} />
@@ -65,7 +86,7 @@ export function CookieBanner() {
                 onClick={() => saveChoice('accepted')}
                 className="h-7 rounded-md bg-brand-800 px-2 text-[10px] font-semibold text-white shadow-[0_8px_18px_-12px_rgba(17,84,63,0.9)] transition-colors hover:bg-brand-900"
               >
-                Принять
+                Разрешить
               </button>
               <button
                 type="button"

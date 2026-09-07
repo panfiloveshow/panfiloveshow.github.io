@@ -6,6 +6,7 @@
 import { readPages } from './build-content-index.mjs';
 import hubFaq from '../src/content/hub-faq.json' with { type: 'json' };
 import hubContent from '../src/content/hub-content.json' with { type: 'json' };
+import { editorialAuthor, editorialMethodologyUrl, getEditorialSources } from './editorial-data.mjs';
 
 const detailPages = await readPages();
 
@@ -13,6 +14,7 @@ const detailRoutes = Object.entries(detailPages).map(([slug, page]) => ({
   path: slug,
   kind: page.kind,
   lastmod: page.lastmod,
+  created: page.created,
   priority: '0.9',
   changefreq: 'monthly',
   title: page.title,
@@ -22,11 +24,17 @@ const detailRoutes = Object.entries(detailPages).map(([slug, page]) => ({
   parent: page.parent,
   h1: page.h1,
   lead: page.lead,
+  answer: page.answer,
   definition: page.definition,
   formula: page.formula,
   sections: page.blocks,
   faq: page.faq,
   related: page.related,
+  editorial: {
+    author: editorialAuthor,
+    methodologyUrl: editorialMethodologyUrl,
+    sources: getEditorialSources(slug),
+  },
 }));
 
 export const organization = {
@@ -34,7 +42,10 @@ export const organization = {
   '@id': 'https://sellico.ru/#organization',
   name: 'Sellico',
   legalName: 'ИП ЗУБАРЕВ ДАНИЛ ВИКТОРОВИЧ',
+  alternateName: 'Sellico — операционная система для продавцов маркетплейсов',
   url: 'https://sellico.ru/',
+  disambiguatingDescription:
+    'Sellico на домене sellico.ru — российский SaaS для управления магазинами на Wildberries, Ozon и Яндекс Маркете.',
   logo: 'https://sellico.ru/logo.svg',
   email: 'hello@sellico.ru',
   description:
@@ -61,6 +72,50 @@ export const organization = {
     availableLanguage: ['ru'],
   },
   sameAs: ['https://t.me/sellico'],
+  knowsAbout: [
+    'аналитика маркетплейсов',
+    'юнит-экономика маркетплейсов',
+    'управление остатками',
+    'планирование поставок',
+    'SEO карточек товаров',
+  ],
+};
+
+export const website = {
+  '@type': 'WebSite',
+  '@id': 'https://sellico.ru/#website',
+  url: 'https://sellico.ru/',
+  name: 'Sellico',
+  alternateName: 'Sellico для продавцов маркетплейсов',
+  inLanguage: 'ru-RU',
+  publisher: {
+    '@id': 'https://sellico.ru/#organization',
+  },
+};
+
+export const editorialPerson = {
+  '@type': 'Person',
+  '@id': editorialAuthor.id,
+  name: editorialAuthor.name,
+  givenName: 'Данил',
+  familyName: 'Зубарев',
+  url: editorialAuthor.url,
+  description: editorialAuthor.description,
+  jobTitle: editorialAuthor.jobTitle,
+  email: editorialAuthor.email,
+  affiliation: {
+    '@id': 'https://sellico.ru/#organization',
+  },
+  worksFor: {
+    '@id': 'https://sellico.ru/#organization',
+  },
+  knowsAbout: [
+    'аналитика маркетплейсов',
+    'юнит-экономика маркетплейсов',
+    'управление остатками',
+    'планирование поставок',
+    'SEO карточек товаров',
+  ],
 };
 
 export const landingFaq = [
@@ -86,11 +141,11 @@ export const landingFaq = [
   ],
 ];
 
-export const routes = [
+const baseRoutes = [
   {
     path: 'features',
     kind: 'features',
-    lastmod: '2026-07-24',
+    lastmod: '2026-08-25',
     priority: '0.8',
     changefreq: 'monthly',
     title: 'Возможности Sellico — финансы, поставки, SEO и команда',
@@ -139,7 +194,7 @@ export const routes = [
   {
     path: 'pricing',
     kind: 'pricing',
-    lastmod: '2026-07-24',
+    lastmod: '2026-08-25',
     priority: '0.8',
     changefreq: 'monthly',
     title: 'Тарифы Sellico — цены и лимиты для продавцов маркетплейсов',
@@ -179,7 +234,7 @@ export const routes = [
   {
     path: 'marketplaces',
     kind: 'marketplaces',
-    lastmod: '2026-08-13',
+    lastmod: '2026-08-25',
     priority: '0.8',
     changefreq: 'monthly',
     title: 'Sellico для Wildberries, Ozon и Яндекс Маркета',
@@ -218,7 +273,7 @@ export const routes = [
   {
     path: 'privacy',
     kind: 'legal',
-    lastmod: '2026-07-24',
+    lastmod: '2026-09-01',
     priority: '0.2',
     changefreq: 'yearly',
     title: 'Политика обработки персональных данных — Sellico',
@@ -228,27 +283,27 @@ export const routes = [
     eyebrow: 'Юридическая информация',
     h1: 'Политика обработки персональных данных',
     lead:
-      'Документ описывает, какие данные обрабатывает Sellico, зачем они нужны, как хранятся и как пользователь может отозвать согласие.',
+      'Документ описывает обработку данных на сайте и в сервисе Sellico, роли оператора и обработчика, цели, хранение, защиту и права субъектов.',
     sections: [
       {
         title: '1. Оператор персональных данных',
-        text: 'Оператор: ИП ЗУБАРЕВ ДАНИЛ ВИКТОРОВИЧ, ИНН 644154992160. Email для обращений: hello@sellico.ru.',
+        text: 'Оператор сайта, аккаунтов, договоров и прямых заявок: ИП ЗУБАРЕВ ДАНИЛ ВИКТОРОВИЧ, ИНН 644154992160. При обработке данных, загруженных клиентом о третьих лицах, Sellico действует по поручению клиента.',
       },
       {
         title: '2. Какие данные обрабатываются',
-        text: 'Email, сведения из обращений, IP-адрес, тип устройства и браузера, источник перехода, страницы просмотра, дата и время визита, cookie-идентификаторы.',
+        text: 'Контакты и профиль пользователя, сведения из заявок и поддержки, данные рабочих пространств и подключённых интеграций, договорные сведения, журналы безопасности, технические данные и cookie.',
       },
       {
         title: '3. Цели и основания обработки',
-        text: 'Регистрация и доступ к сервису, обработка заявок, поддержка, исполнение договора, улучшение сайта и исполнение требований законодательства. Основания: согласие, договор и требования закона.',
+        text: 'Регистрация и доступ, функции рабочих пространств и интеграций, заявки и поддержка, договоры и расчёты, безопасность и исполнение закона. Основания зависят от цели: согласие, договор, закон или законный интерес.',
       },
       {
-        title: '4. Cookies и аналитика',
-        text: 'Необходимые cookies используются для работы интерфейса. Аналитические cookies применяются после согласия пользователя. Отказ доступен в cookie-баннере и настройках браузера.',
+        title: '4. Клиентские данные и специальные категории',
+        text: 'Клиент отвечает за законность данных третьих лиц в своём рабочем пространстве. В модуле больничных сведения о здоровье могут обрабатываться только по поручению клиента-работодателя при наличии основания по статье 10 Федерального закона № 152-ФЗ.',
       },
       {
-        title: '5. Срок хранения и права пользователя',
-        text: 'Данные хранятся до достижения целей, отзыва согласия или окончания обязательного срока. Пользователь может запросить сведения, уточнение, блокирование или удаление данных по адресу hello@sellico.ru.',
+        title: '5. Внешние сервисы, cookies, сроки и права',
+        text: 'Для отдельных функций могут использоваться Яндекс, Mistral AI, Telegram, MAX, ЮKassa и API маркетплей. Аналитика включается только после согласия. Запросить доступ, уточнение, блокирование, удаление или отозвать согласие можно через hello@sellico.ru.',
       },
       {
         title: '6. Защита данных',
@@ -259,7 +314,7 @@ export const routes = [
   {
     path: 'personal-data-consent',
     kind: 'legal',
-    lastmod: '2026-07-24',
+    lastmod: '2026-09-01',
     priority: '0.2',
     changefreq: 'monthly',
     title: 'Согласие на обработку персональных данных — Sellico',
@@ -268,7 +323,7 @@ export const routes = [
     canonical: 'https://sellico.ru/personal-data-consent/',
     eyebrow: 'Юридическая информация',
     h1: 'Согласие на обработку персональных данных',
-    lead: 'Согласие применяется при отправке формы регистрации или заявки на сайте Sellico.',
+    lead: 'Согласие применяется при регистрации, отправке прямой заявки или обращения в Sellico; версия документа и техническое доказательство принятия сохраняются.',
     sections: [
       {
         title: '1. Субъект и оператор',
@@ -276,11 +331,11 @@ export const routes = [
       },
       {
         title: '2. Перечень данных',
-        text: 'Email, IP-адрес, cookie-идентификаторы, сведения о браузере, устройстве, источнике перехода, дате и времени визита, а также сведения из дальнейшего общения.',
+        text: 'Имя, email, телефон или другой способ связи, сведения о компании и задаче, IP-адрес, user-agent, дата, источник формы, версия документа и сведения из дальнейшего общения.',
       },
       {
         title: '3. Цели обработки',
-        text: 'Создание аккаунта, обработка заявки, предоставление доступа, коммуникация по регистрации и поддержке, анализ работы сайта и улучшение пользовательского опыта.',
+        text: 'Создание аккаунта, обработка заявки, предоставление доступа, коммуникация, поддержка и подтверждение факта выраженного согласия.',
       },
       {
         title: '4. Разрешённые действия',
@@ -288,11 +343,24 @@ export const routes = [
       },
       {
         title: '5. Срок и отзыв',
-        text: 'Согласие действует до достижения целей или отзыва. Отозвать его можно письмом на hello@sellico.ru. Согласие не разрешает распространение данных неопределённому кругу лиц.',
+        text: 'Согласие действует до достижения целей или отзыва по hello@sellico.ru. Отзыв не отменяет законную обработку до его получения. Согласие не разрешает распространение данных неопределённому кругу лиц.',
       },
     ],
   },
 ];
+
+export const routes = baseRoutes.map((route) =>
+  route.editorial || route.kind === 'legal'
+    ? route
+    : {
+        ...route,
+        editorial: {
+          author: editorialAuthor,
+          methodologyUrl: editorialMethodologyUrl,
+          sources: getEditorialSources(route.path),
+        },
+      },
+);
 
 // Пути, которым разрешена индексация (index.html снимает индексацию со всего остального).
 export const publicPaths = ['/', ...routes.map((route) => `/${route.path}`)];
