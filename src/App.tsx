@@ -120,31 +120,16 @@ export default function App() {
         </Suspense>
       )}
       <Header />
+      {/* Страницы без Suspense намеренно: первый рендер идёт в startTransition (main.tsx),
+          и до загрузки чанка на экране остаётся пререндер, а не пустой main или лоадер. */}
       {notFound ? (
         <NotFoundPage />
       ) : legalPage ? (
-        <Suspense fallback={null}>
-          <LegalPage type={legalPage} />
-        </Suspense>
+        <LegalPage type={legalPage} />
       ) : seoPage ? (
-        <Suspense fallback={null}>
-          <SeoContentPage type={seoPage} />
-        </Suspense>
+        <SeoContentPage type={seoPage} />
       ) : (
-        <Suspense
-          fallback={
-            <main
-              id="main-content"
-              aria-busy="true"
-              aria-label="Загрузка Sellico"
-              className="min-h-screen bg-white pt-24"
-            >
-              <div className="mx-auto h-[620px] w-[calc(100%-2rem)] animate-pulse rounded-[28px] bg-[#edf4f0] lg:w-[calc(100%-8rem)]" />
-            </main>
-          }
-        >
-          <XwayInspiredLanding />
-        </Suspense>
+        <XwayInspiredLanding />
       )}
       <Footer />
       <Suspense fallback={null}>

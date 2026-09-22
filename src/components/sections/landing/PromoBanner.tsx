@@ -13,15 +13,39 @@ type RemotePromoBanner = {
   alt?: string | null;
 };
 
-// Тяжёлые PNG из текущей CMS-выдачи заменяем локальными оптимизированными JPEG. Ключом служит точный
-// путь файла: новый баннер автоматически останется на исходном URL, пока для него
-// не появится проверенная оптимизированная версия.
-const OPTIMIZED_PROMO_ASSETS: Record<string, string> = {
-  '/storage/promo-banners/cfmvVfdaI3kssMudeK7z4u5gbfuD1QkMtBFLsW4P.png':
-    '/assets/promo-banners/sellico-promo-7-desktop.jpg',
-  '/storage/promo-banners/HxqlM6u0RqDOzn6XVvSvt4WcggKXHn677CxNqOcv.png':
-    '/assets/promo-banners/sellico-promo-7-mobile.jpg',
+// Тяжёлые PNG из текущей CMS-выдачи заменяем локальными оптимизированными AVIF (JPEG — для браузеров
+// без AVIF). Ключом служит точный путь файла: новый баннер автоматически останется на исходном URL,
+// пока для него не появится проверенная оптимизированная версия.
+// Баннер — LCP главной и на мобиле, и на десктопе, поэтому вес первого слайда критичен.
+const OPTIMIZED_PROMO_ASSETS: Record<string, { src: string; avif: string }> = {
+  '/storage/promo-banners/cfmvVfdaI3kssMudeK7z4u5gbfuD1QkMtBFLsW4P.png': {
+    src: '/assets/promo-banners/sellico-promo-7-desktop.jpg',
+    avif: '/assets/promo-banners/sellico-promo-7-desktop.avif',
+  },
+  '/storage/promo-banners/HxqlM6u0RqDOzn6XVvSvt4WcggKXHn677CxNqOcv.png': {
+    src: '/assets/promo-banners/sellico-promo-7-mobile.jpg',
+    avif: '/assets/promo-banners/sellico-promo-7-mobile-750.avif 750w, /assets/promo-banners/sellico-promo-7-mobile-1125.avif 1125w',
+  },
 };
+
+const SECTION_CLASS = 'pt-24 lg:pt-[92px]';
+const CONTAINER_CLASS = 'lg:max-w-[1800px] lg:px-16';
+const FRAME_CLASS =
+  'relative isolate aspect-[3/1] overflow-hidden rounded-[30px] border border-[#dcebe3] bg-[#edf7f1] sm:aspect-[15/2]';
+
+// Пока идёт запрос к API, держим место под баннер: иначе он появляется над hero и сдвигает
+// весь первый экран (CLS 0.2–0.3 на главной).
+function PromoBannerSlot() {
+  return (
+    <section aria-hidden className={SECTION_CLASS}>
+      <Container className={CONTAINER_CLASS}>
+        <div className={FRAME_CLASS} />
+        {/* ponytail: место под точки карусели резервируем всегда (сейчас баннеров два); при одном баннере экран сдвинется на 40px */}
+        <div className="mt-2 h-8" />
+      </Container>
+    </section>
+  );
+}
 
 const PROMO_ALT_BY_IMAGE: Record<string, string> = {
   '/storage/promo-banners/5VobKJxhylox3v5N1flYYpQ7fUjiLsZ0hffXzDws.jpg':
@@ -29,10 +53,6 @@ const PROMO_ALT_BY_IMAGE: Record<string, string> = {
   '/storage/promo-banners/cfmvVfdaI3kssMudeK7z4u5gbfuD1QkMtBFLsW4P.png':
     'При оплате трёх месяцев тарифа Pro — один месяц бесплатно.',
 };
-
-function optimizedPromoAsset(src: string): string {
-  return OPTIMIZED_PROMO_ASSETS[src] ?? src;
-}
 
 export function PromoBanner() {
   const [slide, setSlide] = useState(0);
@@ -61,22 +81,25 @@ export function PromoBanner() {
     return () => window.clearInterval(id);
   }, [autoPaused, banners, focused, hovered, reducedMotion, slide]);
 
-  // Пока не пришёл ответ или баннеров нет — блок не рендерим вовсе (не показываем текстовую заглушку)
-  if (!banners || banners.length === 0) return null;
+  if (banners === null) return <PromoBannerSlot />;
+  // Баннеров нет — блок не рендерим вовсе (не показываем текстовую заглушку)
+  if (banners.length === 0) return null;
 
   const count = banners.length;
   const index = slide % count;
   const banner = banners[index];
   const bannerAlt = banner.alt ?? PROMO_ALT_BY_IMAGE[banner.image] ?? '';
+  const desktopAsset = OPTIMIZED_PROMO_ASSETS[banner.image];
+  const mobileAsset = banner.image_mobile ? OPTIMIZED_PROMO_ASSETS[banner.image_mobile] : undefined;
 
   const changeSlide = (direction: number) => {
     setSlide((value) => (value + direction + count) % count);
   };
 
   return (
-    <section aria-label="Предложения Sellico" className="pt-24 lg:pt-[92px]">
+    <section aria-label="Предложения Sellico" className={SECTION_CLASS}>
       {/* ponytail: без потолка ширины баннер на широких мониторах растягивается сильнее, чем даёт resolution картинки 2400×320 — размывается на Retina. Кап держит апскейл в пределах ~1.3x вместо ~2x */}
-      <Container className="lg:max-w-[1800px] lg:px-16">
+      <Container className={CONTAINER_CLASS}>
         <div
           // Пауза только для настоящего курсора: на тач-устройствах тап эмулирует mouseenter без mouseleave — hovered залипал бы навсегда и автопрокрутка умирала
           onPointerEnter={(e) => e.pointerType === 'mouse' && setHovered(true)}
@@ -86,10 +109,7 @@ export function PromoBanner() {
             if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setFocused(false);
           }}
         >
-          <motion.div
-            {...reveal}
-            className="relative isolate aspect-[3/1] overflow-hidden rounded-[30px] border border-[#dcebe3] bg-[#edf7f1] sm:aspect-[15/2]"
-          >
+          <motion.div {...reveal} className={FRAME_CLASS}>
           <div
             aria-hidden
             className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_77%_18%,rgba(255,255,255,.9),transparent_28%),linear-gradient(100deg,#e5f4ec_0%,#f8fbf9_58%,#e7f5ed_100%)]"
@@ -105,16 +125,20 @@ export function PromoBanner() {
             {(() => {
               const img = (
                 <picture>
-                  {banner.image_mobile && (
-                    <source media="(max-width: 639px)" srcSet={optimizedPromoAsset(banner.image_mobile)} />
+                  {mobileAsset && (
+                    // 40px — боковые отступы Container (px-5) на мобиле
+                    <source media="(max-width: 639px)" type="image/avif" srcSet={mobileAsset.avif} sizes="calc(100vw - 40px)" />
                   )}
+                  {banner.image_mobile && (
+                    <source media="(max-width: 639px)" srcSet={mobileAsset?.src ?? banner.image_mobile} />
+                  )}
+                  {desktopAsset && <source type="image/avif" srcSet={desktopAsset.avif} />}
                   <img
-                    src={optimizedPromoAsset(banner.image)}
+                    src={desktopAsset?.src ?? banner.image}
                     alt={bannerAlt}
                     className="h-full w-full object-cover"
                     decoding="async"
-                    loading="lazy"
-                    fetchPriority="low"
+                    fetchPriority="high"
                   />
                 </picture>
               );

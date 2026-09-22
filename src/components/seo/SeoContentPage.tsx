@@ -307,7 +307,7 @@ const PAGE_META: Record<string, { title: string; description: string; canonical:
     description:
       'Тарифы Sellico от 3 000 ₽ в месяц. Сравните лимиты магазинов, пользователей, товаров, SEO, отзывов и автопланирования поставок.',
     canonical: 'https://sellico.ru/pricing/',
-    lastmod: '2026-08-25',
+    lastmod: '2026-09-22',
   },
   marketplaces: {
     title: 'Sellico для Wildberries, Ozon и Яндекс Маркета',
@@ -1968,17 +1968,18 @@ export function SeoContentPage({ type }: { type: SeoPageType }) {
 
   return (
     <main id="main-content" tabIndex={-1} className="bg-white text-ink-950 outline-none">
-      <Suspense fallback={<div className="min-h-[70vh] animate-pulse bg-[#f4f8f6]" aria-busy="true" />}>
-        {type === 'features' ? (
-          <FeaturesPage />
-        ) : type === 'pricing' ? (
-          <PricingPage />
-        ) : type === 'marketplaces' ? (
-          <MarketplacesPage />
-        ) : (
-          <DetailPageView type={type} />
-        )}
-      </Suspense>
+      {/* Без Suspense намеренно: ожидание JSON страницы (use(loadPage)) уходит в первый рендер,
+          который идёт в startTransition (main.tsx), — до загрузки на экране остаётся пререндер.
+          Лоадер здесь на мгновение укорачивал страницу, и подвал прыгал (CLS 0.3). */}
+      {type === 'features' ? (
+        <FeaturesPage />
+      ) : type === 'pricing' ? (
+        <PricingPage />
+      ) : type === 'marketplaces' ? (
+        <MarketplacesPage />
+      ) : (
+        <DetailPageView type={type} />
+      )}
     </main>
   );
 }

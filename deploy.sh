@@ -60,12 +60,20 @@ echo "==> Backing up remote dist to $REMOTE_BACKUP_DIR/landing-dist-$TIMESTAMP"
 "${SSH_BASE[@]}" $SSH_OPTS "$REMOTE" \
   "mkdir -p '$REMOTE_BACKUP_DIR' && if [ -d '$REMOTE_DIST_PATH' ]; then cp -a '$REMOTE_DIST_PATH' '$REMOTE_BACKUP_DIR/landing-dist-$TIMESTAMP'; fi"
 
+# Снимок sitemap до выкладки: по нему IndexNow получит только новые и изменившиеся URL.
+# Не скачался — файл пустой, и отправятся все URL, как раньше.
+PREV_SITEMAP="$(mktemp)"
+trap 'rm -f "$PREV_SITEMAP"' EXIT
+curl -fsS --max-time 15 https://sellico.ru/sitemap.xml -o "$PREV_SITEMAP" || : > "$PREV_SITEMAP"
+
 echo "==> Deploying dist to $REMOTE:$REMOTE_DIST_PATH"
-"${RSYNC_BASE[@]}" -az --delete -e "ssh $SSH_OPTS" "$ROOT_DIR/dist/" "$REMOTE:$REMOTE_DIST_PATH/"
+# .well-known не трогаем: туда certbot (webroot) кладёт проверочные файлы от root,
+# и --delete падал бы на них с кодом 23.
+"${RSYNC_BASE[@]}" -az --delete --exclude='/.well-known/' -e "ssh $SSH_OPTS" "$ROOT_DIR/dist/" "$REMOTE:$REMOTE_DIST_PATH/"
 
 if [ "${DEPLOY_SUBMIT_INDEXNOW:-1}" = "1" ]; then
-  echo "==> Submitting sitemap URLs to IndexNow"
-  if ! node "$ROOT_DIR/scripts/submit-indexnow.mjs"; then
+  echo "==> Submitting changed sitemap URLs to IndexNow"
+  if ! INDEXNOW_PREV_SITEMAP="$PREV_SITEMAP" node "$ROOT_DIR/scripts/submit-indexnow.mjs"; then
     echo "IndexNow submission failed; deployment itself completed successfully" >&2
   fi
 fi

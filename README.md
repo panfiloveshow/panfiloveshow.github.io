@@ -127,8 +127,20 @@ bash deploy.sh
 
 Скрипт повторяет паттерн `front 2/frontend/deploy-prod-dist.sh`: локальный `pnpm build` → бэкап `dist/` на сервере → `rsync --delete` нового dist на удалённый таргет.
 
-После успешной публикации скрипт отправляет все URL из sitemap в IndexNow. Для отключения
+После успешной публикации скрипт отправляет в IndexNow только новые, изменившиеся (по `lastmod`)
+и удалённые URL — сравнивает с sitemap, снятым с прода до rsync. Для отключения
 разовой отправки используйте `DEPLOY_SUBMIT_INDEXNOW=0 bash deploy.sh`.
+
+`lastmod` страниц из `src/content/pages/**` поднимается сам: `pnpm build` сравнивает хеш содержимого
+с `scripts/content-hashes.json` и ставит сегодняшнюю дату изменённым страницам. Даты главной
+(`WebSite.dateModified` в `index.html`), features/pricing/marketplaces и юридических страниц
+(`scripts/site-routes.mjs`, `PAGE_META` в `SeoContentPage.tsx`) по-прежнему правятся руками.
+
+Серверные скрипты (запускаются на сервере через sudo, делают бэкап и откатываются при ошибке `nginx -t`):
+
+- `deploy/switch-to-letsencrypt.sh` — перевод TLS на Let's Encrypt с автопродлением.
+- `deploy/apply-nginx-hardening.sh` — HSTS и защитные заголовки на всех ответах, 301 с `/раздел/index.html`,
+  `gzip_vary`, `charset` для HTML. Повторный запуск включает HSTS, если сертификат продлён.
 
 **Default target:** `crm_admin@sellico.ru:/var/www/html/landing/dist` (ещё не финализирован — поддомен укажет владелец).
 

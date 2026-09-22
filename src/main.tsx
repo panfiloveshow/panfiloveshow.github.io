@@ -1,4 +1,4 @@
-import { StrictMode } from 'react';
+import { StrictMode, startTransition } from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './App';
 import './styles/globals.css';
@@ -17,8 +17,13 @@ window.addEventListener('unhandledrejection', (event) => {
 const rootEl = document.getElementById('root');
 if (!rootEl) throw new Error('Root element #root not found');
 
-createRoot(rootEl).render(
-  <StrictMode>
-    <App />
-  </StrictMode>,
-);
+// Первый рендер — переход: пока грузится ленивый чанк страницы (над ним нет Suspense),
+// React ничего не коммитит и пререндеренный HTML остаётся на экране. Иначе подвал
+// на мгновение прыгает под шапку и обратно — CLS 0.7–1.0 на всех контентных страницах.
+startTransition(() => {
+  createRoot(rootEl).render(
+    <StrictMode>
+      <App />
+    </StrictMode>,
+  );
+});

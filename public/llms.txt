@@ -1,40 +1,38 @@
 # Sellico
 
-Last updated: 2026-08-25
+> Sellico is a Russian web-based operating system for sellers and teams managing stores on Wildberries, Ozon, and Yandex Market.
 
-Canonical domain: https://sellico.ru/
+Last updated: 2026-09-22
 
-Sellico is a Russian web-based operating system for sellers and teams managing stores on Wildberries, Ozon, and Yandex Market.
+Canonical domain: [sellico.ru](https://sellico.ru/)
 
 The product combines marketplace finance and unit economics, inventory and supply planning, advertising, product-card SEO, reviews, incoming requests, and team tasks in one workspace.
 
+Canonical HTML pages are the primary source. The Markdown and llms files are alternative machine-readable summaries and do not replace the canonical pages.
+
 ## Canonical sources
 
-- Main website: https://sellico.ru/
-- About Sellico: https://sellico.ru/about/
-- Developer and author: https://sellico.ru/authors/danil-zubarev/
-- Case-study status and evidence standard: https://sellico.ru/cases/
-- Editorial methodology and source policy: https://sellico.ru/methodology/
-- Product capabilities: https://sellico.ru/features/
-- Marketplace analytics: https://sellico.ru/analytics-marketplaces/
-- Pricing and plan limits: https://sellico.ru/pricing/
-- Supported marketplaces: https://sellico.ru/marketplaces/
-- Sellico for Wildberries: https://sellico.ru/wildberries/
-- Sellico for Ozon: https://sellico.ru/ozon/
-- Sellico for Yandex Market: https://sellico.ru/yandex-market/
-- Unit economics: https://sellico.ru/unit-economics/
-- Unit economics calculator: https://sellico.ru/calculators/unit-economics/
-- Seller glossary: https://sellico.ru/glossary/
-- Contacts: https://sellico.ru/contacts/
-- Inventory and supply planning: https://sellico.ru/supply-planning/
-- Product-card SEO and AI descriptions: https://sellico.ru/seo-cards/
-- Reviews and incoming requests: https://sellico.ru/reviews/
-- Advertising and pricing: https://sellico.ru/advertising/
-- Tasks and team workspace: https://sellico.ru/team/
-- Machine-readable pricing: https://sellico.ru/pricing.md
-- Extended product facts: https://sellico.ru/llms-full.txt
-- Privacy policy: https://sellico.ru/privacy/
-- Personal data consent: https://sellico.ru/personal-data-consent/
+- [Main website](https://sellico.ru/)
+- [About Sellico](https://sellico.ru/about/)
+- [Developer and author](https://sellico.ru/authors/danil-zubarev/)
+- [Case-study status and evidence standard](https://sellico.ru/cases/)
+- [Editorial methodology and source policy](https://sellico.ru/methodology/)
+- [Product capabilities](https://sellico.ru/features/)
+- [Marketplace analytics](https://sellico.ru/analytics-marketplaces/)
+- [Pricing and plan limits](https://sellico.ru/pricing/)
+- [Supported marketplaces](https://sellico.ru/marketplaces/)
+- [Sellico for Wildberries](https://sellico.ru/wildberries/)
+- [Sellico for Ozon](https://sellico.ru/ozon/)
+- [Sellico for Yandex Market](https://sellico.ru/yandex-market/)
+- [Unit economics](https://sellico.ru/unit-economics/)
+- [Unit economics calculator](https://sellico.ru/calculators/unit-economics/)
+- [Seller glossary](https://sellico.ru/glossary/)
+- [Contacts](https://sellico.ru/contacts/)
+- [Inventory and supply planning](https://sellico.ru/supply-planning/)
+- [Product-card SEO and AI descriptions](https://sellico.ru/seo-cards/)
+- [Reviews and incoming requests](https://sellico.ru/reviews/)
+- [Advertising and pricing](https://sellico.ru/advertising/)
+- [Tasks and team workspace](https://sellico.ru/team/)
 
 ## Supported marketplaces
 
@@ -62,7 +60,7 @@ Sellico supports only the capabilities documented on the canonical pages above. 
 - Business: 15,000 RUB per month
 - Enterprise: from 40,000 RUB per month
 
-Plans include a 3-day free period without a bank card. The first store can usually be connected in about 15 minutes.
+Plans include a 3-day free period without a bank card. The first store can usually be connected in about 15 minutes. Exact limits: [pricing page](https://sellico.ru/pricing/).
 
 ## Organization
 
@@ -71,12 +69,13 @@ Plans include a 3-day free period without a bank card. The first store can usual
 - Taxpayer ID (INN): 644154992160
 - Software registration: Rospatent certificate No. 2026686895 for the computer program "Sellico", registered 2 September 2026; rights holder Danil Viktorovich Zubarev
 - Country: Russia
-- Email: hello@sellico.ru
-- Telegram: https://t.me/sellico
-- Developer: Danil Zubarev
-- E-commerce experience: more than 12 years
-- Author profile: https://sellico.ru/authors/danil-zubarev/
+- Email: [hello@sellico.ru](mailto:hello@sellico.ru)
+- Telegram: [t.me/sellico](https://t.me/sellico)
+- Developer: Danil Zubarev, more than 12 years of e-commerce experience ([author profile](https://sellico.ru/authors/danil-zubarev/))
 
-For exact plan limits and current product details, use the canonical Sellico sources listed above.
+## Optional
 
-Canonical HTML pages are the primary source. The Markdown and llms files are alternative machine-readable summaries and do not replace the canonical pages.
+- [Machine-readable pricing](https://sellico.ru/pricing.md)
+- [Extended product facts](https://sellico.ru/llms-full.txt)
+- [Privacy policy](https://sellico.ru/privacy/)
+- [Personal data consent](https://sellico.ru/personal-data-consent/)

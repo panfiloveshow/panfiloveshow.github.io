@@ -151,8 +151,21 @@ const indexNowKey = (await readFile(join('dist', 'indexnow-key.txt'), 'utf8')).t
 if (!/^[a-zA-Z0-9-]{8,128}$/.test(indexNowKey)) fail('indexnow-key.txt: ключ имеет неверный формат');
 if (sitemap.includes('indexnow-key.txt')) fail('sitemap.xml: технический ключ IndexNow не должен индексироваться');
 
-const llmsFull = await readFile(join('dist', 'llms-full.txt'), 'utf8');
-if (!llmsFull.includes('Last updated: 2026-08-25')) fail('llms-full.txt: устарела дата обновления');
+// Те же правила, что у аудита llms-txt в Lighthouse (Agentic Browsing): Markdown с H1 и ссылками
+// вида [текст](url). Голые URL аудит ссылками не считает. Ссылки на сайт — только на живые страницы.
+for (const name of ['llms.txt', 'llms-full.txt']) {
+  const text = await readFile(join('dist', name), 'utf8');
+  if (!/^\s*#\s+.+/m.test(text)) fail(`${name}: нет заголовка H1`);
+  if (!/^Last updated: \d{4}-\d{2}-\d{2}$/m.test(text)) fail(`${name}: нет строки «Last updated: ГГГГ-ММ-ДД»`);
+  const links = [...text.matchAll(/\[[^\]]+\]\(([^)]+)\)/g)].map((match) => match[1]);
+  if (!links.length) fail(`${name}: нет Markdown-ссылок`);
+  for (const url of links.filter((link) => link.startsWith('https://sellico.ru/'))) {
+    const file = url.slice('https://sellico.ru/'.length);
+    if (!sitemapUrls.includes(url) && !['pricing.md', 'llms-full.txt'].includes(file)) {
+      fail(`${name}: ссылка на ${url}, которой нет в sitemap`);
+    }
+  }
+}
 
 const landingHtml = await readFile(join('dist', 'index.html'), 'utf8');
 if (!landingHtml.includes('https://sellico.ru/og-image-v2.jpg')) fail('index.html: не подключено исправленное OG-изображение');

@@ -32,7 +32,8 @@ for (const file of await htmlFiles(DIST)) {
   const hrefs = [...html.matchAll(/href="([^"]+)"/g)].map((match) => match[1]);
 
   for (const href of new Set(hrefs)) {
-    if (!href.startsWith('/') || href.startsWith('//')) continue;
+    // /api/ отдаёт бэкенд, а не dist (на главной — preload запроса промо-баннеров)
+    if (!href.startsWith('/') || href.startsWith('//') || href.startsWith('/api/')) continue;
     const path = href.split('#')[0].split('?')[0];
     if (path === '/' || path === '') continue;
     checked += 1;

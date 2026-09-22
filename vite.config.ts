@@ -12,6 +12,8 @@ export default defineConfig({
   build: {
     target: 'es2020',
     cssCodeSplit: true,
+    // Нужен пререндеру: по нему он находит JSON-чанк страницы для modulepreload, затем удаляет.
+    manifest: true,
     rollupOptions: {
       output: {
         manualChunks(id) {

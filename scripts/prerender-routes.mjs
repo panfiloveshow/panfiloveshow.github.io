@@ -1,4 +1,5 @@
-import { mkdir, readdir, readFile, writeFile } from 'node:fs/promises';
+import { existsSync } from 'node:fs';
+import { mkdir, readdir, readFile, rm, writeFile } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
 import {
   editorialPerson,
@@ -19,14 +20,13 @@ if (missingRoutes.length) {
   throw new Error(`Нет маршрута в src/App.tsx для: ${missingRoutes.map((r) => r.path).join(', ')}`);
 }
 
-// Кириллический шрифт грузится только после разбора CSS — предзагрузка убирает эту задержку.
+// Шрифты грузятся только после разбора CSS — предзагрузка убирает эту задержку. Латиница нужна
+// не меньше кириллицы («Sellico», «WILDBERRIES»): без preload её подмена сдвигала вёрстку.
 // Имя файла содержит хеш сборки, поэтому подставляем его здесь, а не руками в index.html.
-const fontFile = (await readdir(join('dist', 'assets'))).find(
-  (name) => name.includes('cyrillic') && name.endsWith('.woff2'),
-);
-const fontPreload = fontFile
-  ? `  <link rel="preload" as="font" type="font/woff2" crossorigin href="/assets/${fontFile}" />\n  `
-  : '';
+const fontPreload = (await readdir(join('dist', 'assets')))
+  .filter((name) => name.startsWith('inter-') && name.endsWith('.woff2'))
+  .map((name) => `  <link rel="preload" as="font" type="font/woff2" crossorigin href="/assets/${name}" />\n  `)
+  .join('');
 
 function withFontPreload(html) {
   return fontPreload ? html.replace('</head>', `${fontPreload}</head>`) : html;
@@ -565,9 +565,13 @@ function replacePublicPaths(html) {
   );
 }
 
+// Дата главной живёт в одном месте — WebSite.dateModified в index.html; sitemap берёт её оттуда.
+const homeLastmod = indexHtml.match(/"dateModified":\s*"(\d{4}-\d{2}-\d{2})T/)?.[1];
+if (!homeLastmod) throw new Error('index.html: не найден WebSite.dateModified для lastmod главной');
+
 function buildSitemap() {
   const urls = [
-    { loc: 'https://sellico.ru/', lastmod: '2026-08-25', changefreq: 'weekly', priority: '1.0' },
+    { loc: 'https://sellico.ru/', lastmod: homeLastmod, changefreq: 'weekly', priority: '1.0' },
     ...routes.map((route) => ({
       loc: route.canonical,
       lastmod: route.lastmod,
@@ -637,9 +641,9 @@ function replaceMeta(html, route) {
 
 const baseHtml = withFontPreload(replacePublicPaths(indexHtml));
 
-// React монтируется сразу после main.js, а ленивый чанк страницы начинает качаться только
-// из lazy()-вызова — между пререндерным фолбэком и реальным контентом мелькает лоадер/пустой main.
-// modulepreload в head запускает загрузку чанка параллельно с main.js, поэтому фолбэк не успевает показаться.
+// Ленивый чанк страницы начинает качаться только из lazy()-вызова, а до его загрузки на экране
+// остаётся пререндер (первый рендер React идёт в startTransition, см. main.tsx).
+// modulepreload в head запускает загрузку чанка параллельно с main.js и сокращает это ожидание.
 async function findChunk(prefix) {
   const names = await readdir(join('dist', 'assets'));
   return names.find((name) => name.startsWith(prefix) && name.endsWith('.js'));
@@ -660,18 +664,48 @@ function withChunkPreload(html, preload) {
   return preload ? html.replace('</head>', `${preload}</head>`) : html;
 }
 
+// LCP главной — промо-баннер из API. Запрос стартует вместе с main.js, а не после рендера React.
+// crossorigin обязателен: без него preload не совпадёт с fetch() в PromoBanner и скачается дважды.
+const promoApiPreload = '<link rel="preload" as="fetch" crossorigin href="/api/public/promo-banners" />\n  ';
+
+// Контент детальной страницы — отдельный JSON-чанк, который SeoContentPage запрашивает только
+// после собственной загрузки. modulepreload по манифесту Vite убирает этот последовательный шаг.
+const manifestPath = join('dist', '.vite', 'manifest.json');
+const manifest = JSON.parse(await readFile(manifestPath, 'utf8'));
+
+function contentPreload(route) {
+  const slugs = route.kind === 'marketplaces' ? ['wildberries', 'ozon', 'yandex-market'] : [route.path];
+  return slugs
+    .map((slug) => manifest[`src/content/pages/${slug}.json`]?.file)
+    .filter(Boolean)
+    .map((file) => `<link rel="modulepreload" crossorigin href="/${file}" />\n  `)
+    .join('');
+}
+
+// LCP страниц маркетплейсов — hero-картинка, которая появляется только после рендера React.
+// srcset и sizes должны совпадать с <source type="image/avif"> в MarketplaceArtwork (SeoContentPage.tsx).
+function heroPreload(route) {
+  const base = `/assets/marketplaces/generated/${route.path}-system`;
+  if (!existsSync(join('dist', `${base}-960.avif`))) return '';
+  const srcset = [640, 960, 1536].map((width) => `${base}-${width}.avif ${width}w`).join(', ');
+  return `<link rel="preload" as="image" type="image/avif" fetchpriority="high" imagesrcset="${srcset}" imagesizes="(max-width: 640px) 100vw, (max-width: 1100px) 82vw, 920px" />\n  `;
+}
+
 await writeFile(
   indexPath,
-  injectRoot(withChunkPreload(baseHtml, landingPreload), buildLandingFallback()),
+  injectRoot(withChunkPreload(baseHtml, landingPreload + promoApiPreload), buildLandingFallback()),
 );
 
 for (const route of routes) {
   const outputPath = join('dist', route.path, 'index.html');
   await mkdir(dirname(outputPath), { recursive: true });
-  const pageHtml = withChunkPreload(baseHtml, route.kind === 'legal' ? legalPreload : seoPreload);
+  const chunk = route.kind === 'legal' ? legalPreload : seoPreload;
+  const pageHtml = withChunkPreload(baseHtml, chunk + contentPreload(route) + heroPreload(route));
   await writeFile(outputPath, replaceMeta(pageHtml, route));
 }
 
 await writeFile(join('dist', 'sitemap.xml'), buildSitemap());
+// Манифест больше не нужен и не должен уехать на прод.
+await rm(join('dist', '.vite'), { recursive: true, force: true });
 
 console.log(`prerendered landing fallback, ${routes.length} route(s) and sitemap.xml`);

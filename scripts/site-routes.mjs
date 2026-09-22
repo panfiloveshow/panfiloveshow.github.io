@@ -205,7 +205,7 @@ const baseRoutes = [
   {
     path: 'pricing',
     kind: 'pricing',
-    lastmod: '2026-08-25',
+    lastmod: '2026-09-22',
     priority: '0.8',
     changefreq: 'monthly',
     title: 'Тарифы Sellico — цены и лимиты для продавцов маркетплейсов',
@@ -284,7 +284,7 @@ const baseRoutes = [
   {
     path: 'privacy',
     kind: 'legal',
-    lastmod: '2026-09-01',
+    lastmod: '2026-09-22',
     priority: '0.2',
     changefreq: 'yearly',
     title: 'Политика обработки персональных данных — Sellico',
@@ -325,7 +325,7 @@ const baseRoutes = [
   {
     path: 'personal-data-consent',
     kind: 'legal',
-    lastmod: '2026-09-01',
+    lastmod: '2026-09-22',
     priority: '0.2',
     changefreq: 'monthly',
     title: 'Согласие на обработку персональных данных — Sellico',
