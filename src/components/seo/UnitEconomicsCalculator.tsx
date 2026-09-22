@@ -69,7 +69,7 @@ export function UnitEconomicsCalculator() {
                     {field.suffix}
                   </span>
                 </span>
-                {field.hint && <span className="mt-1.5 block text-xs leading-relaxed text-ink-500">{field.hint}</span>}
+                {field.hint && <span className="mt-1.5 block text-xs leading-relaxed text-ink-600">{field.hint}</span>}
               </label>
             ))}
           </form>
@@ -110,7 +110,7 @@ export function UnitEconomicsCalculator() {
               ))}
             </dl>
 
-            <p className="mt-6 text-xs leading-relaxed text-ink-500">
+            <p className="mt-6 text-xs leading-relaxed text-ink-600">
               Расчёт носит справочный характер: вы задаёте ставки вручную, а состав расходов площадки зависит от
               категории, схемы работы и текущих тарифов маркетплейса.
             </p>

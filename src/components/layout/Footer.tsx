@@ -115,7 +115,6 @@ export function Footer() {
               <a
                 href={REGISTER_URL}
                 className="absolute -top-9 right-10 z-10 flex flex-col items-start gap-1.5 max-sm:-top-7 max-sm:right-3"
-                aria-label="Начать бесплатно"
               >
                 <img
                   src="/logo.svg"

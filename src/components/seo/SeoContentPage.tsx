@@ -381,7 +381,7 @@ function EditorialInfo({ type, lastmod }: { type: string; lastmod: string }) {
                 </li>
               ))}
             </ul>
-            <p className="mt-4 text-xs leading-relaxed text-ink-500">
+            <p className="mt-4 text-xs leading-relaxed text-ink-600">
               Состав данных конкретного кабинета зависит от API площадки, периода и тарифа Sellico.
             </p>
           </div>

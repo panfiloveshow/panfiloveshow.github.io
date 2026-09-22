@@ -118,7 +118,7 @@ function StockSyncCard() {
     <div className="rounded-[26px] border border-[#dfe6e2] bg-white p-5 shadow-[0_22px_45px_-38px_rgba(20,66,46,.35)] sm:p-6">
       <div>
         <h2 className="text-lg font-semibold tracking-[-0.035em] text-[#17211c]">Остатки синхронизированы</h2>
-        <p className="mt-1 text-xs text-[#7d8982]">{formatSyncAge(syncAge)}</p>
+        <p className="mt-1 text-xs text-[#65736c]">{formatSyncAge(syncAge)}</p>
       </div>
 
       <ul className="mt-6 divide-y divide-[#e8ece9]">
@@ -372,7 +372,7 @@ export function Hero() {
                 <div className="relative z-10">
                   <p className="text-lg font-semibold tracking-[-0.035em] text-[#17211c]">Денежный поток</p>
                   <p className="mt-3 font-mono text-4xl font-semibold tracking-[-0.06em] text-[#126643]">+23%</p>
-                  <p className="mt-1 text-xs text-[#7d8982]">за последние 30 дней</p>
+                  <p className="mt-1 text-xs text-[#65736c]">за последние 30 дней</p>
                 </div>
                 <svg aria-hidden className="absolute inset-x-4 bottom-4 h-[46%] w-[calc(100%_-_2rem)]" viewBox="0 0 260 120" preserveAspectRatio="none">
                   <defs>
@@ -405,7 +405,7 @@ export function Hero() {
                 </span>
                 <div className="min-w-0">
                   <p className="font-mono text-xl font-semibold leading-none tracking-[-0.05em] text-[#17211c] sm:text-2xl">{value}</p>
-                  <p className="mt-2 max-w-[18ch] text-[11px] leading-snug text-[#738078] sm:text-xs">{label}</p>
+                  <p className="mt-2 max-w-[18ch] text-[11px] leading-snug text-[#65736c] sm:text-xs">{label}</p>
                 </div>
               </div>
             ))}
@@ -417,7 +417,7 @@ export function Hero() {
               <div className="min-w-0">
                 <p className="text-sm font-semibold tracking-[-0.025em] text-[#17211c]">Интеграции</p>
                 <p className="mt-1.5 text-[11px] font-medium leading-relaxed text-[#2e704f] sm:text-xs">Wildberries, Ozon, Яндекс Маркет</p>
-                <p className="mt-1 text-[10px] text-[#89938e]">без миграции данных</p>
+                <p className="mt-1 text-[10px] text-[#65736c]">без миграции данных</p>
               </div>
             </div>
           </div>

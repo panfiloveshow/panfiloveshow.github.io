@@ -44,7 +44,7 @@ export function AutomationCta({
           Открыть тестовый доступ
           <ArrowRight size={16} aria-hidden />
         </a>
-        <p className="mt-3 text-xs text-white/45">
+        <p className="mt-3 text-xs text-white/50">
           Тестовый доступ открывает те же расчёты по всем подключённым магазинам.
         </p>
       </div>
