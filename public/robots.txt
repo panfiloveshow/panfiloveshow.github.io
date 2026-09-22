@@ -10,6 +10,7 @@ Clean-param: utm_source&utm_medium&utm_campaign&utm_term&utm_content&yclid&gclid
 # Такие ссылки — та же страница, а не отдельные документы.
 Clean-param: price&cost&commissionPct&logistics&buyoutPct&storage&ads&other&taxPct /calculators/
 Clean-param: avgStock&sold&periodDays&leadTime&adCost&revenue&marginPct&fixedCosts&profitPerUnit /calculators/
+Clean-param: feesPct&extra&targetPct&purchase&delivery&packaging&units&defectPct&investment&received&costs /calculators/
 
 # Поисковые и пользовательские AI-агенты могут читать публичную документацию.
 # Приватный CRM-контур для них закрыт так же, как для остальных роботов.

@@ -3,7 +3,7 @@
   "advertising": "cb26216f32e98ac110f72a8f8f0a97b1624e1c8a",
   "analytics-marketplaces": "ea37c42a2f601e5a530651a816a2758569b027f2",
   "authors/danil-zubarev": "7b5baddb42cd9bba9c781c8e8604ec37c93ef4b0",
-  "calculators": "b42b858e864423b4e32759153a905fbfbe91b8b6",
+  "calculators": "46d0bcb0fb99a0892aa8e166da4fa978345ae998",
   "calculators/break-even": "98fee10c7695d3c29faf644fd1282289261edb6b",
   "calculators/drr": "cf274bef2f55d60fcbf916ffdcccd060e446f4c4",
   "calculators/turnover": "8a0be84b0f6a386333c36cb6763be9a6aee4ace9",
@@ -14,11 +14,11 @@
   "glossary/abc-analysis": "547be19c7d850963243d1eb6ab669f7b7bf9015a",
   "glossary/buyout-rate": "82bb5397850eebfc561bd9ce5c2b4c4b4ebe574f",
   "glossary/conversion": "75fdf8c6e9f2004951600e4172464c6e43094e3e",
-  "glossary/cost-price": "d80ea4836a40044e1087c661a49042682341c221",
+  "glossary/cost-price": "a66bc9a11c2ff23e7ab958655ef6a3674f5271bd",
   "glossary/drr": "61a6bd009d8d50ef8c57a7448c3f7a2a5cb0a374",
   "glossary/fbo-fbs": "d86c7486636f20ed26e3987a51f7ed21c8c89634",
-  "glossary/margin": "48af82b976608824c245d171723844081b82812f",
-  "glossary/roi": "04844494cc2d50a369a2606a77e895f02ed5f034",
+  "glossary/margin": "430abff6fd8481ebd9c20589491de068a8e2f75a",
+  "glossary/roi": "b7fd81ac9e9b1d27dc4b9c72fe8f29f1587605b7",
   "glossary/turnover": "daf3ec1bd35dfc4f381a999e4f7406c52c3a31aa",
   "methodology": "14c705ba048a766f0cd3a185c625606a9ddf593a",
   "ozon": "761f8107c08d08be92ef3a9ba2429f0fb522bef1",
@@ -28,5 +28,8 @@
   "team": "5b012936c8a86c73c20e97b47a9dcf7229b394dd",
   "unit-economics": "594f712468902b7e353e1d81d590e526ad427a63",
   "wildberries": "b7478dd7de7dba0dd054eb80e92e889c48189b4b",
-  "yandex-market": "d217abbb42e67ef0fcb2df0ac2dd4a5f9676711a"
+  "yandex-market": "d217abbb42e67ef0fcb2df0ac2dd4a5f9676711a",
+  "calculators/cost-price": "bbf8d777cc00211bb45af467a2219f824ab1a346",
+  "calculators/margin": "ec693e19097660c5a0d53dbe2dd3e771a2c112bb",
+  "calculators/roi": "10e786a06cdcdb6b4566cf202ee72c1b77023268"
 }

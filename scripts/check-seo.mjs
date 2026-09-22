@@ -137,6 +137,16 @@ for (const bot of [
 if (!robots.includes('Disallow: /crm/')) fail('robots.txt: CRM не закрыт');
 // Яндекс: путь в Clean-param отделяется пробелом; через & он становится именем параметра
 if (/^Clean-param:.*&\//m.test(robots)) fail('robots.txt: путь в Clean-param приклеен через &');
+// Калькуляторы пишут поля в адрес; поле без Clean-param Яндекс считает отдельной страницей-дублем.
+const calcKeys = new Set();
+for (const file of ['src/lib/calculator-specs.ts', 'src/components/seo/UnitEconomicsCalculator.tsx']) {
+  for (const [, key] of (await readFile(file, 'utf8')).matchAll(/\bkey: '(\w+)'/g)) calcKeys.add(key);
+}
+const cleanedKeys = new Set(
+  [...robots.matchAll(/^Clean-param: (\S+) \/calculators\/$/gm)].flatMap(([, params]) => params.split('&')),
+);
+const unclean = [...calcKeys].filter((key) => !cleanedKeys.has(key));
+if (unclean.length) fail(`robots.txt: поля калькуляторов без Clean-param — ${unclean.join(', ')}`);
 if (robots.indexOf('User-agent: OAI-SearchBot') < robots.lastIndexOf('Clean-param:')) {
   fail('robots.txt: AI-группа разрывает wildcard-группу с Clean-param');
 }

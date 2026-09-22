@@ -72,8 +72,8 @@ export const MINI_CALCS: Record<string, MiniSpec> = {
       };
     },
     link: {
-      label: 'Посчитать прибыль со всеми расходами площадки',
-      href: (v) => `/calculators/unit-economics/?price=${v.price}&cost=${v.cost}`,
+      label: 'Учесть удержания площадки и подобрать цену',
+      href: (v) => `/calculators/margin/?price=${v.price}&cost=${v.cost}`,
     },
   },
   'glossary/buyout-rate': {
@@ -105,8 +105,10 @@ export const MINI_CALCS: Record<string, MiniSpec> = {
       return { value: rub(r.perUnit), caption: `Всего затрат на партию — ${rub(r.total)}` };
     },
     link: {
-      label: 'Подставить в расчёт юнит-экономики',
-      href: (v) => `/calculators/unit-economics/?cost=${calcCostPrice({ ...v, packaging: 0 } as never).perUnit}`,
+      label: 'Добавить упаковку, маркировку и брак',
+      // Нули в новых полях — чтобы калькулятор открылся с тем же результатом, что здесь.
+      href: (v) =>
+        `/calculators/cost-price/?purchase=${v.purchase}&delivery=${v.delivery}&packaging=0&units=${v.units}&defectPct=0`,
     },
   },
   'glossary/roi': {
@@ -117,7 +119,10 @@ export const MINI_CALCS: Record<string, MiniSpec> = {
     ],
     defaults: { investment: 500000, profit: 650000 },
     compute: (v) => ({ value: pct(calcRoi(v as never).roi), caption: 'Возврат на вложенные средства' }),
-    link: { label: 'Посмотреть все калькуляторы', href: () => '/calculators/' },
+    link: {
+      label: 'Учесть налог и срок оборота',
+      href: (v) => `/calculators/roi/?investment=${v.investment}&received=${v.profit}&costs=0`,
+    },
   },
   'glossary/conversion': {
     title: 'Посчитайте воронку карточки',

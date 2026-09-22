@@ -1,6 +1,6 @@
 {
   "kind": "glossary",
-  "lastmod": "2026-08-25",
+  "lastmod": "2026-09-22",
   "eyebrow": "Себестоимость",
   "parent": [
     "Глоссарий",
@@ -67,6 +67,10 @@
     ]
   ],
   "related": [
+    [
+      "Калькулятор себестоимости",
+      "/calculators/cost-price/"
+    ],
     [
       "Калькулятор юнит-экономики",
       "/calculators/unit-economics/"

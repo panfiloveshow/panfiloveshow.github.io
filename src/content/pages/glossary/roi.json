@@ -1,6 +1,6 @@
 {
   "kind": "glossary",
-  "lastmod": "2026-08-19",
+  "lastmod": "2026-09-22",
   "eyebrow": "ROI и ROMI",
   "parent": [
     "Глоссарий",
@@ -71,6 +71,10 @@
     ]
   ],
   "related": [
+    [
+      "Калькулятор ROI",
+      "/calculators/roi/"
+    ],
     [
       "ДРР — формула и норма",
       "/glossary/drr/"

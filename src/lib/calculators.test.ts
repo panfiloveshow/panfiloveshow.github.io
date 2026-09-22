@@ -66,4 +66,39 @@ assert.equal(funnel.ctr, 4);
 assert.equal(funnel.conversion, 6);
 assert.equal(calcFunnel({ impressions: 0, visits: 0, orders: 0 }).ctr, 0);
 
+// Калькуляторы маржинальности, себестоимости и ROI — числа из примеров на их страницах
+import { calcMargin } from './calculators.ts';
+
+// 2000 × (1 − 27%) − 700 − 300 = 460 ₽: те же 23% и ≈66%, что в глоссарии.
+const margin = calcMargin({ price: 2000, cost: 700, feesPct: 27, extra: 300, targetPct: 25 });
+assert.equal(margin.profit, 460);
+assert.equal(margin.margin, 23);
+assert.equal(margin.markup, 65.71);
+assert.equal(margin.grossMargin, 65);
+assert.equal(margin.grossMarkup, 185.71);
+assert.equal(margin.minPrice, 1370, '1000 / 0,73 = 1369,86 — округляем вверх до рубля');
+assert.equal(margin.targetPrice, 2084, '1000 / (1 − 0,27 − 0,25) = 2083,33');
+assert.ok(calcMargin({ price: 2084, cost: 700, feesPct: 27, extra: 300, targetPct: 25 }).margin >= 25);
+assert.equal(calcMargin({ price: 2000, cost: 700, feesPct: 60, extra: 300, targetPct: 40 }).targetPrice, null, 'удержания и цель съедают всю цену');
+assert.equal(calcMargin({ price: 2000, cost: 700, feesPct: 60, extra: 300, targetPct: 40 }).minPrice, 2500);
+// Ровное деление не должно уводить цену на рубль вверх из-за плавающей точки.
+assert.equal(calcMargin({ price: 0, cost: 900, feesPct: 20, extra: 60, targetPct: 32 }).targetPrice, 2000);
+
+// Брак 2%: 390 000 ₽ делятся на 490 единиц, а не на 500.
+const costPrice = calcCostPrice({ purchase: 350000, delivery: 25000, packaging: 15000, other: 0, units: 500, defectPct: 2 });
+assert.equal(costPrice.sellable, 490);
+assert.equal(costPrice.perUnit, 795.92);
+assert.equal(costPrice.purchasePerUnit, 700);
+assert.equal(costPrice.upliftPct, 13.7);
+assert.equal(calcCostPrice({ purchase: 0, delivery: 100, packaging: 0, units: 10 }).upliftPct, null, 'без закупки сравнивать не с чем');
+assert.equal(calcCostPrice({ purchase: 1000, delivery: 0, packaging: 0, units: 3, defectPct: 99 }).sellable, 1, 'хотя бы одна единица');
+
+// ROI: 650 000 − 500 000 − 40 000 = 110 000 ₽, это 22% за 60 дней и 11% в пересчёте на 30.
+const roi = calcRoi({ profit: 650000, investment: 500000, costs: 40000, periodDays: 60 });
+assert.equal(roi.net, 110000);
+assert.equal(roi.roi, 22);
+assert.equal(roi.monthly, 11);
+assert.equal(calcRoi({ profit: 650000, investment: 500000 }).monthly, null, 'без срока пересчёта нет');
+assert.equal(calcRoi({ profit: 400000, investment: 500000, costs: 0, periodDays: 30 }).roi, -20);
+
 console.log('calculators: ok');
