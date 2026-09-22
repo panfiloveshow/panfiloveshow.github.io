@@ -135,6 +135,8 @@ for (const bot of [
   if (!robots.includes(`User-agent: ${bot}`)) fail(`robots.txt: нет правила для ${bot}`);
 }
 if (!robots.includes('Disallow: /crm/')) fail('robots.txt: CRM не закрыт');
+// Яндекс: путь в Clean-param отделяется пробелом; через & он становится именем параметра
+if (/^Clean-param:.*&\//m.test(robots)) fail('robots.txt: путь в Clean-param приклеен через &');
 if (robots.indexOf('User-agent: OAI-SearchBot') < robots.lastIndexOf('Clean-param:')) {
   fail('robots.txt: AI-группа разрывает wildcard-группу с Clean-param');
 }
