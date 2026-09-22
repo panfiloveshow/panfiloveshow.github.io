@@ -64,9 +64,9 @@ export function CookieBanner() {
         >
           <div className="glass-light rounded-xl border border-ink-950/[0.06] p-2 shadow-card">
             <div className="flex items-start gap-2">
-              <p className="min-w-0 flex-1 text-[10px] leading-snug text-ink-500">
+              <p className="min-w-0 flex-1 text-[10px] leading-snug text-ink-700">
                 Cookies и аналитика.{' '}
-                <a href="/privacy/" className="font-semibold text-brand-800 underline-offset-2 hover:underline">
+                <a href="/privacy/" className="font-semibold text-brand-900 underline-offset-2 hover:underline">
                   Политика
                 </a>
                 .
