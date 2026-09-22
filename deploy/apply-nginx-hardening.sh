@@ -91,7 +91,7 @@ LANDING_HTML = {'location = / {', 'location / {', 'location = /unit-economics/ {
 MAIN_TAIL = r'''
 	# apply-nginx-hardening.sh: кодировка HTML, Vary для gzip и склейка дублей /раздел/index.html.
 	charset utf-8;
-	charset_types text/html text/xml text/plain text/vnd.wap.wml application/javascript application/rss+xml text/markdown;
+	charset_types text/xml text/plain text/vnd.wap.wml application/javascript application/rss+xml text/markdown;
 	gzip_vary on;
 	# $request_uri — адрес из запроса клиента: внутренний переход index → /раздел/index.html сюда не попадает.
 	# CRM не трогаем: её service worker может запрашивать /crm/index.html напрямую.
