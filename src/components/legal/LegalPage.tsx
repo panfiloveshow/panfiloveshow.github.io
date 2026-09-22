@@ -15,6 +15,7 @@ const OPERATOR = {
   inn: '644154992160',
   ogrnip: '325527500011480',
   email: 'hello@sellico.ru',
+  softwareCertificate: 'Свидетельство о государственной регистрации программы для ЭВМ № 2026686895 от 02.09.2026 (Роспатент)',
 };
 
 type LegalPageProps = {
@@ -49,6 +50,8 @@ function OperatorDetails() {
       <dd>{OPERATOR.inn}</dd>
       <dt className="font-medium text-ink-950">ОГРНИП</dt>
       <dd>{OPERATOR.ogrnip}</dd>
+      <dt className="font-medium text-ink-950">Программа для ЭВМ</dt>
+      <dd>{OPERATOR.softwareCertificate}</dd>
       <dt className="font-medium text-ink-950">Email для обращений</dt>
       <dd>
         <a className="text-brand-700 underline-offset-2 hover:underline" href={`mailto:${OPERATOR.email}`}>

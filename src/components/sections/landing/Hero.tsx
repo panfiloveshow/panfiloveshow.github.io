@@ -208,6 +208,7 @@ export function Hero() {
                   <span className="inline-flex items-center gap-1.5"><CircleCheck size={13} className="text-[#b9ef6a]" />15 минут</span>
                   <span className="inline-flex items-center gap-1.5"><CircleCheck size={13} className="text-[#b9ef6a]" />3 дня бесплатно</span>
                   <span className="inline-flex items-center gap-1.5"><CircleCheck size={13} className="text-[#b9ef6a]" />без карты</span>
+                  <span className="inline-flex items-center gap-1.5"><CircleCheck size={13} className="text-[#b9ef6a]" />зарегистрировано в Роспатенте</span>
                 </div>
               </div>
             </div>

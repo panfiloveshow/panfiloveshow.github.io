@@ -87,6 +87,7 @@ Machine-readable Markdown and llms files summarize the public HTML and are not s
 - Brand: Sellico
 - Legal entity: Individual entrepreneur Danil Viktorovich Zubarev
 - Taxpayer ID (INN): 644154992160
+- Software registration: Rospatent certificate No. 2026686895 for the computer program "Sellico", registered 2 September 2026; rights holder Danil Viktorovich Zubarev
 - Country: Russia
 - Email: hello@sellico.ru
 - Telegram: https://t.me/sellico

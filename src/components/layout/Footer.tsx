@@ -187,6 +187,9 @@ export function Footer() {
               <a href="mailto:hello@sellico.ru" className="transition-colors hover:text-white">
                 hello@sellico.ru
               </a>
+              <span className="mt-1.5 block">
+                Программа для ЭВМ «Sellico» зарегистрирована в Роспатенте, свидетельство № 2026686895 от 02.09.2026.
+              </span>
             </p>
             <div className="w-full max-w-[420px] xl:w-[30vw] xl:max-w-[500px]" aria-label="Платежные системы и эквайринг">
               <img
