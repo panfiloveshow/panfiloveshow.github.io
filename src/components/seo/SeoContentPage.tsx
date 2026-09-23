@@ -24,6 +24,7 @@ import hubFaq from '@/content/hub-faq.json';
 import hubContent from '@/content/hub-content.json';
 import { UnitEconomicsCalculator } from '@/components/seo/UnitEconomicsCalculator';
 import { SimpleCalculator } from '@/components/seo/SimpleCalculator';
+import { AbcXyzCalculator } from '@/components/seo/AbcXyzCalculator';
 import { MiniCalc } from '@/components/seo/MiniCalc';
 import {
   EDITORIAL_AUTHOR,
@@ -1847,7 +1848,13 @@ function DetailPageView({ type }: { type: DetailPageType }) {
       )}
       {page.kind === 'calculator' && (
         <>
-          {page.calc ? <SimpleCalculator spec={page.calc} /> : <UnitEconomicsCalculator />}
+          {page.calc === 'abc-xyz' ? (
+            <AbcXyzCalculator />
+          ) : page.calc ? (
+            <SimpleCalculator spec={page.calc} />
+          ) : (
+            <UnitEconomicsCalculator />
+          )}
           {page.demo && <ProductScreen demo={page.demo} />}
         </>
       )}

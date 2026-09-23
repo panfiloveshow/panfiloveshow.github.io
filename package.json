@@ -9,7 +9,7 @@
     "preview": "vite preview --port 4173",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "typecheck": "tsc -b --noEmit",
-    "test": "node --experimental-strip-types src/lib/unit-economics.test.ts && node --experimental-strip-types src/lib/calculators.test.ts && node --experimental-strip-types src/lib/calc-url.test.ts && node scripts/lastmod.test.mjs",
+    "test": "node --experimental-strip-types src/lib/unit-economics.test.ts && node --experimental-strip-types src/lib/calculators.test.ts && node --experimental-strip-types src/lib/calc-url.test.ts && node --experimental-strip-types src/lib/abc-xyz.test.ts && node scripts/lastmod.test.mjs",
     "check:links": "node scripts/check-links.mjs",
     "check:seo": "node scripts/check-seo.mjs",
     "check:queries": "node scripts/check-query-map.mjs",

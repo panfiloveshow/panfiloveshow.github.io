@@ -113,6 +113,7 @@
     "calculators/margin": "economics",
     "calculators/cost-price": "economics",
     "calculators/roi": "economics",
+    "calculators/abc-xyz": "inventory",
     "contacts": "company",
     "glossary": "economics",
     "glossary/drr": "economics",

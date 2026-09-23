@@ -3,7 +3,7 @@
   "advertising": "04a7f832a11ab31f31fa35b902a0a07ddd5d6956",
   "analytics-marketplaces": "ea37c42a2f601e5a530651a816a2758569b027f2",
   "authors/danil-zubarev": "7b5baddb42cd9bba9c781c8e8604ec37c93ef4b0",
-  "calculators": "46d0bcb0fb99a0892aa8e166da4fa978345ae998",
+  "calculators": "3b7e196c159d6982d59e107d7a0d580eccd892eb",
   "calculators/break-even": "c2db1d79a759c121695543e599cb61130bbd0906",
   "calculators/drr": "cf274bef2f55d60fcbf916ffdcccd060e446f4c4",
   "calculators/turnover": "b098026347a92b7d3a485942aa8a63636cc9d449",
@@ -11,7 +11,7 @@
   "cases": "87984208bac0a1e2ad2049b2c3dabf514c6dc80f",
   "contacts": "c29eacd39abb32d879c60426b01ca96b8312d30e",
   "glossary": "c6ca3ed4e779870a6e032c7b84db5a2d467a0459",
-  "glossary/abc-analysis": "e92c112a370c86c3956440510c8899b36c2e9e0a",
+  "glossary/abc-analysis": "78a069e50176624e1a77d5dd80f3d378a76646ee",
   "glossary/buyout-rate": "82bb5397850eebfc561bd9ce5c2b4c4b4ebe574f",
   "glossary/conversion": "75fdf8c6e9f2004951600e4172464c6e43094e3e",
   "glossary/cost-price": "a66bc9a11c2ff23e7ab958655ef6a3674f5271bd",
@@ -33,8 +33,9 @@
   "calculators/margin": "ec693e19097660c5a0d53dbe2dd3e771a2c112bb",
   "calculators/roi": "10e786a06cdcdb6b4566cf202ee72c1b77023268",
   "glossary/safety-stock": "f56e8d3b2f7051415eef1cfef4164e640a83eb78",
-  "glossary/xyz-analysis": "789685f8c4aa78fcd62b2f9bb727a1da4fe3d723",
+  "glossary/xyz-analysis": "102de5147f4ffe10f4dd9210be53267fb8b1e6d6",
   "glossary/break-even": "cbd60e8c907e1a48444420376507881a133227f6",
   "glossary/cpm-cpc-cpo": "6807fac995031f9b3a164ecb2449ae03673095fa",
-  "glossary/lost-sales": "50cb1f2d513e6b5c545641330bccf2c18dd2dbf9"
+  "glossary/lost-sales": "50cb1f2d513e6b5c545641330bccf2c18dd2dbf9",
+  "calculators/abc-xyz": "4fea80ed4399a2a11316cb9a8c3588636c073778"
 }
