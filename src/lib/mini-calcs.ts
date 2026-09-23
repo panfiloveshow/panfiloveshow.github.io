@@ -8,6 +8,7 @@ import {
   calcLogisticsPerSale,
   calcMarginPair,
   calcRoi,
+  calcSafetyStock,
   calcTurnover,
 } from '@/lib/calculators';
 
@@ -54,6 +55,23 @@ export const MINI_CALCS: Record<string, MiniSpec> = {
     link: {
       label: 'Проверить, хватит ли запаса до поставки',
       href: (v) => `/calculators/turnover/?avgStock=${v.avgStock}&sold=${v.sold}`,
+    },
+  },
+  'glossary/safety-stock': {
+    title: 'Посчитайте страховой запас',
+    fields: [
+      { key: 'avgDaily', label: 'Средние продажи в день', suffix: 'шт.' },
+      { key: 'maxDaily', label: 'Максимальные продажи в день', suffix: 'шт.' },
+      { key: 'leadTime', label: 'Срок поставки', suffix: 'дн.' },
+    ],
+    defaults: { avgDaily: 20, maxDaily: 32, leadTime: 12 },
+    compute: (v) => {
+      const r = calcSafetyStock(v as never);
+      return { value: `${r.safety} шт.`, caption: `Точка заказа — ${r.reorderPoint} шт.` };
+    },
+    link: {
+      label: 'Проверить, хватит ли запаса до поставки',
+      href: (v) => `/calculators/turnover/?sold=${v.avgDaily * 30}&periodDays=30&leadTime=${v.leadTime}`,
     },
   },
   'glossary/margin': {

@@ -95,6 +95,8 @@ const SEO_ROUTES: Record<string, SeoPageType> = {
   '/glossary/roi': 'glossary/roi',
   '/glossary/conversion': 'glossary/conversion',
   '/glossary/cost-price': 'glossary/cost-price',
+  '/glossary/xyz-analysis': 'glossary/xyz-analysis',
+  '/glossary/safety-stock': 'glossary/safety-stock',
 };
 
 export default function App() {

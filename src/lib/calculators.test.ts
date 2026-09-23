@@ -101,4 +101,15 @@ assert.equal(roi.monthly, 11);
 assert.equal(calcRoi({ profit: 650000, investment: 500000 }).monthly, null, 'без срока пересчёта нет');
 assert.equal(calcRoi({ profit: 400000, investment: 500000, costs: 0, periodDays: 30 }).roi, -20);
 
+// Страховой запас — пример со страницы глоссария: 32 × 16 − 20 × 12 = 272, точка заказа 512.
+import { calcSafetyStock } from './calculators.ts';
+
+const stock = calcSafetyStock({ avgDaily: 20, maxDaily: 32, leadTime: 12, maxLeadTime: 16 });
+assert.equal(stock.safety, 272);
+assert.equal(stock.reorderPoint, 512);
+// Мини-расчёт: срок постоянный, запас покрывает только всплеск продаж — (32 − 20) × 12.
+assert.deepEqual(calcSafetyStock({ avgDaily: 20, maxDaily: 32, leadTime: 12 }), { safety: 144, reorderPoint: 384 });
+assert.equal(calcSafetyStock({ avgDaily: 20, maxDaily: 10, leadTime: 12 }).safety, 0, 'максимум ниже среднего не даёт отрицательный запас');
+assert.equal(calcSafetyStock({ avgDaily: 2.5, maxDaily: 4, leadTime: 3 }).reorderPoint, 13, '7,5 + 4,5 — округляем вверх до штук');
+
 console.log('calculators: ok');

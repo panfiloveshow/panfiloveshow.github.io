@@ -26,6 +26,20 @@ export function calcTurnover(input: { avgStock: number; sold: number; periodDays
   };
 }
 
+/**
+ * Страховой запас методом максимумов и точка заказа. Без maxLeadTime срок поставки
+ * считается постоянным — тогда запас покрывает только всплеск продаж.
+ */
+export function calcSafetyStock(input: { avgDaily: number; maxDaily: number; leadTime: number; maxLeadTime?: number }) {
+  const avgDaily = Math.max(0, input.avgDaily);
+  const maxDaily = Math.max(avgDaily, input.maxDaily);
+  const leadTime = Math.max(0, input.leadTime);
+  const maxLeadTime = Math.max(leadTime, input.maxLeadTime ?? leadTime);
+  // Штуки целые и округляются вверх: неполная единица дефицит не закроет.
+  const safety = Math.ceil(round(maxDaily * maxLeadTime - avgDaily * leadTime, 4));
+  return { safety, reorderPoint: Math.ceil(round(avgDaily * leadTime, 4)) + safety };
+}
+
 export type DrrResult = { drr: number; remaining: number; profitable: boolean };
 
 /** ДРР кампании и остаток маржинальности после рекламы. */

@@ -17,6 +17,8 @@
   { "cluster": "Поставки", "query": "планирование поставок на маркетплейсы", "intent": "commercial", "landing": "/supply-planning/", "priority": "P0" },
   { "cluster": "Поставки", "query": "контроль остатков Wildberries Ozon", "intent": "commercial", "landing": "/supply-planning/", "priority": "P1" },
   { "cluster": "Поставки", "query": "калькулятор оборачиваемости товара", "intent": "tool", "landing": "/calculators/turnover/", "priority": "P1" },
+  { "cluster": "Поставки", "query": "страховой запас формула расчёта", "intent": "informational", "landing": "/glossary/safety-stock/", "priority": "P1" },
+  { "cluster": "Поставки", "query": "XYZ анализ ассортимента", "intent": "informational", "landing": "/glossary/xyz-analysis/", "priority": "P1" },
   { "cluster": "Карточки", "query": "SEO карточек маркетплейсов", "intent": "commercial", "landing": "/seo-cards/", "priority": "P0" },
   { "cluster": "Карточки", "query": "AI описания карточек Wildberries Ozon", "intent": "commercial", "landing": "/seo-cards/", "priority": "P1" },
   { "cluster": "Wildberries", "query": "сервис для управления магазином Wildberries", "intent": "commercial", "landing": "/wildberries/", "priority": "P0" },

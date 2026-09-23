@@ -123,6 +123,8 @@
     "glossary/buyout-rate": "economics",
     "glossary/roi": "economics",
     "glossary/conversion": "product",
-    "glossary/cost-price": "economics"
+    "glossary/cost-price": "economics",
+    "glossary/xyz-analysis": "inventory",
+    "glossary/safety-stock": "inventory"
   }
 }
