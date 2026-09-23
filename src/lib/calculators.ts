@@ -67,6 +67,31 @@ export function calcBreakEven(input: { fixedCosts: number; profitPerUnit: number
   return { units, revenue: round(units * Math.max(0, input.price), 0) };
 }
 
+/** Безубыточная выручка магазина: постоянные расходы / доля маржинального дохода в выручке. */
+export function calcBreakEvenRevenue(input: { fixedCosts: number; contributionPct: number }) {
+  const share = input.contributionPct / 100;
+  // Без положительного маржинального дохода постоянные расходы не покрыть ни при каком объёме.
+  return { revenue: share > 0 ? Math.ceil(round(Math.max(0, input.fixedCosts) / share, 4)) : null };
+}
+
+/** Стоимость клика и заказа из рекламы и конверсия из клика в заказ. */
+export function calcAdCosts(input: { adCost: number; clicks: number; orders: number }) {
+  const adCost = Math.max(0, input.adCost);
+  const clicks = Math.max(0, input.clicks);
+  const orders = Math.max(0, input.orders);
+  return {
+    cpc: clicks === 0 ? null : round(adCost / clicks),
+    cpo: orders === 0 ? null : round(adCost / orders),
+    conversion: clicks === 0 ? 0 : round((orders / clicks) * 100),
+  };
+}
+
+/** Упущенные продажи и выручка за дни без остатка. */
+export function calcLostSales(input: { avgDaily: number; daysOut: number; price: number }) {
+  const lost = Math.max(0, input.avgDaily) * Math.max(0, input.daysOut);
+  return { units: round(lost, 1), revenue: round(lost * Math.max(0, input.price)) };
+}
+
 /** Маржинальность и наценка по цене и прибыли — для мини-расчёта в глоссарии. */
 export function calcMarginPair(input: { price: number; profit: number; cost: number }) {
   const price = Math.max(0, input.price);

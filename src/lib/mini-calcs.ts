@@ -2,10 +2,13 @@
 // Намеренно короткие — полный расчёт живёт в калькуляторах, сюда он не дублируется,
 // иначе термин начнёт конкурировать с калькулятором за один и тот же запрос.
 import {
+  calcAdCosts,
+  calcBreakEvenRevenue,
   calcCostPrice,
   calcDrr,
   calcFunnel,
   calcLogisticsPerSale,
+  calcLostSales,
   calcMarginPair,
   calcRoi,
   calcSafetyStock,
@@ -72,6 +75,64 @@ export const MINI_CALCS: Record<string, MiniSpec> = {
     link: {
       label: 'Проверить, хватит ли запаса до поставки',
       href: (v) => `/calculators/turnover/?sold=${v.avgDaily * 30}&periodDays=30&leadTime=${v.leadTime}`,
+    },
+  },
+  'glossary/lost-sales': {
+    title: 'Посчитайте упущенную выручку',
+    fields: [
+      { key: 'avgDaily', label: 'Продажи в день при наличии', suffix: 'шт.' },
+      { key: 'daysOut', label: 'Дней без остатка', suffix: 'дн.' },
+      { key: 'price', label: 'Цена продажи', suffix: '₽' },
+    ],
+    defaults: { avgDaily: 15, daysOut: 10, price: 2000 },
+    compute: (v) => {
+      const r = calcLostSales(v as never);
+      return { value: rub(r.revenue), caption: `Не продано ${r.units.toLocaleString('ru-RU')} шт.` };
+    },
+    link: {
+      label: 'Проверить, хватит ли запаса до поставки',
+      href: (v) => `/calculators/turnover/?sold=${v.avgDaily * 30}&periodDays=30`,
+    },
+  },
+  'glossary/break-even': {
+    title: 'Безубыточная выручка магазина',
+    fields: [
+      { key: 'fixedCosts', label: 'Постоянные расходы за месяц', suffix: '₽' },
+      { key: 'contributionPct', label: 'Маржинальный доход, доля выручки', suffix: '%' },
+    ],
+    defaults: { fixedCosts: 120000, contributionPct: 20 },
+    compute: (v) => {
+      const r = calcBreakEvenRevenue(v as never);
+      return r.revenue === null
+        ? { value: 'Недостижима', caption: 'Без маржинального дохода постоянные расходы не покрыть' }
+        : { value: rub(r.revenue), caption: 'Столько выручки в месяц нужно, чтобы выйти в ноль' };
+    },
+    link: {
+      label: 'Посчитать точку в штуках по товару',
+      href: (v) => `/calculators/break-even/?fixedCosts=${v.fixedCosts}`,
+    },
+  },
+  'glossary/cpm-cpc-cpo': {
+    title: 'Посчитайте стоимость заказа из рекламы',
+    fields: [
+      { key: 'adCost', label: 'Расходы на рекламу', suffix: '₽' },
+      { key: 'clicks', label: 'Клики', suffix: 'шт.' },
+      { key: 'orders', label: 'Заказы', suffix: 'шт.' },
+    ],
+    defaults: { adCost: 30000, clicks: 4000, orders: 150 },
+    compute: (v) => {
+      const r = calcAdCosts(v as never);
+      return {
+        value: r.cpo === null ? '—' : rub(r.cpo),
+        caption: `CPO · клик — ${r.cpc === null ? '—' : rub(r.cpc)}, конверсия в заказ — ${pct(r.conversion)}`,
+      };
+    },
+    link: {
+      label: 'Заложить рекламу в прибыль с единицы',
+      href: (v) => {
+        const { cpo } = calcAdCosts(v as never);
+        return cpo === null ? '/calculators/unit-economics/' : `/calculators/unit-economics/?ads=${cpo}`;
+      },
     },
   },
   'glossary/margin': {

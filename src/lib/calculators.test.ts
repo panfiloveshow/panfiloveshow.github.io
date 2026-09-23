@@ -112,4 +112,20 @@ assert.deepEqual(calcSafetyStock({ avgDaily: 20, maxDaily: 32, leadTime: 12 }), 
 assert.equal(calcSafetyStock({ avgDaily: 20, maxDaily: 10, leadTime: 12 }).safety, 0, 'максимум ниже среднего не даёт отрицательный запас');
 assert.equal(calcSafetyStock({ avgDaily: 2.5, maxDaily: 4, leadTime: 3 }).reorderPoint, 13, '7,5 + 4,5 — округляем вверх до штук');
 
+// Точка безубыточности в рублях, CPM/CPC/CPO и упущенная выручка — числа из примеров глоссария
+import { calcAdCosts, calcBreakEvenRevenue, calcLostSales } from './calculators.ts';
+
+// 120 000 / 0,2 = 600 000 ₽ выручки в месяц.
+assert.equal(calcBreakEvenRevenue({ fixedCosts: 120000, contributionPct: 20 }).revenue, 600000);
+assert.equal(calcBreakEvenRevenue({ fixedCosts: 120000, contributionPct: 30 }).revenue, 400000);
+assert.equal(calcBreakEvenRevenue({ fixedCosts: 120000, contributionPct: 0 }).revenue, null, 'без маржинального дохода точки нет');
+
+// 30 000 ₽ на 4 000 кликов и 150 заказов: CPC 7,5 ₽, CPO 200 ₽, конверсия 3,75%.
+assert.deepEqual(calcAdCosts({ adCost: 30000, clicks: 4000, orders: 150 }), { cpc: 7.5, cpo: 200, conversion: 3.75 });
+assert.deepEqual(calcAdCosts({ adCost: 5000, clicks: 0, orders: 0 }), { cpc: null, cpo: null, conversion: 0 }, 'без кликов и заказов делить не на что');
+
+// 15 шт. в день × 10 дней без остатка = 150 шт., по 2 000 ₽ — 300 000 ₽.
+assert.deepEqual(calcLostSales({ avgDaily: 15, daysOut: 10, price: 2000 }), { units: 150, revenue: 300000 });
+assert.deepEqual(calcLostSales({ avgDaily: 2.5, daysOut: 3, price: 1000 }), { units: 7.5, revenue: 7500 });
+
 console.log('calculators: ok');
