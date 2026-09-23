@@ -34,6 +34,16 @@
       "url": "https://seller.wildberries.ru/instructions/ru/ru/material/income-and-expenses-report",
       "publisher": "Wildberries"
     },
+    "wb-logistics": {
+      "name": "Доставка: виды и расчёт стоимости",
+      "url": "https://seller.wildberries.ru/instructions/ru/ru/material/logistics-types-and-cost-calculation",
+      "publisher": "Wildberries"
+    },
+    "wb-tariff-fixation": {
+      "name": "Фиксация тарифов: тарифы на поставку и на остаток",
+      "url": "https://seller.wildberries.ru/instructions/ru/ru/material/fixation-of-tariffs",
+      "publisher": "Wildberries"
+    },
     "ozon-seller-api": {
       "name": "Документация Seller API",
       "url": "https://docs.ozon.ru/api/seller/",
@@ -79,6 +89,7 @@
     "product": ["wb-api", "ozon-seller-api", "yandex-api"],
     "pricing": ["sellico-pricing"],
     "wildberries": ["wb-api", "wb-economics", "wb-finance"],
+    "wb-logistics": ["wb-logistics", "wb-tariff-fixation"],
     "ozon": ["ozon-seller-api"],
     "yandex": ["yandex-api", "yandex-methods"],
     "economics": ["wb-economics", "wb-finance", "ozon-seller-api", "fns-usn"],
@@ -114,6 +125,7 @@
     "calculators/cost-price": "economics",
     "calculators/roi": "economics",
     "calculators/abc-xyz": "inventory",
+    "calculators/wildberries-logistics": "wb-logistics",
     "contacts": "company",
     "glossary": "economics",
     "glossary/drr": "economics",

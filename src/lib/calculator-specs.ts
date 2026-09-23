@@ -1,6 +1,6 @@
 // Спецификации калькуляторов: поля, значения по умолчанию и расчёт результата.
 // Держим отдельно от компонента — так его можно перерисовывать без потери состояния.
-import { calcBreakEven, calcCostPrice, calcDrr, calcMargin, calcRoi, calcTurnover } from '@/lib/calculators';
+import { calcBreakEven, calcCostPrice, calcDrr, calcMargin, calcRoi, calcTurnover, calcWbLogistics } from '@/lib/calculators';
 
 type Field = { key: string; label: string; hint?: string; suffix: string };
 type Result = { headline: string; caption: string; good: boolean; rows: [string, string][]; note?: string };
@@ -279,6 +279,46 @@ export const CALC_SPECS: Record<string, Spec> = {
             : r.net > 0
               ? 'Пересчёт на 30 дней простой, без реинвестирования: так удобно сравнивать товары с разным сроком оборота.'
               : 'Вложения не вернулись: полученного не хватает, чтобы покрыть закупку, налог и прочие расходы.',
+      };
+    },
+  },
+  'wildberries-logistics': {
+    title: 'Калькулятор логистики Wildberries',
+    lead: 'Считает доставку со склада WB до покупателя, обратную доставку при отказе и логистику на одну проданную единицу — по габаритам упаковки и проценту выкупа.',
+    automation: {
+      title: 'Здесь логистика считается по габаритам. В Sellico — по фактическим списаниям из отчётов WB',
+      text: 'Расчёт по формуле показывает, сколько должна стоить доставка. В Sellico логистика берётся из данных подключённого кабинета — фактические списания за доставку и возвраты по каждой продаже, — и сразу ложится на прибыль SKU. Товары, у которых логистика съедает маржу, видно в общем списке.',
+      items: ['Фактические списания за доставку', 'Возвраты по каждой продаже', 'Логистика в прибыли SKU', 'Данные подключённого кабинета'],
+    },
+    fields: [
+      { key: 'lengthCm', label: 'Длина упаковки', suffix: 'см' },
+      { key: 'widthCm', label: 'Ширина упаковки', suffix: 'см' },
+      { key: 'heightCm', label: 'Высота упаковки', suffix: 'см' },
+      { key: 'coefPct', label: 'Коэффициент доставки склада', hint: 'С 15 августа 2026 — 170% для складов в России', suffix: '%' },
+      { key: 'buyoutPct', label: 'Процент выкупа', hint: 'Отказ стоит ещё и обратной доставки', suffix: '%' },
+    ],
+    defaults: { lengthCm: 20, widthCm: 15, heightCm: 6, coefPct: 170, buyoutPct: 80 },
+    next: {
+      label: 'Подставить логистику в юнит-экономику',
+      hint: 'Дальше — комиссия, хранение, реклама и налог: сколько остаётся с продажи',
+      href: '/calculators/unit-economics/',
+    },
+    compute: (v) => {
+      const r = calcWbLogistics(v as never);
+      return {
+        headline: `${num(r.perSale, 2)} ₽`,
+        caption: `Логистика на одну проданную единицу при выкупе ${num(v.buyoutPct, 1)}%`,
+        good: r.volume > 0,
+        rows: [
+          ['Объём упаковки', `${num(r.volume, 3)} л`],
+          ['Базовый тариф за объём', `${num(r.base, 2)} ₽`],
+          ['Доставка до покупателя', `${num(r.direct, 2)} ₽`],
+          ['Обратная доставка при отказе', `${num(r.reverse, 2)} ₽`],
+        ],
+        note:
+          r.volume > 0
+            ? 'Тарифы — по инструкции Wildberries от 09.09.2026 для малогабаритных товаров на складах WB. Для сверхгабарита и модели FBS правила другие.'
+            : 'Укажите габариты упаковки — объём считается как длина × ширина × высота / 1000.',
       };
     },
   },

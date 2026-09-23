@@ -1,6 +1,6 @@
 {
   "kind": "calculator",
-  "lastmod": "2026-08-19",
+  "lastmod": "2026-09-23",
   "eyebrow": "Калькулятор юнит-экономики",
   "icon": "BarChart3",
   "title": "Калькулятор юнит-экономики для Wildberries и Ozon — Sellico",
@@ -74,6 +74,10 @@
     ]
   ],
   "related": [
+    [
+      "Калькулятор логистики Wildberries",
+      "/calculators/wildberries-logistics/"
+    ],
     [
       "Юнит-экономика по всему ассортименту",
       "/unit-economics/"

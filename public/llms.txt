@@ -25,7 +25,7 @@ Canonical HTML pages are the primary source. The Markdown and llms files are alt
 - [Sellico for Ozon](https://sellico.ru/ozon/)
 - [Sellico for Yandex Market](https://sellico.ru/yandex-market/)
 - [Unit economics](https://sellico.ru/unit-economics/)
-- [Seller calculators: unit economics, margin and markup, cost price, ROI, ABC/XYZ analysis, turnover, ACoS, break-even](https://sellico.ru/calculators/)
+- [Seller calculators: unit economics, margin and markup, cost price, ROI, ABC/XYZ analysis, Wildberries logistics, turnover, ACoS, break-even](https://sellico.ru/calculators/)
 - [Unit economics calculator](https://sellico.ru/calculators/unit-economics/)
 - [Seller glossary](https://sellico.ru/glossary/)
 - [Contacts](https://sellico.ru/contacts/)

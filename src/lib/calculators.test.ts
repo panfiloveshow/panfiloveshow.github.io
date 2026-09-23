@@ -128,4 +128,23 @@ assert.deepEqual(calcAdCosts({ adCost: 5000, clicks: 0, orders: 0 }), { cpc: nul
 assert.deepEqual(calcLostSales({ avgDaily: 15, daysOut: 10, price: 2000 }), { units: 150, revenue: 300000 });
 assert.deepEqual(calcLostSales({ avgDaily: 2.5, daysOut: 3, price: 1000 }), { units: 7.5, revenue: 7500 });
 
+// Логистика WB — примеры из инструкции «Доставка: виды и расчёт стоимости» от 09.09.2026.
+import { calcWbLogistics } from './calculators.ts';
+
+// 0,55 л: базовый тариф 29 ₽ × 170% = 49,3 ₽.
+const wbSmall = calcWbLogistics({ lengthCm: 10, widthCm: 11, heightCm: 5, coefPct: 170, buyoutPct: 100 });
+assert.equal(wbSmall.volume, 0.55);
+assert.equal(wbSmall.base, 29);
+assert.equal(wbSmall.direct, 49.3);
+assert.equal(wbSmall.perSale, 49.3, 'при полном выкупе возвратов нет');
+
+// 1,8 л: (46 + 0,8 × 14) × 170% = 97,24 ₽; обратная доставка — 57,2 ₽ без коэффициента.
+const wb = calcWbLogistics({ lengthCm: 20, widthCm: 15, heightCm: 6, coefPct: 170, buyoutPct: 80 });
+assert.deepEqual(wb, { volume: 1.8, base: 57.2, direct: 97.24, reverse: 57.2, perSale: 135.85 });
+
+// Границы ступеней: ровно 1 литр — ещё 32 ₽, ровно 0,2 — 23 ₽.
+assert.equal(calcWbLogistics({ lengthCm: 10, widthCm: 10, heightCm: 10, coefPct: 100, buyoutPct: 100 }).base, 32);
+assert.equal(calcWbLogistics({ lengthCm: 10, widthCm: 10, heightCm: 2, coefPct: 100, buyoutPct: 100 }).base, 23);
+assert.equal(calcWbLogistics({ lengthCm: 0, widthCm: 10, heightCm: 10, coefPct: 170, buyoutPct: 80 }).perSale, 0, 'без габаритов доставки нет');
+
 console.log('calculators: ok');

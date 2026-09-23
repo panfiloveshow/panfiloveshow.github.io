@@ -1,6 +1,6 @@
 {
   "kind": "marketplace",
-  "lastmod": "2026-08-25",
+  "lastmod": "2026-09-23",
   "eyebrow": "Wildberries",
   "logo": "/brand/marketplaces/wildberries.svg",
   "theme": {
@@ -106,6 +106,10 @@
     ]
   ],
   "related": [
+    [
+      "Калькулятор логистики Wildberries",
+      "/calculators/wildberries-logistics/"
+    ],
     [
       "Sellico для Ozon",
       "/ozon/"

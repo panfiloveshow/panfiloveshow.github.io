@@ -82,6 +82,7 @@ const SEO_ROUTES: Record<string, SeoPageType> = {
   '/calculators/cost-price': 'calculators/cost-price',
   '/calculators/roi': 'calculators/roi',
   '/calculators/abc-xyz': 'calculators/abc-xyz',
+  '/calculators/wildberries-logistics': 'calculators/wildberries-logistics',
   '/calculators/turnover': 'calculators/turnover',
   '/calculators/drr': 'calculators/drr',
   '/calculators/break-even': 'calculators/break-even',

@@ -26,6 +26,7 @@
   { "cluster": "Карточки", "query": "SEO карточек маркетплейсов", "intent": "commercial", "landing": "/seo-cards/", "priority": "P0" },
   { "cluster": "Карточки", "query": "AI описания карточек Wildberries Ozon", "intent": "commercial", "landing": "/seo-cards/", "priority": "P1" },
   { "cluster": "Wildberries", "query": "сервис для управления магазином Wildberries", "intent": "commercial", "landing": "/wildberries/", "priority": "P0" },
+  { "cluster": "Wildberries", "query": "калькулятор логистики Wildberries", "intent": "tool", "landing": "/calculators/wildberries-logistics/", "priority": "P0" },
   { "cluster": "Ozon", "query": "аналитика магазина Ozon FBO FBS", "intent": "commercial", "landing": "/ozon/", "priority": "P0" },
   { "cluster": "Яндекс Маркет", "query": "аналитика продавца Яндекс Маркет", "intent": "commercial", "landing": "/yandex-market/", "priority": "P0" },
   { "cluster": "Команда", "query": "управление командой продавца маркетплейсов", "intent": "commercial", "landing": "/team/", "priority": "P1" },

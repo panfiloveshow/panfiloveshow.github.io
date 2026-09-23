@@ -68,7 +68,7 @@ function staticFooter() {
   const groups = [
     ['Продукт', ['features', 'analytics-marketplaces', 'unit-economics', 'supply-planning', 'seo-cards', 'advertising', 'reviews', 'team', 'pricing']],
     ['Площадки', ['marketplaces', 'wildberries', 'ozon', 'yandex-market']],
-    ['Инструменты', ['calculators', 'calculators/unit-economics', 'calculators/margin', 'calculators/cost-price', 'calculators/roi', 'calculators/abc-xyz', 'calculators/turnover', 'calculators/drr', 'calculators/break-even']],
+    ['Инструменты', ['calculators', 'calculators/unit-economics', 'calculators/margin', 'calculators/cost-price', 'calculators/roi', 'calculators/abc-xyz', 'calculators/wildberries-logistics', 'calculators/turnover', 'calculators/drr', 'calculators/break-even']],
     ['Справочник', ['glossary', 'glossary/drr', 'glossary/turnover', 'glossary/margin', 'glossary/abc-analysis', 'glossary/fbo-fbs', 'glossary/buyout-rate', 'glossary/roi', 'glossary/conversion', 'glossary/cost-price', 'glossary/xyz-analysis', 'glossary/safety-stock', 'glossary/break-even', 'glossary/cpm-cpc-cpo', 'glossary/lost-sales']],
     ['Компания', ['about', 'authors/danil-zubarev', 'cases', 'methodology', 'contacts']],
   ];
