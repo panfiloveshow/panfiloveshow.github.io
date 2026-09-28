@@ -9,6 +9,7 @@ import {
   routes,
   website,
 } from './site-routes.mjs';
+import { editorialAuthor } from './editorial-data.mjs';
 
 const indexPath = join('dist', 'index.html');
 const indexHtml = await readFile(indexPath, 'utf8');
@@ -197,6 +198,12 @@ function buildRouteFallback(route) {
         ${staticHeader()}
         <section style="border-radius:28px;background:#0d4d35;padding:clamp(32px,6vw,68px);color:white">
           <nav aria-label="Хлебные крошки" style="font-size:13px;color:rgba(255,255,255,.75)"><a href="/" style="color:white">Главная</a> / ${route.parent ? `<a href="${route.parent[1]}" style="color:white">${escapeHtml(route.parent[0])}</a> / ` : ''}${escapeHtml(route.eyebrow)}</nav>
+          ${
+            // То же фото, что в AuthorProfilePage, — после загрузки React берёт его из кэша
+            route.kind === 'author'
+              ? `<img src="${editorialAuthor.photo}-400.webp" width="400" height="400" alt="${escapeHtml(editorialAuthor.name)}" fetchpriority="high" style="display:block;margin:34px 0 0;width:96px;height:96px;border-radius:50%">`
+              : ''
+          }
           <p style="margin:34px 0 0;color:#b8efd8;font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase">${escapeHtml(route.eyebrow)}</p>
           <h1 style="max-width:920px;margin:18px 0 0;font-size:clamp(38px,6vw,70px);line-height:1;letter-spacing:-.052em">${escapeHtml(route.h1)}</h1>
           <p style="max-width:790px;margin:24px 0 0;color:rgba(255,255,255,.8);font-size:18px;line-height:1.7">${escapeHtml(route.lead)}</p>

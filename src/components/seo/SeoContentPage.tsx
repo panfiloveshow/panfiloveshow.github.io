@@ -1747,8 +1747,18 @@ function AuthorProfilePage({ page }: { page: DetailPage }) {
 
           <div className="mt-10 grid gap-12 lg:grid-cols-[minmax(0,1fr)_390px] lg:items-end">
             <div>
-              <div className="inline-flex items-center gap-2 rounded-full border border-emerald-200/18 bg-emerald-200/[0.06] px-4 py-2 text-xs font-bold uppercase tracking-[0.16em] text-emerald-200">
-                <Code2 size={14} aria-hidden /> Разработчик Sellico
+              <div className="flex flex-wrap items-center gap-5">
+                <img
+                  src={`${EDITORIAL_AUTHOR.photo}-400.webp`}
+                  width={400}
+                  height={400}
+                  alt={EDITORIAL_AUTHOR.name}
+                  fetchPriority="high"
+                  className="h-20 w-20 rounded-full object-cover ring-1 ring-white/20 sm:h-24 sm:w-24"
+                />
+                <div className="inline-flex items-center gap-2 rounded-full border border-emerald-200/18 bg-emerald-200/[0.06] px-4 py-2 text-xs font-bold uppercase tracking-[0.16em] text-emerald-200">
+                  <Code2 size={14} aria-hidden /> Разработчик Sellico
+                </div>
               </div>
               <h1 id="author-title" className="mt-7 max-w-4xl text-4xl font-semibold leading-[0.98] tracking-[-0.055em] sm:text-6xl lg:text-7xl">{page.h1}</h1>
               <p className="mt-7 max-w-3xl text-lg leading-[1.75] text-white/70 sm:text-xl">{page.lead}</p>

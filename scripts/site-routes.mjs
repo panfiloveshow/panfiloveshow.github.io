@@ -109,6 +109,7 @@ export const editorialPerson = {
   givenName: 'Данил',
   familyName: 'Зубарев',
   url: editorialAuthor.url,
+  image: `https://sellico.ru${editorialAuthor.photo}.jpg`,
   description: editorialAuthor.description,
   jobTitle: editorialAuthor.jobTitle,
   email: editorialAuthor.email,

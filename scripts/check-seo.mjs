@@ -103,6 +103,9 @@ for (const page of pages) {
     if (!cover.startsWith('assets/articles/') || !existsSync(join('dist', cover))) fail(`${label}: нет своей обложки ${cover}`);
     if (!html.includes(`<meta property="og:image" content="${article?.image}" />`)) fail(`${label}: og:image не указывает на обложку`);
   }
+  if (page.kind === 'author' && !nodes.some((node) => node['@type'] === 'Person' && node.image)) {
+    fail(`${label}: у Person автора нет фото (image)`);
+  }
   if (page.kind === 'author' && !nodes.some((node) => node['@type'] === 'ProfilePage')) {
     fail(`${label}: профиль автора не размечен ProfilePage`);
   }
