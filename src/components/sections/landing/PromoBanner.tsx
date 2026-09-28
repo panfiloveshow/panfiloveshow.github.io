@@ -16,8 +16,24 @@ type RemotePromoBanner = {
 // Тяжёлые PNG из текущей CMS-выдачи заменяем локальными оптимизированными AVIF (JPEG — для браузеров
 // без AVIF). Ключом служит точный путь файла: новый баннер автоматически останется на исходном URL,
 // пока для него не появится проверенная оптимизированная версия.
-// Баннер — LCP главной и на мобиле, и на десктопе, поэтому вес первого слайда критичен.
+// Баннер стоит под первым экраном (после Hero), поэтому грузится лениво и не участвует в LCP.
 const OPTIMIZED_PROMO_ASSETS: Record<string, { src: string; avif: string }> = {
+  '/storage/promo-banners/tiLEIshN8ZmS8P0gyo756PUO2iOU9QcC63WzQxBl.png': {
+    src: '/assets/promo-banners/promo-profit-desktop.jpg',
+    avif: '/assets/promo-banners/promo-profit-desktop-2400.avif',
+  },
+  '/storage/promo-banners/XanT1Y71PK1GqEIYwQXGuFEjwIMd3YnQFSX9fk26.png': {
+    src: '/assets/promo-banners/promo-profit-mobile.jpg',
+    avif: '/assets/promo-banners/promo-profit-mobile-750.avif 750w, /assets/promo-banners/promo-profit-mobile-1125.avif 1125w',
+  },
+  '/storage/promo-banners/1nU9Um6b0mMBifMng9vQ4cqKZLaghPIzWVlZTYvB.png': {
+    src: '/assets/promo-banners/promo-6-desktop.jpg',
+    avif: '/assets/promo-banners/promo-6-desktop-2400.avif',
+  },
+  '/storage/promo-banners/NPrqNEus6PhHfPP1kV63arjb2FdrrqTw5NOcxY4Y.png': {
+    src: '/assets/promo-banners/promo-6-mobile.jpg',
+    avif: '/assets/promo-banners/promo-6-mobile-750.avif 750w, /assets/promo-banners/promo-6-mobile-1125.avif 1125w',
+  },
   '/storage/promo-banners/cfmvVfdaI3kssMudeK7z4u5gbfuD1QkMtBFLsW4P.png': {
     src: '/assets/promo-banners/sellico-promo-7-desktop.jpg',
     avif: '/assets/promo-banners/sellico-promo-7-desktop.avif',
@@ -28,13 +44,13 @@ const OPTIMIZED_PROMO_ASSETS: Record<string, { src: string; avif: string }> = {
   },
 };
 
-const SECTION_CLASS = 'pt-24 lg:pt-[92px]';
+const SECTION_CLASS = 'pb-8 lg:pb-12';
 const CONTAINER_CLASS = 'lg:max-w-[1800px] lg:px-16';
 const FRAME_CLASS =
   'relative isolate aspect-[3/1] overflow-hidden rounded-[30px] border border-[#dcebe3] bg-[#edf7f1] sm:aspect-[15/2]';
 
-// Пока идёт запрос к API, держим место под баннер: иначе он появляется над hero и сдвигает
-// весь первый экран (CLS 0.2–0.3 на главной).
+// Пока идёт запрос к API, держим место под баннер: иначе он появляется после загрузки и сдвигает
+// всё, что ниже.
 function PromoBannerSlot() {
   return (
     <section aria-hidden className={SECTION_CLASS}>
@@ -48,6 +64,10 @@ function PromoBannerSlot() {
 }
 
 const PROMO_ALT_BY_IMAGE: Record<string, string> = {
+  '/storage/promo-banners/tiLEIshN8ZmS8P0gyo756PUO2iOU9QcC63WzQxBl.png':
+    'Юнит-экономика под контролем: считай себестоимость, комиссии, рекламу и чистую прибыль по каждому SKU.',
+  '/storage/promo-banners/1nU9Um6b0mMBifMng9vQ4cqKZLaghPIzWVlZTYvB.png':
+    'Точно знай свою прибыль: учитывай рекламу, комиссии и логистику, чтобы видеть реальную маржу по каждому товару.',
   '/storage/promo-banners/5VobKJxhylox3v5N1flYYpQ7fUjiLsZ0hffXzDws.jpg':
     'Школьный сезон: пополняйте товары по темпу продаж, отслеживая остатки и скорость продаж.',
   '/storage/promo-banners/cfmvVfdaI3kssMudeK7z4u5gbfuD1QkMtBFLsW4P.png':
@@ -138,7 +158,7 @@ export function PromoBanner() {
                     alt={bannerAlt}
                     className="h-full w-full object-cover"
                     decoding="async"
-                    fetchPriority="high"
+                    loading="lazy"
                   />
                 </picture>
               );

@@ -143,7 +143,7 @@ export function Hero() {
   return (
     <section
       id={SECTION_IDS.hero}
-      // ponytail: хедер fixed — этот отступ обычно даёт PromoBanner своим pt-24; если баннеров нет и его не в DOM, Hero становится первым ребёнком main и сам отвечает за просвет под хедер
+      // хедер fixed: Hero — первый ребёнок main и сам даёт просвет под него (first:pt-24)
       className="relative overflow-hidden bg-white pb-16 pt-6 first:pt-24 lg:pb-24 lg:pt-8 lg:first:pt-[92px]"
     >
       <Container className="lg:max-w-none lg:px-16">
