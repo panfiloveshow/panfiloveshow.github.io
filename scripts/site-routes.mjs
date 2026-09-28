@@ -16,6 +16,7 @@ const detailRoutes = Object.entries(detailPages).map(([slug, page]) => ({
   lastmod: page.lastmod,
   created: page.created,
   cover: page.cover,
+  certificate: page.certificate,
   priority: '0.9',
   changefreq: 'monthly',
   title: page.title,

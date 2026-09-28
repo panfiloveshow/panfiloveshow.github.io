@@ -73,9 +73,12 @@ if (process.argv[1]?.endsWith('build-content-index.mjs')) {
       {
         kind: page.kind,
         lastmod: page.lastmod,
+        // Дата и обложка нужны спискам статей (профиль автора) без загрузки тел статей
+        ...(page.created && { created: page.created }),
         eyebrow: page.eyebrow,
         title: page.title,
         description: page.description,
+        ...(page.cover && { cover: page.cover.src }),
       },
     ]),
   );

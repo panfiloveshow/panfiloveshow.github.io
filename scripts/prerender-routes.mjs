@@ -200,6 +200,11 @@ function buildRouteFallback(route) {
           <p style="margin:34px 0 0;color:#b8efd8;font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase">${escapeHtml(route.eyebrow)}</p>
           <h1 style="max-width:920px;margin:18px 0 0;font-size:clamp(38px,6vw,70px);line-height:1;letter-spacing:-.052em">${escapeHtml(route.h1)}</h1>
           <p style="max-width:790px;margin:24px 0 0;color:rgba(255,255,255,.8);font-size:18px;line-height:1.7">${escapeHtml(route.lead)}</p>
+          ${
+            route.certificate
+              ? `<p style="max-width:790px;margin:20px 0 0;color:rgba(255,255,255,.8);font-size:15px;line-height:1.7">${escapeHtml(route.certificate.note)} — свидетельство Роспатента № ${route.certificate.number} от ${route.certificate.date.split('-').reverse().join('.')}. <a href="${escapeHtml(route.certificate.url)}" rel="noreferrer" style="color:white;font-weight:700">Запись в реестре ФИПС</a></p>`
+              : ''
+          }
         </section>
         ${
           // srcset и sizes — как у обложки в ArticlePage (SeoContentPage.tsx), чтобы React взял картинку из кэша.

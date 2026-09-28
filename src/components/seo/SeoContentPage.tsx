@@ -1,6 +1,7 @@
 import { lazy, Suspense, use, useEffect } from 'react';
 import {
   ArrowRight,
+  ArrowUpRight,
   BarChart3,
   Braces,
   Check,
@@ -44,6 +45,8 @@ type DetailPage = {
   created?: string;
   /** Обложка статьи: src — путь без расширения, рядом лежат -800.webp, -1600.webp и .jpg для соцсетей */
   cover?: { src: string; alt: string; credit: string; creditUrl: string };
+  /** Свидетельство Роспатента в профиле автора; url — запись в открытом реестре ФИПС */
+  certificate?: { number: string; date: string; note: string; url: string };
   eyebrow: string;
   /** Промежуточная крошка вида ['Глоссарий', '/glossary/'] для вложенных страниц */
   parent?: string[];
@@ -330,7 +333,10 @@ function formatEditorialDate(value: string): string {
     month: 'long',
     year: 'numeric',
     timeZone: 'UTC',
-  }).format(new Date(`${value}T00:00:00Z`));
+  })
+    .format(new Date(`${value}T00:00:00Z`))
+    // Дата не должна рваться на «2» и «сентября» в конце строки
+    .replace(/ /g, ' ');
 }
 
 function EditorialInfo({ type, lastmod }: { type: string; lastmod: string }) {
@@ -1718,6 +1724,12 @@ function MarketplaceDetailPage({ page, type }: { page: DetailPage; type: string 
   );
 }
 
+// Статьи берутся из индекса: он уже загружен, и новая статья попадает в профиль без правки профиля.
+// ponytail: автор у всех статей один, поэтому здесь все статьи; появится второй автор — фильтровать по автору.
+const AUTHOR_ARTICLES = Object.entries(pagesIndex as Record<string, { kind: string; title: string; created?: string; cover?: string }>)
+  .filter(([, entry]) => entry.kind === 'article')
+  .sort(([, a], [, b]) => (b.created ?? '').localeCompare(a.created ?? ''));
+
 function AuthorProfilePage({ page }: { page: DetailPage }) {
   const [product, experience, expertise, feedback] = page.blocks;
 
@@ -1743,13 +1755,31 @@ function AuthorProfilePage({ page }: { page: DetailPage }) {
               <a href="mailto:hello@sellico.ru" className="mt-9 inline-flex items-center gap-2 text-sm font-semibold text-emerald-200 underline-offset-4 hover:underline">Обсудить продукт <ArrowRight size={15} aria-hidden /></a>
             </div>
 
-            <aside className="relative overflow-hidden rounded-[32px_32px_8px_32px] border border-white/13 bg-white/[0.055] p-7 sm:p-9" aria-label="Опыт в электронной коммерции">
+            <aside className="relative overflow-hidden rounded-[32px_32px_8px_32px] border border-white/13 bg-white/[0.055] p-7 sm:p-9" aria-label="Опыт и свидетельство Роспатента">
               <div className="flex items-center justify-between text-[10px] font-bold uppercase tracking-[0.2em] text-white/38"><span>e-commerce</span><span>experience</span></div>
               <p className="mt-8 text-[clamp(6rem,12vw,9.5rem)] font-semibold leading-none tracking-[-0.09em] text-emerald-200">12+</p>
               <p className="mt-1 text-lg font-medium text-white">лет практического опыта</p>
-              <div className="mt-8 grid grid-cols-3 gap-2" aria-hidden>
-                {['product', 'data', 'team'].map((label) => <span key={label} className="rounded-lg border border-white/10 bg-black/10 px-2 py-3 text-center font-mono text-[10px] text-white/45">{label}</span>)}
-              </div>
+              {/* Проверяемый факт вместо декоративных плашек: запись в реестре открыта любому */}
+              {page.certificate && (
+                <div className="mt-8 border-t border-white/12 pt-6">
+                  <p className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] text-white/45">
+                    <FileCheck2 size={14} aria-hidden /> Роспатент
+                  </p>
+                  <p className="mt-3 text-lg font-semibold text-white">Свидетельство №{' '}{page.certificate.number}</p>
+                  <p className="mt-1.5 text-sm leading-relaxed text-white/65">
+                    {page.certificate.note}. Регистрация —{' '}
+                    <time dateTime={page.certificate.date}>{formatEditorialDate(page.certificate.date)}</time>
+                  </p>
+                  <a
+                    href={page.certificate.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-emerald-200 underline-offset-4 hover:underline"
+                  >
+                    Запись в реестре ФИПС <ArrowUpRight size={14} aria-hidden />
+                  </a>
+                </div>
+              )}
             </aside>
           </div>
         </Container>
@@ -1799,6 +1829,48 @@ function AuthorProfilePage({ page }: { page: DetailPage }) {
           </div>
         </Container>
       </section>
+
+      {AUTHOR_ARTICLES.length > 0 && (
+        <section className="bg-white py-20 lg:py-24" aria-labelledby="author-articles-title">
+          <Container>
+            <div className="flex flex-wrap items-end justify-between gap-6">
+              <h2 id="author-articles-title" className="text-3xl font-semibold tracking-[-0.05em] text-ink-950 sm:text-5xl">
+                Статьи автора
+              </h2>
+              <a
+                href="/articles/"
+                className="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-800 underline-offset-4 hover:underline"
+              >
+                Все статьи <ArrowRight size={14} aria-hidden />
+              </a>
+            </div>
+            <div className="mt-10 grid gap-x-5 gap-y-9 sm:grid-cols-2 lg:grid-cols-4">
+              {AUTHOR_ARTICLES.map(([slug, article]) => (
+                <a key={slug} href={`/${slug}/`} className="group block">
+                  {article.cover && (
+                    <img
+                      src={`${article.cover}-800.webp`}
+                      width={800}
+                      height={420}
+                      alt=""
+                      loading="lazy"
+                      className="h-auto w-full rounded-2xl border border-ink-950/[0.08]"
+                    />
+                  )}
+                  {article.created && (
+                    <time dateTime={article.created} className="mt-4 block text-xs text-ink-500">
+                      {formatEditorialDate(article.created)}
+                    </time>
+                  )}
+                  <h3 className="mt-1.5 text-lg font-semibold leading-snug tracking-[-0.02em] text-ink-950 transition-colors group-hover:text-brand-800">
+                    {article.title}
+                  </h3>
+                </a>
+              ))}
+            </div>
+          </Container>
+        </section>
+      )}
     </>
   );
 }
