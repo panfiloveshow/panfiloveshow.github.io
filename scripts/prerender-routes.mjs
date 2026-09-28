@@ -199,9 +199,10 @@ function buildRouteFallback(route) {
         <section style="border-radius:28px;background:#0d4d35;padding:clamp(32px,6vw,68px);color:white">
           <nav aria-label="Хлебные крошки" style="font-size:13px;color:rgba(255,255,255,.75)"><a href="/" style="color:white">Главная</a> / ${route.parent ? `<a href="${route.parent[1]}" style="color:white">${escapeHtml(route.parent[0])}</a> / ` : ''}${escapeHtml(route.eyebrow)}</nav>
           ${
-            // То же фото, что в AuthorProfilePage, — после загрузки React берёт его из кэша
+            // Портрет — LCP профиля. srcset и sizes — как в AuthorProfilePage (AUTHOR_PORTRAIT_SIZES),
+            // поэтому он качается сразу из HTML, а React берёт его из кэша.
             route.kind === 'author'
-              ? `<img src="${editorialAuthor.photo}-400.webp" width="400" height="400" alt="${escapeHtml(editorialAuthor.name)}" fetchpriority="high" style="display:block;margin:34px 0 0;width:96px;height:96px;border-radius:50%">`
+              ? `<img src="${editorialAuthor.photo}-portrait-960.webp" srcset="${editorialAuthor.photo}-portrait-480.webp 480w, ${editorialAuthor.photo}-portrait-960.webp 960w" sizes="(min-width: 1024px) 480px, min(384px, calc(100vw - 40px))" width="960" height="1200" alt="${escapeHtml(editorialAuthor.name)}" fetchpriority="high" style="display:block;margin:34px 0 0;width:100%;max-width:280px;height:auto;border-radius:28px">`
               : ''
           }
           <p style="margin:34px 0 0;color:#b8efd8;font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase">${escapeHtml(route.eyebrow)}</p>

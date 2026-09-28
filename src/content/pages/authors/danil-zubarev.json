@@ -14,9 +14,23 @@
   "certificate": {
     "number": "2026686895",
     "date": "2026-09-02",
+    "application": "2026666471",
+    "applicationDate": "2026-05-27",
+    "program": "Sellico",
+    "holder": "Зубарев Данил Викторович",
     "note": "Автор и правообладатель программы для ЭВМ «Sellico»",
     "url": "https://fips.ru/registers-doc-view/fips_servlet?DB=EVM&DocNumber=2026686895&TypeFile=html"
   },
+  "facts": [
+    [
+      "12+",
+      "лет в e-commerce: продажи, ассортимент, экономика товара"
+    ],
+    [
+      "3",
+      "маркетплейса в фокусе: Wildberries, Ozon и Яндекс Маркет"
+    ]
+  ],
   "blocksTitle": "Опыт и продуктовая работа",
   "blocksLead": "Профиль описывает реальную роль в Sellico и практический контекст, на котором строятся продуктовые решения и материалы сайта.",
   "blocks": [

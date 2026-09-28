@@ -6,7 +6,6 @@ import {
   Braces,
   Check,
   Calculator,
-  Code2,
   Database,
   FileCheck2,
   Gauge,
@@ -46,7 +45,18 @@ type DetailPage = {
   /** Обложка статьи: src — путь без расширения, рядом лежат -800.webp, -1600.webp и .jpg для соцсетей */
   cover?: { src: string; alt: string; credit: string; creditUrl: string };
   /** Свидетельство Роспатента в профиле автора; url — запись в открытом реестре ФИПС */
-  certificate?: { number: string; date: string; note: string; url: string };
+  certificate?: {
+    number: string;
+    date: string;
+    application: string;
+    applicationDate: string;
+    program: string;
+    holder: string;
+    note: string;
+    url: string;
+  };
+  /** Строка фактов под шапкой профиля: [значение, подпись] */
+  facts?: string[][];
   eyebrow: string;
   /** Промежуточная крошка вида ['Глоссарий', '/glossary/'] для вложенных страниц */
   parent?: string[];
@@ -336,7 +346,7 @@ function formatEditorialDate(value: string): string {
   })
     .format(new Date(`${value}T00:00:00Z`))
     // Дата не должна рваться на «2» и «сентября» в конце строки
-    .replace(/ /g, ' ');
+    .replace(/ /g, '\u00a0');
 }
 
 function EditorialInfo({ type, lastmod }: { type: string; lastmod: string }) {
@@ -1730,121 +1740,197 @@ const AUTHOR_ARTICLES = Object.entries(pagesIndex as Record<string, { kind: stri
   .filter(([, entry]) => entry.kind === 'article')
   .sort(([, a], [, b]) => (b.created ?? '').localeCompare(a.created ?? ''));
 
+// srcset и sizes портрета совпадают с пререндером (scripts/prerender-routes.mjs) — картинка берётся из кэша
+const AUTHOR_PORTRAIT_SIZES = '(min-width: 1024px) 480px, min(384px, calc(100vw - 40px))';
+
+// Профиль — редакционная страница о человеке: крупный портрет, имя как главный заголовок,
+// проверяемые факты вместо декоративных плашек. Цвета — тёплый светлый фон под серый фон фото.
 function AuthorProfilePage({ page }: { page: DetailPage }) {
-  const [product, experience, expertise, feedback] = page.blocks;
+  const [name, role] = page.h1.split(' — ');
+  const { certificate } = page;
+  const photo = EDITORIAL_AUTHOR.photo;
+  const articlesCount = AUTHOR_ARTICLES.length;
+  const facts = [
+    ...(page.facts ?? []),
+    ...(articlesCount
+      ? [[String(articlesCount), `${pluralRu(articlesCount, ['статья', 'статьи', 'статей'])} для продавцов маркетплейсов`]]
+      : []),
+  ];
 
   return (
     <>
-      <section className="relative isolate overflow-hidden bg-[#071712] pb-20 pt-32 text-white lg:pb-28 lg:pt-40" aria-labelledby="author-title">
-        <div aria-hidden className="absolute inset-0 -z-10 opacity-[0.08] [background-image:linear-gradient(rgba(255,255,255,.55)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.55)_1px,transparent_1px)] [background-size:48px_48px]" />
-        <div aria-hidden className="absolute -right-24 top-20 -z-10 h-96 w-96 rounded-full bg-emerald-300/10 blur-3xl" />
+      <section className="relative isolate overflow-hidden bg-[#F3F3F0] pb-16 pt-32 lg:pb-20 lg:pt-40" aria-labelledby="author-title">
+        <div aria-hidden className="absolute -right-40 -top-40 -z-10 h-[720px] w-[720px] rounded-full bg-white/80 blur-3xl" />
         <Container>
-          <nav aria-label="Хлебные крошки" className="text-sm text-white/55">
-            <a href="/" className="underline-offset-4 hover:text-white hover:underline">Главная</a><span aria-hidden className="mx-2">/</span>
-            <a href="/about/" className="underline-offset-4 hover:text-white hover:underline">О Sellico</a><span aria-hidden className="mx-2">/</span>
-            <span aria-current="page">Данил Зубарев</span>
+          <nav aria-label="Хлебные крошки" className="text-sm text-[#5C6560]">
+            <a href="/" className="underline-offset-4 hover:text-ink-950 hover:underline">Главная</a>
+            <span aria-hidden className="mx-2">/</span>
+            <a href="/about/" className="underline-offset-4 hover:text-ink-950 hover:underline">О Sellico</a>
+            <span aria-hidden className="mx-2">/</span>
+            <span aria-current="page" className="text-ink-950">{name}</span>
           </nav>
 
-          <div className="mt-10 grid gap-12 lg:grid-cols-[minmax(0,1fr)_390px] lg:items-end">
+          <div className="mt-12 grid items-end gap-16 lg:mt-16 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,.85fr)] lg:gap-20">
             <div>
-              <div className="flex flex-wrap items-center gap-5">
-                <img
-                  src={`${EDITORIAL_AUTHOR.photo}-400.webp`}
-                  width={400}
-                  height={400}
-                  alt={EDITORIAL_AUTHOR.name}
-                  fetchPriority="high"
-                  className="h-20 w-20 rounded-full object-cover ring-1 ring-white/20 sm:h-24 sm:w-24"
-                />
-                <div className="inline-flex items-center gap-2 rounded-full border border-emerald-200/18 bg-emerald-200/[0.06] px-4 py-2 text-xs font-bold uppercase tracking-[0.16em] text-emerald-200">
-                  <Code2 size={14} aria-hidden /> Разработчик Sellico
-                </div>
-              </div>
-              <h1 id="author-title" className="mt-7 max-w-4xl text-4xl font-semibold leading-[0.98] tracking-[-0.055em] sm:text-6xl lg:text-7xl">{page.h1}</h1>
-              <p className="mt-7 max-w-3xl text-lg leading-[1.75] text-white/70 sm:text-xl">{page.lead}</p>
-              <a href="mailto:hello@sellico.ru" className="mt-9 inline-flex items-center gap-2 text-sm font-semibold text-emerald-200 underline-offset-4 hover:underline">Обсудить продукт <ArrowRight size={15} aria-hidden /></a>
-            </div>
-
-            <aside className="relative overflow-hidden rounded-[32px_32px_8px_32px] border border-white/13 bg-white/[0.055] p-7 sm:p-9" aria-label="Опыт и свидетельство Роспатента">
-              <div className="flex items-center justify-between text-[10px] font-bold uppercase tracking-[0.2em] text-white/38"><span>e-commerce</span><span>experience</span></div>
-              <p className="mt-8 text-[clamp(6rem,12vw,9.5rem)] font-semibold leading-none tracking-[-0.09em] text-emerald-200">12+</p>
-              <p className="mt-1 text-lg font-medium text-white">лет практического опыта</p>
-              {/* Проверяемый факт вместо декоративных плашек: запись в реестре открыта любому */}
-              {page.certificate && (
-                <div className="mt-8 border-t border-white/12 pt-6">
-                  <p className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] text-white/45">
-                    <FileCheck2 size={14} aria-hidden /> Роспатент
-                  </p>
-                  <p className="mt-3 text-lg font-semibold text-white">Свидетельство №{' '}{page.certificate.number}</p>
-                  <p className="mt-1.5 text-sm leading-relaxed text-white/65">
-                    {page.certificate.note}. Регистрация —{' '}
-                    <time dateTime={page.certificate.date}>{formatEditorialDate(page.certificate.date)}</time>
-                  </p>
+              <h1
+                id="author-title"
+                className="text-[clamp(3.5rem,9vw,7.5rem)] font-semibold leading-[0.9] tracking-[-0.06em] text-ink-950"
+              >
+                {/* Пробел внутри блока не виден, но нужен тексту заголовка: иначе «ДанилЗубарев» */}
+                {name.split(' ').map((part, index) => (
+                  <span key={part} className="block">
+                    {index > 0 && ' '}
+                    {part}
+                  </span>
+                ))}
+                {role && (
+                  <>
+                    <span className="sr-only"> — </span>
+                    <span className="mt-5 block text-[clamp(1.35rem,2.4vw,2rem)] font-medium leading-tight tracking-[-0.03em] text-[#6B736F]">
+                      {role}
+                    </span>
+                  </>
+                )}
+              </h1>
+              <p className="mt-8 max-w-xl text-lg leading-[1.7] text-[#4A5550]">{page.lead}</p>
+              <div className="mt-9 flex flex-wrap items-center gap-x-7 gap-y-4">
+                <a
+                  href="mailto:hello@sellico.ru"
+                  className="inline-flex h-12 items-center gap-2 rounded-full bg-ink-950 px-6 text-sm font-semibold text-white transition-colors hover:bg-brand-800"
+                >
+                  Написать автору <ArrowRight size={16} aria-hidden />
+                </a>
+                {articlesCount > 0 && (
                   <a
-                    href={page.certificate.url}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-emerald-200 underline-offset-4 hover:underline"
+                    href="#author-articles-title"
+                    className="inline-flex items-center gap-1.5 text-sm font-semibold text-ink-950 underline-offset-4 hover:underline"
                   >
-                    Запись в реестре ФИПС <ArrowUpRight size={14} aria-hidden />
+                    Статьи автора <ArrowRight size={15} aria-hidden />
                   </a>
-                </div>
-              )}
-            </aside>
-          </div>
-        </Container>
-      </section>
-
-      <section className="bg-[#eef4ef] py-20 lg:py-28" aria-labelledby="author-work-title">
-        <Container>
-          <div className="grid gap-12 lg:grid-cols-[.7fr_1.3fr] lg:gap-20">
-            <div>
-              <p className="text-xs font-bold uppercase tracking-[0.18em] text-brand-800">Профиль</p>
-              <h2 id="author-work-title" className="mt-4 text-3xl font-semibold tracking-[-0.05em] text-ink-950 sm:text-5xl">{page.blocksTitle}</h2>
-              <p className="mt-5 text-base leading-[1.75] text-ink-600">{page.blocksLead}</p>
+                )}
+              </div>
             </div>
-            {product && (
-              <article className="relative overflow-hidden rounded-[30px] bg-[#0d2d23] p-7 text-white sm:p-10">
-                <Code2 className="absolute -right-5 -top-9 h-44 w-44 text-white/[0.055]" strokeWidth={1} aria-hidden />
-                <span className="font-mono text-xs text-emerald-200/65">01 / build</span>
-                <h3 className="mt-12 max-w-2xl text-3xl font-semibold tracking-[-0.04em] sm:text-4xl">{product.title}</h3>
-                <p className="mt-5 max-w-2xl text-base leading-[1.8] text-white/65">{product.text}</p>
-                <ul className="mt-8 grid gap-3 sm:grid-cols-3">
-                  {product.items.map((item) => <li key={item} className="rounded-xl border border-white/10 bg-white/[0.045] p-4 text-sm text-white/80">{item}</li>)}
-                </ul>
-              </article>
-            )}
+
+            <div className="relative mx-auto w-full max-w-sm lg:mx-0 lg:max-w-none">
+              <img
+                src={`${photo}-portrait-960.webp`}
+                srcSet={`${photo}-portrait-480.webp 480w, ${photo}-portrait-960.webp 960w`}
+                sizes={AUTHOR_PORTRAIT_SIZES}
+                width={960}
+                height={1200}
+                alt={EDITORIAL_AUTHOR.name}
+                fetchPriority="high"
+                className="h-auto w-full rounded-[32px] bg-[#D6D6D5] shadow-[0_60px_100px_-60px_rgba(9,14,23,.55)]"
+              />
+              {certificate && (
+                <a
+                  href="#certificate"
+                  className="absolute -bottom-7 left-4 right-4 flex items-start gap-3.5 rounded-2xl border border-ink-950/[0.06] bg-white/95 p-4 shadow-[0_24px_60px_-28px_rgba(9,14,23,.45)] backdrop-blur transition-colors hover:border-brand-700/30 motion-safe:animate-rise-fade sm:left-auto sm:right-6 sm:w-[320px] lg:-left-14 lg:bottom-12 lg:right-auto"
+                >
+                  <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-brand-700 text-white">
+                    <Check size={18} strokeWidth={2.5} aria-hidden />
+                  </span>
+                  <span>
+                    <span className="block text-[11px] font-bold uppercase tracking-[0.16em] text-brand-700">Роспатент</span>
+                    <span className="mt-1 block text-sm font-semibold text-ink-950">
+                      Свидетельство №{'\u00a0'}{certificate.number}
+                    </span>
+                    <span className="mt-0.5 block text-xs leading-snug text-[#5C6560]">{certificate.note}</span>
+                  </span>
+                </a>
+              )}
+            </div>
           </div>
 
-          {experience && (
-            <article className="mt-5 grid gap-8 rounded-[30px] border border-ink-950/[0.08] bg-white p-7 sm:p-10 lg:grid-cols-[.72fr_1.28fr] lg:gap-14">
-              <div><span className="font-mono text-xs text-ink-400">02 / experience</span><h3 className="mt-5 text-3xl font-semibold tracking-[-0.04em] text-ink-950">{experience.title}</h3></div>
-              <div><p className="text-base leading-[1.8] text-ink-600">{experience.text}</p><ul className="mt-6 flex flex-wrap gap-2">{experience.items.map((item) => <li key={item} className="rounded-full bg-[#eef4ef] px-4 py-2 text-sm font-medium text-ink-700">{item}</li>)}</ul></div>
-            </article>
+          {facts.length > 0 && (
+            <dl className="mt-20 grid border-t border-ink-950/10 sm:grid-cols-3">
+              {facts.map(([value, label]) => (
+                <div
+                  key={label}
+                  className="flex flex-col-reverse border-b border-ink-950/10 py-6 sm:border-b-0 sm:border-l sm:px-8 sm:first:border-l-0 sm:first:pl-0"
+                >
+                  <dt className="mt-2 max-w-[17rem] text-sm leading-snug text-[#5C6560]">{label}</dt>
+                  <dd className="text-4xl font-semibold tracking-[-0.045em] text-ink-950 sm:text-5xl">{value}</dd>
+                </div>
+              ))}
+            </dl>
           )}
+        </Container>
+      </section>
 
-          <div className="mt-5 grid gap-5 lg:grid-cols-[1.15fr_.85fr]">
-            {expertise && (
-              <article className="rounded-[30px] border border-ink-950/[0.08] bg-white p-7 sm:p-9">
-                <span className="font-mono text-xs text-ink-400">03 / focus</span><h3 className="mt-5 text-2xl font-semibold tracking-[-0.035em] text-ink-950">{expertise.title}</h3><p className="mt-4 text-sm leading-[1.8] text-ink-600">{expertise.text}</p>
-                <ul className="mt-7 grid gap-2 sm:grid-cols-2">{expertise.items.map((item) => <li key={item} className="flex items-center gap-2 border-t border-ink-950/[0.08] pt-3 text-sm text-ink-700"><span className="h-1.5 w-1.5 rounded-full bg-brand-500" aria-hidden />{item}</li>)}</ul>
-              </article>
-            )}
-            {feedback && (
-              <article className="rounded-[30px_30px_30px_8px] bg-[#d9ece5] p-7 sm:p-9">
-                <span className="font-mono text-xs text-ink-400">04 / contact</span><h3 className="mt-5 text-2xl font-semibold tracking-[-0.035em] text-ink-950">{feedback.title}</h3><p className="mt-4 text-sm leading-[1.8] text-ink-600">{feedback.text}</p>
-                <a href="mailto:hello@sellico.ru" className="mt-7 inline-flex items-center gap-2 text-sm font-semibold text-brand-900 underline-offset-4 hover:underline">hello@sellico.ru <ArrowRight size={14} aria-hidden /></a>
-              </article>
-            )}
+      {certificate && (
+        <section id="certificate" className="scroll-mt-24 bg-white py-20 lg:py-28" aria-labelledby="certificate-title">
+          <Container>
+            <div className="grid items-center gap-12 lg:grid-cols-[minmax(0,.9fr)_minmax(0,1.1fr)] lg:gap-20">
+              <div>
+                <p className="text-sm font-semibold text-brand-700">Подтверждение авторства</p>
+                <h2 id="certificate-title" className="mt-4 text-3xl font-semibold tracking-[-0.045em] text-ink-950 sm:text-5xl">
+                  Программа {certificate.program} зарегистрирована в Роспатенте
+                </h2>
+                <p className="mt-5 max-w-lg text-base leading-[1.75] text-[#4A5550]">
+                  Свидетельство о государственной регистрации программы для ЭВМ подтверждает авторство и права на {certificate.program}.
+                  Запись открыта в реестре ФИПС — проверить её может любой.
+                </p>
+              </div>
+              <div className="rounded-[28px] border border-ink-950/[0.08] bg-[#FAFAF8] p-7 sm:p-10">
+                <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#5C6560]">Реестр программ для ЭВМ · Роспатент</p>
+                <p className="mt-4 text-4xl font-semibold tabular-nums tracking-[-0.03em] text-ink-950 sm:text-5xl">
+                  №{'\u00a0'}{certificate.number}
+                </p>
+                <dl className="mt-8 border-t border-ink-950/[0.08] text-sm">
+                  {[
+                    ['Программа', `«${certificate.program}»`],
+                    ['Автор и правообладатель', certificate.holder],
+                    ['Дата регистрации', formatEditorialDate(certificate.date)],
+                    ['Заявка', `№\u00a0${certificate.application} от ${formatEditorialDate(certificate.applicationDate)}`],
+                  ].map(([label, value]) => (
+                    <div key={label} className="grid gap-1 border-b border-ink-950/[0.08] py-3.5 sm:grid-cols-[200px_1fr] sm:gap-6">
+                      <dt className="text-[#5C6560]">{label}</dt>
+                      <dd className="font-medium text-ink-950">{value}</dd>
+                    </div>
+                  ))}
+                </dl>
+                <a
+                  href={certificate.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="mt-8 inline-flex h-11 items-center gap-2 rounded-full bg-brand-800 px-5 text-sm font-semibold text-white transition-colors hover:bg-brand-900"
+                >
+                  Открыть запись в реестре ФИПС <ArrowUpRight size={15} aria-hidden />
+                </a>
+              </div>
+            </div>
+          </Container>
+        </section>
+      )}
+
+      <section className="bg-[#F3F3F0] py-20 lg:py-28" aria-labelledby="author-work-title">
+        <Container>
+          <div className="grid gap-12 lg:grid-cols-[minmax(0,.8fr)_minmax(0,1.2fr)] lg:gap-20">
+            <div>
+              <h2 id="author-work-title" className="text-3xl font-semibold tracking-[-0.045em] text-ink-950 sm:text-5xl">
+                {page.blocksTitle}
+              </h2>
+              <p className="mt-5 max-w-md text-base leading-[1.75] text-[#4A5550]">{page.blocksLead}</p>
+            </div>
+            <div className="border-t border-ink-950/[0.12]">
+              {page.blocks.map((block) => (
+                <article key={block.title} className="border-b border-ink-950/[0.12] py-8">
+                  <h3 className="text-xl font-semibold tracking-[-0.025em] text-ink-950 sm:text-2xl">{block.title}</h3>
+                  <p className="mt-3 max-w-2xl text-base leading-[1.75] text-[#4A5550]">{block.text}</p>
+                  <p className="mt-4 text-sm leading-relaxed text-[#5C6560]">{block.items.join(' · ')}</p>
+                </article>
+              ))}
+            </div>
           </div>
         </Container>
       </section>
 
-      {AUTHOR_ARTICLES.length > 0 && (
+      {articlesCount > 0 && (
         <section className="bg-white py-20 lg:py-24" aria-labelledby="author-articles-title">
           <Container>
             <div className="flex flex-wrap items-end justify-between gap-6">
-              <h2 id="author-articles-title" className="text-3xl font-semibold tracking-[-0.05em] text-ink-950 sm:text-5xl">
+              <h2 id="author-articles-title" className="scroll-mt-28 text-3xl font-semibold tracking-[-0.05em] text-ink-950 sm:text-5xl">
                 Статьи автора
               </h2>
               <a
@@ -1854,21 +1940,23 @@ function AuthorProfilePage({ page }: { page: DetailPage }) {
                 Все статьи <ArrowRight size={14} aria-hidden />
               </a>
             </div>
-            <div className="mt-10 grid gap-x-5 gap-y-9 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="mt-10 grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
               {AUTHOR_ARTICLES.map(([slug, article]) => (
                 <a key={slug} href={`/${slug}/`} className="group block">
                   {article.cover && (
-                    <img
-                      src={`${article.cover}-800.webp`}
-                      width={800}
-                      height={420}
-                      alt=""
-                      loading="lazy"
-                      className="h-auto w-full rounded-2xl border border-ink-950/[0.08]"
-                    />
+                    <span className="block overflow-hidden rounded-2xl bg-[#F3F3F0]">
+                      <img
+                        src={`${article.cover}-800.webp`}
+                        width={800}
+                        height={420}
+                        alt=""
+                        loading="lazy"
+                        className="h-auto w-full transition-transform duration-500 ease-out group-hover:scale-[1.04]"
+                      />
+                    </span>
                   )}
                   {article.created && (
-                    <time dateTime={article.created} className="mt-4 block text-xs text-ink-500">
+                    <time dateTime={article.created} className="mt-4 block text-xs text-[#5C6560]">
                       {formatEditorialDate(article.created)}
                     </time>
                   )}
