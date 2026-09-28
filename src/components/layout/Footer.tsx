@@ -25,6 +25,7 @@ const COLUMNS = [
       { label: 'Яндекс Маркет', href: '/yandex-market/' },
       { label: 'Все площадки', href: '/marketplaces/' },
       { label: 'Глоссарий', href: '/glossary/' },
+      { label: 'Статьи', href: '/articles/' },
     ],
   },
   {

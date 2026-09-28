@@ -1,6 +1,6 @@
 {
   "kind": "calculator",
-  "lastmod": "2026-08-19",
+  "lastmod": "2026-09-28",
   "eyebrow": "Калькулятор ДРР",
   "parent": [
     "Калькуляторы",
@@ -76,6 +76,10 @@
     ]
   ],
   "related": [
+    [
+      "Как снизить ДРР",
+      "/articles/reduce-drr/"
+    ],
     [
       "ДРР — термин и формула",
       "/glossary/drr/"

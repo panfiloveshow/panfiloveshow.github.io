@@ -64,6 +64,26 @@
       "url": "https://www.nalog.gov.ru/rn77/taxation/taxes/usn/",
       "publisher": "ФНС России"
     },
+    "wb-promotion-stats": {
+      "name": "Статистика и управление продвижением",
+      "url": "https://seller.wildberries.ru/instructions/ru/ru/material/statistics-and-promotion-management",
+      "publisher": "Wildberries"
+    },
+    "ozon-drr": {
+      "name": "Что такое ДРР на Ozon и как её считать",
+      "url": "https://seller.ozon.ru/media/boost/chto-takoe-drr-na-ozon/",
+      "publisher": "Ozon"
+    },
+    "law-289-pravo": {
+      "name": "Федеральный закон от 31.07.2025 № 289-ФЗ «Об отдельных вопросах регулирования платформенной экономики в Российской Федерации»",
+      "url": "http://publication.pravo.gov.ru/Document/View/0001202507310020",
+      "publisher": "Официальный интернет-портал правовой информации"
+    },
+    "law-289-kremlin": {
+      "name": "Федеральный закон № 289-ФЗ — текст закона",
+      "url": "http://www.kremlin.ru/acts/bank/52331",
+      "publisher": "Президент России"
+    },
     "google-ai-search": {
       "name": "AI features and your website",
       "url": "https://developers.google.com/search/docs/appearance/ai-features",
@@ -96,7 +116,12 @@
     "inventory": ["wb-api", "ozon-seller-api", "yandex-methods"],
     "company": ["sellico-pricing", "sellico-privacy"],
     "cases": ["sellico-pricing"],
-    "methodology": ["google-ai-search", "openai-publishers", "perplexity-crawlers", "anthropic-crawler"]
+    "methodology": ["google-ai-search", "openai-publishers", "perplexity-crawlers", "anthropic-crawler"],
+    "articles": ["wb-economics", "wb-logistics", "wb-promotion-stats", "ozon-drr"],
+    "wb-unit-economics": ["wb-economics", "wb-finance", "wb-logistics", "fns-usn"],
+    "wb-supply": ["wb-tariff-fixation", "wb-logistics"],
+    "advertising-drr": ["wb-promotion-stats", "ozon-drr", "wb-economics"],
+    "platform-law": ["law-289-pravo", "law-289-kremlin"]
   },
   "pages": {
     "about": "company",
@@ -141,6 +166,11 @@
     "glossary/safety-stock": "inventory",
     "glossary/break-even": "economics",
     "glossary/cpm-cpc-cpo": "product",
-    "glossary/lost-sales": "inventory"
+    "glossary/lost-sales": "inventory",
+    "articles": "articles",
+    "articles/wildberries-unit-economics": "wb-unit-economics",
+    "articles/wildberries-supply": "wb-supply",
+    "articles/reduce-drr": "advertising-drr",
+    "articles/platform-economy-law": "platform-law"
   }
 }

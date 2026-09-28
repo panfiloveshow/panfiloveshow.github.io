@@ -58,6 +58,7 @@ function staticHeader() {
         <a href="/features/" style="color:#11543f">Возможности</a>
         <a href="/marketplaces/" style="color:#11543f">Маркетплейсы</a>
         <a href="/pricing/" style="color:#11543f">Тарифы</a>
+        <a href="/articles/" style="color:#11543f">Статьи</a>
       </nav>
     </header>`;
 }
@@ -70,6 +71,8 @@ function staticFooter() {
     ['Площадки', ['marketplaces', 'wildberries', 'ozon', 'yandex-market']],
     ['Инструменты', ['calculators', 'calculators/unit-economics', 'calculators/margin', 'calculators/cost-price', 'calculators/roi', 'calculators/abc-xyz', 'calculators/wildberries-logistics', 'calculators/turnover', 'calculators/drr', 'calculators/break-even']],
     ['Справочник', ['glossary', 'glossary/drr', 'glossary/turnover', 'glossary/margin', 'glossary/abc-analysis', 'glossary/fbo-fbs', 'glossary/buyout-rate', 'glossary/roi', 'glossary/conversion', 'glossary/cost-price', 'glossary/xyz-analysis', 'glossary/safety-stock', 'glossary/break-even', 'glossary/cpm-cpc-cpo', 'glossary/lost-sales']],
+    // Статьи добавляются чаще остальных разделов — список собирается сам, чтобы новая не выпала из подвала.
+    ['Статьи', routes.filter((route) => route.kind === 'articles-hub' || route.kind === 'article').map((route) => route.path)],
     ['Компания', ['about', 'authors/danil-zubarev', 'cases', 'methodology', 'contacts']],
   ];
   const byPath = new Map(routes.map((route) => [route.path, route]));
@@ -199,6 +202,12 @@ function buildRouteFallback(route) {
           <p style="max-width:790px;margin:24px 0 0;color:rgba(255,255,255,.8);font-size:18px;line-height:1.7">${escapeHtml(route.lead)}</p>
         </section>
         ${
+          // srcset и sizes — как у обложки в ArticlePage (SeoContentPage.tsx), чтобы React взял картинку из кэша.
+          route.cover
+            ? `<figure style="max-width:896px;margin:28px 0 0"><img src="${route.cover.src}-1600.webp" srcset="${route.cover.src}-800.webp 800w, ${route.cover.src}-1600.webp 1600w" sizes="(min-width: 1024px) 896px, calc(100vw - 40px)" width="1600" height="840" alt="${escapeHtml(route.cover.alt)}" fetchpriority="high" style="display:block;width:100%;height:auto;border-radius:26px"><figcaption style="margin-top:10px;font-size:12px;color:#53635b">Фото: <a href="${route.cover.creditUrl}" rel="noreferrer nofollow" style="color:#11543f">${escapeHtml(route.cover.credit)}</a>, Unsplash</figcaption></figure>`
+            : ''
+        }
+        ${
           route.answer
             ? `<section data-direct-answer aria-labelledby="fallback-direct-answer-title" style="padding:38px 0;border-bottom:1px solid #dfe7e2"><p style="margin:0;color:#177357;font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase">Короткий ответ</p><h2 id="fallback-direct-answer-title" style="max-width:900px;margin:14px 0 0;font-size:clamp(28px,4vw,42px);letter-spacing:-.04em">${escapeHtml(route.answer.title)}</h2><p style="max-width:900px;margin:18px 0 0;color:#53635b;font-size:17px;line-height:1.75">${escapeHtml(route.answer.text)}</p><ul style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));margin:24px 0 0;padding:0;border-top:1px solid #dfe7e2;list-style:none">${route.answer.points.map((point) => `<li style="padding:16px 18px 16px 0;border-bottom:1px solid #dfe7e2;color:#30453b;line-height:1.55">${escapeHtml(point)}</li>`).join('')}</ul></section>`
             : ''
@@ -217,13 +226,23 @@ function buildRouteFallback(route) {
               }</section>`
             : ''
         }
-        <section aria-label="${escapeHtml(route.eyebrow)}" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;padding-top:42px">
+        ${
+          route.kind === 'article'
+            ? `<nav aria-label="Содержание" style="padding-top:38px"><p style="margin:0;color:#177357;font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase">Содержание</p><ol style="margin:14px 0 0;padding-left:20px;line-height:1.9">${route.sections
+                .map((section, index) => `<li><a href="#section-${index + 1}" style="color:#11543f">${escapeHtml(section.title)}</a></li>`)
+                .join('')}</ol></nav>`
+            : ''
+        }
+        <section aria-label="${escapeHtml(route.eyebrow)}" style="display:grid;grid-template-columns:${route.kind === 'article' ? '1fr' : 'repeat(auto-fit,minmax(280px,1fr))'};gap:14px;padding-top:42px">
           ${route.sections
             .map(
-              (section) => `
-                <article style="border:1px solid #dfe7e2;border-radius:20px;background:white;padding:24px">
+              (section, index) => `
+                <article id="section-${index + 1}" style="border:1px solid #dfe7e2;border-radius:20px;background:white;padding:24px">
                   <h2 style="margin:0;font-size:23px;letter-spacing:-.025em">${escapeHtml(section.title)}</h2>
-                  <p style="margin:14px 0 0;color:#53635b;line-height:1.7">${escapeHtml(section.text)}</p>
+                  ${section.text
+                    .split('\n\n')
+                    .map((paragraph) => `<p style="margin:14px 0 0;color:#53635b;line-height:1.7">${escapeHtml(paragraph)}</p>`)
+                    .join('')}
                   ${
                     section.items
                       ? `<ul style="margin:18px 0 0;padding-left:20px;color:#30453b;line-height:1.75">${section.items.map((item) => `<li>${escapeHtml(item)}</li>`).join('')}</ul>`
@@ -279,7 +298,7 @@ function buildRouteFallback(route) {
         }
         ${
           route.editorial
-            ? `<section aria-labelledby="editorial-info-title" style="margin-top:42px;border:1px solid #dfe7e2;border-radius:22px;background:white;padding:26px"><p style="margin:0;color:#177357;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase">Редакционная информация</p><h2 id="editorial-info-title" style="margin:10px 0 0;font-size:25px">Проверено по первичным источникам</h2><p style="margin:14px 0 0;color:#53635b;line-height:1.7">Автор: <a href="${route.editorial.author.url}" style="color:#11543f;font-weight:700">${escapeHtml(route.editorial.author.name)}</a> · Обновлено: <time datetime="${route.lastmod}">${route.lastmod}</time> · <a href="${route.editorial.methodologyUrl}" style="color:#11543f;font-weight:700">Методология</a></p><h3 style="margin:22px 0 0;font-size:17px">Источники</h3><ul style="margin:10px 0 0;padding-left:20px;line-height:1.8">${route.editorial.sources
+            ? `<section aria-labelledby="editorial-info-title" style="margin-top:42px;border:1px solid #dfe7e2;border-radius:22px;background:white;padding:26px"><p style="margin:0;color:#177357;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase">Редакционная информация</p><h2 id="editorial-info-title" style="margin:10px 0 0;font-size:25px">Проверено по первичным источникам</h2><p style="margin:14px 0 0;color:#53635b;line-height:1.7">Автор: <a href="${route.editorial.author.url}" style="color:#11543f;font-weight:700">${escapeHtml(route.editorial.author.name)}</a> · ${route.kind === 'article' ? `Опубликовано: <time datetime="${route.created}">${route.created}</time> · ` : ''}Обновлено: <time datetime="${route.lastmod}">${route.lastmod}</time> · <a href="${route.editorial.methodologyUrl}" style="color:#11543f;font-weight:700">Методология</a></p><h3 style="margin:22px 0 0;font-size:17px">Источники</h3><ul style="margin:10px 0 0;padding-left:20px;line-height:1.8">${route.editorial.sources
                 .map(
                   (source) =>
                     `<li><a href="${source.url}" style="color:#11543f;font-weight:600">${escapeHtml(source.name)}</a> — ${escapeHtml(source.publisher)}</li>`,
@@ -427,6 +446,27 @@ function routeSchema(route) {
     };
     pageNode.mainEntity = { '@id': term['@id'] };
     graph.push(term);
+  }
+
+  // Статье нужны дата публикации и картинка: без них поисковики не показывают дату в сниппете
+  // и не считают страницу материалом с автором.
+  if (route.kind === 'article') {
+    if (!route.cover) throw new Error(`${route.path}: у статьи нет обложки (cover)`);
+    const article = {
+      '@type': 'Article',
+      '@id': `${route.canonical}#article`,
+      headline: route.h1,
+      description: route.description,
+      image: `https://sellico.ru${route.cover.src}.jpg`,
+      inLanguage: 'ru-RU',
+      datePublished: toDateTime(route.created),
+      dateModified: toDateTime(route.lastmod),
+      author: { '@id': route.editorial.author.id },
+      publisher: { '@id': 'https://sellico.ru/#organization' },
+      mainEntityOfPage: { '@id': pageNode['@id'] },
+    };
+    pageNode.mainEntity = { '@id': article['@id'] };
+    graph.push(article);
   }
 
   if (route.faq) {
@@ -623,6 +663,18 @@ function replaceMeta(html, route) {
     /<link\s+rel="canonical"\s+href="[^"]*"\s*\/>/,
     `<link rel="canonical" href="${route.canonical}" />`,
   );
+  // У статьи в превью ссылки (Telegram, VK, мессенджеры) — своя обложка, а не общая картинка сайта.
+  if (route.cover) {
+    const image = `https://sellico.ru${route.cover.src}.jpg`;
+    next = next
+      .replace(/<meta\s+property="og:type"\s+content="[^"]*"\s*\/>/, '<meta property="og:type" content="article" />')
+      .replace(/<meta\s+property="og:image"\s+content="[^"]*"\s*\/>/, `<meta property="og:image" content="${image}" />`)
+      .replace(
+        /<meta\s+property="og:image:alt"\s+content="[^"]*"\s*\/>/,
+        `<meta property="og:image:alt" content="${escapeHtml(route.cover.alt)}" />`,
+      )
+      .replace(/<meta\s+name="twitter:image"\s+content="[^"]*"\s*\/>/, `<meta name="twitter:image" content="${image}" />`);
+  }
   if (route.kind === 'pricing') {
     next = next.replace(
       '</head>',

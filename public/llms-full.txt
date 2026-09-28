@@ -2,7 +2,7 @@
 
 > Sellico is a Russian web-based operating system for sellers and teams managing stores on Wildberries, Ozon, and Yandex Market.
 
-Last updated: 2026-09-22
+Last updated: 2026-09-28
 
 Canonical website: [sellico.ru](https://sellico.ru/)
 
@@ -20,6 +20,11 @@ Legal operator: Individual entrepreneur Danil Viktorovich Zubarev, INN 644154992
 - [Unit economics](https://sellico.ru/unit-economics/)
 - [Unit economics calculator](https://sellico.ru/calculators/unit-economics/)
 - [Seller glossary](https://sellico.ru/glossary/)
+- [Seller guides](https://sellico.ru/articles/)
+- [How to calculate unit economics on Wildberries](https://sellico.ru/articles/wildberries-unit-economics/)
+- [How to calculate a Wildberries supply](https://sellico.ru/articles/wildberries-supply/)
+- [How to reduce ACoS on marketplaces](https://sellico.ru/articles/reduce-drr/)
+- [Platform economy law (Federal Law No. 289-FZ) for marketplace sellers](https://sellico.ru/articles/platform-economy-law/)
 - [Contacts](https://sellico.ru/contacts/)
 - [Inventory and supply planning](https://sellico.ru/supply-planning/)
 - [Product-card SEO and AI descriptions](https://sellico.ru/seo-cards/)
@@ -76,7 +81,7 @@ Do not infer capabilities that are not documented on the canonical pages.
 
 ## Editorial policy
 
-Canonical HTML pages are the primary source. Each product, calculator, and glossary page identifies the Sellico editorial team, its last substantive update, the methodology, and relevant primary sources.
+Canonical HTML pages are the primary source. Each product, calculator, glossary, and article page identifies the Sellico editorial team, its last substantive update, the methodology, and relevant primary sources.
 
 Technical claims about marketplace APIs are checked against official Wildberries, Ozon, and Yandex Market documentation. Calculator results are estimates based on user inputs and do not replace accounting or tax calculations.
 

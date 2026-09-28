@@ -102,6 +102,11 @@ const SEO_ROUTES: Record<string, SeoPageType> = {
   '/glossary/break-even': 'glossary/break-even',
   '/glossary/cpm-cpc-cpo': 'glossary/cpm-cpc-cpo',
   '/glossary/lost-sales': 'glossary/lost-sales',
+  '/articles': 'articles',
+  '/articles/wildberries-unit-economics': 'articles/wildberries-unit-economics',
+  '/articles/wildberries-supply': 'articles/wildberries-supply',
+  '/articles/reduce-drr': 'articles/reduce-drr',
+  '/articles/platform-economy-law': 'articles/platform-economy-law',
 };
 
 export default function App() {

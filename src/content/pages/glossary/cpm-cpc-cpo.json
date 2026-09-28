@@ -1,6 +1,6 @@
 {
   "kind": "glossary",
-  "lastmod": "2026-09-23",
+  "lastmod": "2026-09-28",
   "eyebrow": "CPM, CPC и CPO",
   "parent": [
     "Глоссарий",
@@ -97,6 +97,10 @@
     ]
   ],
   "related": [
+    [
+      "Как снизить ДРР",
+      "/articles/reduce-drr/"
+    ],
     [
       "ДРР",
       "/glossary/drr/"

@@ -41,6 +41,7 @@ const MOBILE_PAGES = [
   { label: 'Маркетплейсы', href: '/marketplaces/' },
   { label: 'Калькуляторы', href: '/calculators/' },
   { label: 'Глоссарий', href: '/glossary/' },
+  { label: 'Статьи', href: '/articles/' },
 ];
 
 // Секции, при которых пункт «Продукт» считается активным
@@ -141,9 +142,12 @@ export function Header() {
     requestAnimationFrame(() => scrollToSection(id));
   };
 
+  const onArticles = window.location.pathname.startsWith('/articles');
+
   const navItemClass = (isActive: boolean) =>
     cn(
-      'flex items-center gap-1 rounded-full px-3.5 py-1.5 text-[13.5px] font-medium transition-colors duration-200',
+      // На 1024–1279 px шесть пунктов и кнопка входят в капсулу только с узкими отступами
+      'flex items-center gap-1 whitespace-nowrap rounded-full px-2.5 py-1.5 text-[13.5px] font-medium transition-colors duration-200 xl:px-3.5',
       isActive
         ? 'bg-white/[0.12] text-white'
         : 'text-white/78 hover:bg-white/[0.06] hover:text-white',
@@ -248,6 +252,14 @@ export function Header() {
                 {item.label}
               </button>
             ))}
+            {/* Раздел, а не секция лендинга: обычная ссылка, иначе на десктопе в статьи не попасть */}
+            <a
+              href="/articles/"
+              aria-current={onArticles ? 'page' : undefined}
+              className={navItemClass(onArticles)}
+            >
+              Статьи
+            </a>
           </nav>
 
           <div className="flex shrink-0 items-center gap-1.5">

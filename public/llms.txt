@@ -2,7 +2,7 @@
 
 > Sellico is a Russian web-based operating system for sellers and teams managing stores on Wildberries, Ozon, and Yandex Market.
 
-Last updated: 2026-09-22
+Last updated: 2026-09-28
 
 Canonical domain: [sellico.ru](https://sellico.ru/)
 
@@ -28,6 +28,7 @@ Canonical HTML pages are the primary source. The Markdown and llms files are alt
 - [Seller calculators: unit economics, margin and markup, cost price, ROI, ABC/XYZ analysis, Wildberries logistics, turnover, ACoS, break-even](https://sellico.ru/calculators/)
 - [Unit economics calculator](https://sellico.ru/calculators/unit-economics/)
 - [Seller glossary](https://sellico.ru/glossary/)
+- [Seller guides: Wildberries unit economics, supply calculation, reducing ACoS, platform economy law](https://sellico.ru/articles/)
 - [Contacts](https://sellico.ru/contacts/)
 - [Inventory and supply planning](https://sellico.ru/supply-planning/)
 - [Product-card SEO and AI descriptions](https://sellico.ru/seo-cards/)

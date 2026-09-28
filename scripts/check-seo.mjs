@@ -1,3 +1,4 @@
+import { existsSync } from 'node:fs';
 import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { routes } from './site-routes.mjs';
@@ -93,6 +94,14 @@ for (const page of pages) {
 
   if (page.kind === 'glossary' && !nodes.some((node) => node['@type'] === 'DefinedTerm')) {
     fail(`${label}: термин глоссария не размечен DefinedTerm`);
+  }
+  if (page.kind === 'article') {
+    const article = nodes.find((node) => node['@type'] === 'Article');
+    if (!/^\d{4}-\d{2}-\d{2}T/.test(article?.datePublished ?? '')) fail(`${label}: в Article нет datePublished`);
+    if (article?.author?.['@id'] !== 'https://sellico.ru/authors/danil-zubarev/#person') fail(`${label}: Article не связан с автором`);
+    const cover = article?.image?.replace('https://sellico.ru/', '') ?? '';
+    if (!cover.startsWith('assets/articles/') || !existsSync(join('dist', cover))) fail(`${label}: нет своей обложки ${cover}`);
+    if (!html.includes(`<meta property="og:image" content="${article?.image}" />`)) fail(`${label}: og:image не указывает на обложку`);
   }
   if (page.kind === 'author' && !nodes.some((node) => node['@type'] === 'ProfilePage')) {
     fail(`${label}: профиль автора не размечен ProfilePage`);

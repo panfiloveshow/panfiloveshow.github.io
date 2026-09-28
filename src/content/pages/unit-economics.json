@@ -1,6 +1,6 @@
 {
   "kind": "feature",
-  "lastmod": "2026-08-25",
+  "lastmod": "2026-09-28",
   "eyebrow": "Юнит-экономика",
   "icon": "BarChart3",
   "title": "Юнит-экономика маркетплейсов — прибыль по SKU в Sellico",
@@ -93,6 +93,10 @@
     ]
   ],
   "related": [
+    [
+      "Как посчитать юнит-экономику на Wildberries",
+      "/articles/wildberries-unit-economics/"
+    ],
     [
       "Калькулятор точки безубыточности",
       "/calculators/break-even/"
