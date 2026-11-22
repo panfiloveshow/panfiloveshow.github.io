@@ -56,6 +56,15 @@ if command -v sshpass >/dev/null 2>&1 && [ -n "${SSHPASS:-}" ]; then
   RSYNC_BASE=(sshpass -e rsync)
 fi
 
+# На внешних дисках права могут быть принудительно ограничены до 700, поэтому
+# готовим копию на локальной файловой системе до отправки на сервер.
+STAGED_DIST="$(mktemp -d "${TMPDIR:-/tmp}/sellico-landing-deploy.XXXXXX")"
+trap 'rm -rf "$STAGED_DIST"' EXIT
+echo "==> Preparing readable static files"
+rsync -a "$ROOT_DIR/dist/" "$STAGED_DIST/"
+find "$STAGED_DIST" -type d -exec chmod 755 {} +
+find "$STAGED_DIST" -type f -exec chmod 644 {} +
+
 echo "==> Backing up remote dist to $REMOTE_BACKUP_DIR/landing-dist-$TIMESTAMP"
 "${SSH_BASE[@]}" $SSH_OPTS "$REMOTE" \
   "mkdir -p '$REMOTE_BACKUP_DIR' && if [ -d '$REMOTE_DIST_PATH' ]; then cp -a '$REMOTE_DIST_PATH' '$REMOTE_BACKUP_DIR/landing-dist-$TIMESTAMP'; fi"
@@ -63,13 +72,13 @@ echo "==> Backing up remote dist to $REMOTE_BACKUP_DIR/landing-dist-$TIMESTAMP"
 # Снимок sitemap до выкладки: по нему IndexNow получит только новые и изменившиеся URL.
 # Не скачался — файл пустой, и отправятся все URL, как раньше.
 PREV_SITEMAP="$(mktemp)"
-trap 'rm -f "$PREV_SITEMAP"' EXIT
+trap 'rm -f "$PREV_SITEMAP"; rm -rf "$STAGED_DIST"' EXIT
 curl -fsS --max-time 15 https://sellico.ru/sitemap.xml -o "$PREV_SITEMAP" || : > "$PREV_SITEMAP"
 
 echo "==> Deploying dist to $REMOTE:$REMOTE_DIST_PATH"
 # .well-known не трогаем: туда certbot (webroot) кладёт проверочные файлы от root,
 # и --delete падал бы на них с кодом 23.
-"${RSYNC_BASE[@]}" -az --delete --exclude='/.well-known/' -e "ssh $SSH_OPTS" "$ROOT_DIR/dist/" "$REMOTE:$REMOTE_DIST_PATH/"
+"${RSYNC_BASE[@]}" -az --delete --exclude='/.well-known/' -e "ssh $SSH_OPTS" "$STAGED_DIST/" "$REMOTE:$REMOTE_DIST_PATH/"
 
 if [ "${DEPLOY_SUBMIT_INDEXNOW:-1}" = "1" ]; then
   echo "==> Submitting changed sitemap URLs to IndexNow"
