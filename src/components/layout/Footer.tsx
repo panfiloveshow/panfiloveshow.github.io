@@ -155,9 +155,28 @@ export function Footer() {
               </nav>
 
               <div className="mt-12 flex items-end justify-between max-sm:mt-6 max-sm:flex-col max-sm:items-start max-sm:gap-6">
-                <p className="text-[12.5px] font-medium text-white/70">
-                  © {year} Sellico. Все права защищены.
-                </p>
+                <div className="flex flex-col items-start">
+                  <p className="text-[12.5px] font-medium text-white/70">
+                    © {year} Sellico. Все права защищены.
+                  </p>
+                  <a
+                    href="https://zorr.uz/"
+                    rel="nofollow"
+                    aria-label="Разработано в ZORR"
+                    className="inline-flex min-h-[44px] items-center gap-2 rounded-sm text-xs font-medium text-white/65 transition-colors hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-300"
+                  >
+                    <span>Разработано в</span>
+                    <img
+                      src="/assets/zorr-credit/zorr-logo-on-dark.svg"
+                      alt=""
+                      width={64}
+                      height={16}
+                      loading="lazy"
+                      decoding="async"
+                      className="h-4 w-16"
+                    />
+                  </a>
+                </div>
                 <div className="flex flex-col gap-3.5">
                   <p className="text-[15px] leading-[1.45] text-white/75">
                     Маркетплейсы не ждут.
