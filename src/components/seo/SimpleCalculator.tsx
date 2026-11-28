@@ -1,9 +1,9 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Container } from '@/components/ui/Container';
-import { CALC_SPECS } from '@/lib/calculator-specs';
+import { CALC_SPECS } from '@/lib/calculators/specs';
 import { AutomationCta } from '@/components/seo/AutomationCta';
 import { CalcHandoff } from '@/components/seo/CalcHandoff';
-import { readCalcParams, writeCalcParams } from '@/lib/calc-url';
+import { readCalcParams, writeCalcParams } from '@/lib/calculators/url';
 
 export function SimpleCalculator({ spec: specKey }: { spec: string }) {
   const spec = CALC_SPECS[specKey];

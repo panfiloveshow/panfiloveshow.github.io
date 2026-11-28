@@ -42,11 +42,11 @@ trap 'rm -f "$WORK_FILE" "$SNIPPET_WORK"' EXIT
 HSTS="${HSTS:-auto}"
 if [ "$HSTS" = "auto" ]; then
   if echo | openssl s_client -connect 127.0.0.1:443 -servername sellico.ru 2>/dev/null \
-    | openssl x509 -noout -checkend $((30 * 24 * 3600)) >/dev/null 2>&1; then
+    | openssl x509 -noout -checkend $((14 * 24 * 3600)) >/dev/null 2>&1; then
     HSTS=on
   else
     HSTS=off
-    echo "ВНИМАНИЕ: сертификату sellico.ru осталось меньше 30 дней (или он не читается) — HSTS не включаю." >&2
+    echo "ВНИМАНИЕ: сертификату sellico.ru осталось меньше 14 дней (или он не читается) — HSTS не включаю." >&2
     echo "Продлите сертификат и запустите скрипт ещё раз." >&2
   fi
 fi
@@ -55,13 +55,14 @@ fi
   echo "# Управляется apply-nginx-hardening.sh ($TIMESTAMP). Подключается на уровне server"
   echo "# и в каждом location со своим add_header — иначе nginx не наследует эти заголовки."
   if [ "$HSTS" = "on" ]; then
-    echo 'add_header Strict-Transport-Security "max-age=31536000" always;'
+    echo 'add_header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" always;'
   fi
   echo 'add_header X-Content-Type-Options "nosniff" always;'
-  echo 'add_header X-XSS-Protection "1; mode=block" always;'
   echo 'add_header Referrer-Policy "strict-origin-when-cross-origin" always;'
+  echo 'add_header Cross-Origin-Opener-Policy "same-origin-allow-popups" always;'
+  echo 'add_header Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=()" always;'
   echo '# X-Frame-Options намеренно не здесь: CRM-маршруты (/booking, /roadmap/public) могут'
-  echo '# встраиваться во фреймы. DENY стоит только в HTML-location лендинга и там, где был раньше.'
+  echo '# встраиваться во фреймы. DENY стоит только в HTML-location лендинга и на /login, /register.'
 } > "$SNIPPET_WORK"
 
 cp "$CONFIG" "$WORK_FILE"
@@ -89,7 +90,8 @@ FRAME_DENY = 'add_header X-Frame-Options "DENY" always;'
 LANDING_HTML = {'location = / {', 'location / {', 'location = /unit-economics/ {',
                 'location = /seo-cards/ {', 'location = /404.html {'}
 MAIN_TAIL = r'''
-	# apply-nginx-hardening.sh: кодировка HTML, Vary для gzip и склейка дублей /раздел/index.html.
+	# apply-nginx-hardening.sh: скрытие версии nginx, кодировка HTML, Vary для gzip и склейка дублей /раздел/index.html.
+	server_tokens off;
 	charset utf-8;
 	charset_types text/xml text/plain text/vnd.wap.wml application/javascript application/rss+xml text/markdown;
 	gzip_vary on;

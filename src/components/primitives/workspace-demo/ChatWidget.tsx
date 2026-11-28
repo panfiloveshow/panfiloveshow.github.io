@@ -13,8 +13,15 @@ import {
 } from 'lucide-react';
 import { cn } from '@/lib/cn';
 import { useDialogFocus } from '@/hooks/useDialogFocus';
-import { chatRooms } from './data';
 import { Avatar } from './shared';
+
+const chatRooms = [
+  { id: 'selya', name: 'Селя', subtitle: 'Остатки, экономика, дефициты', initials: 'AI', bot: true },
+  { id: 'marina', name: 'Марина', subtitle: 'Личный диалог', initials: 'М', time: '13:00' },
+  { id: 'alexey', name: 'Алексей', subtitle: 'Личный диалог', initials: 'А', time: '13:16' },
+  { id: 'team', name: 'Команда магазина', subtitle: 'Групповой чат', initials: 'К', time: '16:18' },
+  { id: 'content', name: 'Контент и реклама', subtitle: 'Групповой чат', initials: 'К', time: '12:35' },
+];
 
 export function ChatWidget({
   mobile,

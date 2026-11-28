@@ -5,14 +5,9 @@ import { Button } from '@/components/ui/Button';
 import { Container } from '@/components/ui/Container';
 import { REGISTER_URL, SECTION_IDS } from '@/lib/anchors';
 import { track } from '@/lib/analytics';
-import {
-  PERSONAL_DATA_CONSENT_VERSION,
-  PERSONAL_DATA_CONSENT_PATH,
-  PRIVACY_POLICY_PATH,
-  PRIVACY_POLICY_VERSION,
-  REGISTRATION_PREFILL_STORAGE_KEY,
-} from '@/lib/legal';
+import { LEGAL_DOCUMENTS, saveRegistrationPrefill } from '@/lib/legal';
 import { reveal } from './data';
+import FAQ_ITEMS from '@/content/landing-faq.json';
 
 // Перелинковка с главной вглубь: без неё внутренние страницы висят на одном подвале.
 const DEEP_LINKS = [
@@ -25,55 +20,16 @@ const DEEP_LINKS = [
   { label: 'Sellico для Wildberries', href: '/wildberries/' },
   { label: 'Sellico для Ozon', href: '/ozon/' },
   { label: 'Sellico для Яндекс Маркета', href: '/yandex-market/' },
+  { label: 'Сравнения инструментов', href: '/compare/' },
+  { label: 'Sellico или Excel', href: '/compare/excel/' },
+  { label: 'Sellico и парсеры ниш', href: '/compare/external-analytics/' },
+  { label: 'Sellico или кабинеты площадок', href: '/compare/cabinets/' },
   { label: 'Калькулятор юнит-экономики', href: '/calculators/unit-economics/' },
   { label: 'Калькулятор ДРР', href: '/calculators/drr/' },
   { label: 'Калькулятор оборачиваемости', href: '/calculators/turnover/' },
   { label: 'Глоссарий продавца', href: '/glossary/' },
   { label: 'Контакты', href: '/contacts/' },
 ];
-
-const FAQ_ITEMS = [
-  {
-    question: 'Что такое Sellico?',
-    answer:
-      'Sellico — российская операционная система для продавцов и команд, управляющих магазинами на Wildberries, Ozon и Яндекс Маркете. Сервис объединяет финансы, юнит-экономику, остатки, поставки, рекламу, SEO карточек, отзывы и задачи команды в одном рабочем пространстве.',
-  },
-  {
-    question: 'С какими маркетплейсами работает Sellico?',
-    answer:
-      'Sellico поддерживает Wildberries, Ozon и Яндекс Маркет. Данные подключённых магазинов собираются в одном кабинете, чтобы команда могла сравнивать показатели и управлять ежедневными процессами без отдельных таблиц для каждой площадки.',
-  },
-  {
-    question: 'Какие задачи продавца решает Sellico?',
-    answer:
-      'В Sellico можно анализировать выручку и прибыль по SKU, контролировать остатки и поставки, работать с рекламой, отзывами и SEO карточек, а также ставить задачи сотрудникам. Набор функций и лимиты зависят от выбранного тарифа.',
-  },
-  {
-    question: 'Сколько времени занимает подключение магазина?',
-    answer:
-      'Первый магазин можно подключить примерно за 15 минут. Для старта не требуется переносить рабочие таблицы или привязывать банковскую карту: достаточно выбрать тариф, подключить кабинет маркетплейса и дождаться синхронизации доступных данных.',
-  },
-  {
-    question: 'Есть ли бесплатный период?',
-    answer:
-      'Да. Для тарифов Sellico предусмотрено 3 дня бесплатного доступа без привязки банковской карты. За это время можно подключить магазин, познакомиться с интерфейсом и проверить доступные для выбранного тарифа инструменты на своих данных.',
-  },
-  {
-    question: 'Сколько стоит Sellico?',
-    answer:
-      'Тариф «Старт» стоит 3 000 ₽ в месяц, «Про» — 8 000 ₽, «Бизнес» — 15 000 ₽. Enterprise начинается от 40 000 ₽ в месяц и рассчитывается с учётом количества интеграций, пользователей, товаров и задач внедрения.',
-  },
-  {
-    question: 'Кто разработчик Sellico и кому принадлежат права на программу?',
-    answer:
-      'Разработчик и правообладатель — ИП Зубарев Данил Викторович. Программа для ЭВМ «Sellico» зарегистрирована в Роспатенте: свидетельство № 2026686895, дата регистрации в Реестре программ для ЭВМ — 2 сентября 2026 года.',
-  },
-  {
-    question: 'Кому подходит тариф Enterprise?',
-    answer:
-      'Enterprise предназначен для крупного бизнеса, агентств и команд со сложным контуром данных. В него входят договорные лимиты, индивидуальные условия SEO и автопланирования, настройка ролей и интеграций, а также согласованный сценарий внедрения.',
-  },
-] as const;
 
 export function HelpAndStartSection() {
   const [email, setEmail] = useState('');
@@ -91,19 +47,9 @@ export function HelpAndStartSection() {
       return;
     }
 
-    try {
-      sessionStorage.setItem(REGISTRATION_PREFILL_STORAGE_KEY, JSON.stringify({
-        email,
-        consentAt: new Date().toISOString(),
-        consentVersion: PERSONAL_DATA_CONSENT_VERSION,
-        privacyPolicyVersion: PRIVACY_POLICY_VERSION,
-        expiresAt: Date.now() + 15 * 60 * 1000,
-      }));
-    } catch {
-      // Регистрация останется доступна без автозаполнения.
-    }
+    saveRegistrationPrefill(email);
 
-    track('lead_submit', { source: 'landing_v2_final_cta' });
+    track('cta_click_final', { target: 'register' });
     window.location.href = REGISTER_URL;
   };
 
@@ -148,7 +94,7 @@ export function HelpAndStartSection() {
                 </p>
 
                 <div className="mt-7 flex flex-wrap gap-x-5 gap-y-3 text-xs font-medium text-white/82">
-                  {['Без привязки карты', 'Подключение около 15 минут', 'ПО зарегистрировано в Роспатенте'].map((item) => (
+                  {['Без привязки карты', 'История загружается после подключения', 'ПО зарегистрировано в Роспатенте'].map((item) => (
                     <span key={item} className="inline-flex items-center gap-2">
                       <CircleCheck size={15} className="text-emerald-200" />
                       {item}
@@ -194,7 +140,7 @@ export function HelpAndStartSection() {
                       className="mt-0.5 h-4 w-4 rounded accent-[#c8f44d]"
                       required
                     />
-                    <span>Даю <a href={PERSONAL_DATA_CONSENT_PATH} target="_blank" rel="noopener noreferrer" className="text-white underline underline-offset-2">согласие на обработку данных</a> (версия {PERSONAL_DATA_CONSENT_VERSION}) и ознакомлен с <a href={PRIVACY_POLICY_PATH} target="_blank" rel="noopener noreferrer" className="text-white underline underline-offset-2">политикой</a> (версия {PRIVACY_POLICY_VERSION}).</span>
+                    <span>Даю <a href={LEGAL_DOCUMENTS.consent.path} target="_blank" rel="noopener noreferrer" className="text-white underline underline-offset-2">согласие на обработку данных</a> (версия {LEGAL_DOCUMENTS.consent.version}) и ознакомлен с <a href={LEGAL_DOCUMENTS.privacy.path} target="_blank" rel="noopener noreferrer" className="text-white underline underline-offset-2">политикой</a> (версия {LEGAL_DOCUMENTS.privacy.version}).</span>
                   </label>
                   {error && <p role="alert" className="mt-2 rounded-lg bg-white/10 px-2.5 py-2 text-xs font-medium text-rose-100">{error}</p>}
                 </form>

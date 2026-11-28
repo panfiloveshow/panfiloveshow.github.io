@@ -9,93 +9,13 @@ import { track } from '@/lib/analytics';
 import { cn } from '@/lib/cn';
 import { EnterpriseImplementationForm } from './EnterpriseImplementationForm';
 import { reveal } from './data';
+import { useBillingPrices } from '@/hooks/useBillingPrices';
+import pricingCatalog from '@/content/pricing.json';
 
-const pricingPlans = [
-  {
-    name: 'Старт',
-    price: '3 000 ₽',
-    description: 'Для одного магазина',
-    scale: [
-      ['API', '1'],
-      ['человека', '3'],
-      ['товаров', '50'],
-    ],
-    inherits: null,
-    features: [
-      'Юнит-экономика',
-      'Задачи и координация (CRM)',
-      'Массовое редактирование описаний',
-      'Отзывы — 100 в день',
-      'SEO-генерация — 20 в месяц',
-      'SEO-аудит — 50 в месяц',
-      'Автопланирование — 1 поставка',
-    ],
-    cta: 'Выбрать Старт',
-    featured: false,
-  },
-  {
-    name: 'Про',
-    price: '8 000 ₽',
-    description: 'Для растущей команды',
-    scale: [
-      ['API', '3'],
-      ['человек', '10'],
-      ['товаров', '150'],
-    ],
-    inherits: 'Всё из Старт, плюс',
-    features: [
-      'Финансовая отчётность',
-      'Отзывы — 250 в день на площадку',
-      'SEO-генерация — 100 в месяц',
-      'SEO-аудит — 150 в месяц',
-      'Автопланирование — 4 поставки',
-    ],
-    cta: 'Выбрать Про',
-    featured: false,
-  },
-  {
-    name: 'Бизнес',
-    price: '15 000 ₽',
-    description: 'Для бренда или агентства',
-    scale: [
-      ['API', '6'],
-      ['человек', '20'],
-      ['товаров', '300'],
-    ],
-    inherits: 'Всё из Про, плюс',
-    features: [
-      'Заявки и лиды',
-      'Sellico Meet — видеосвязь',
-      'Отзывы — без ограничений (Ozon — 250 в день)',
-      'SEO-генерация — 200 в месяц',
-      'SEO-аудит — 300 в месяц',
-      'Автопланирование — 8 поставок',
-    ],
-    cta: 'Выбрать Бизнес',
-    featured: true,
-  },
-  {
-    name: 'Enterprise',
-    price: 'от 40 000 ₽',
-    description: 'Для крупного бизнеса',
-    scale: [
-      ['API', '∞'],
-      ['люди', '∞'],
-      ['товары', '∞'],
-    ],
-    inherits: 'Всё из Бизнес, плюс',
-    features: [
-      'Роадмап',
-      'Договорные лимиты — товары, интеграции, пользователи',
-      'Договорные SEO и автопланирование',
-      'Индивидуальные условия внедрения',
-    ],
-    cta: 'Обсудить внедрение',
-    featured: false,
-  },
-] as const;
+const pricingPlans = pricingCatalog.plans;
 
 export function PricingSection() {
+  const priceFor = useBillingPrices();
   const [enterpriseFormOpen, setEnterpriseFormOpen] = useState(false);
 
   useEffect(() => {
@@ -148,7 +68,7 @@ export function PricingSection() {
               <p className={cn('mt-2 text-sm', plan.featured ? 'text-white/72' : 'text-ink-600')}>{plan.description}</p>
 
               <p className="mt-7 flex items-baseline gap-2 whitespace-nowrap">
-                <span className="text-[clamp(2.1rem,2.6vw,2.9rem)] font-semibold leading-none tracking-[-0.06em]">{plan.price}</span>
+                <span className="text-[clamp(2.1rem,2.6vw,2.9rem)] font-semibold leading-none tracking-[-0.06em]">{priceFor(plan.name, plan.price)}</span>
                 <span className={cn('text-xs font-medium', plan.featured ? 'text-white/72' : 'text-ink-600')}>в месяц</span>
               </p>
 
@@ -168,7 +88,7 @@ export function PricingSection() {
               ) : (
                 <Button
                   as="a"
-                  href={REGISTER_URL}
+                  href={`${REGISTER_URL}?plan=${plan.id}`}
                   variant={plan.featured ? 'primary' : 'outline'}
                   size="lg"
                   className={cn(
@@ -192,7 +112,7 @@ export function PricingSection() {
                 {plan.scale.map(([label, value]) => (
                   <div key={label} className="min-w-0 px-2 py-3.5">
                     <p className="font-mono text-lg font-semibold leading-none tabular-nums tracking-[-0.04em]">{value}</p>
-                    <p className={cn('mt-1.5 truncate text-[10px] font-medium', plan.featured ? 'text-white/72' : 'text-ink-600')}>{label}</p>
+                    <p className={cn('mt-1.5 text-[10px] font-medium', plan.featured ? 'text-white/72' : 'text-ink-600')}>{label}</p>
                   </div>
                 ))}
               </div>
@@ -201,7 +121,7 @@ export function PricingSection() {
                 {plan.inherits ?? 'Что внутри'}
               </p>
               <ul className="mt-3.5 flex-1 space-y-2.5">
-                {plan.features.map((feature) => (
+                {plan.landingFeatures.map((feature) => (
                   <li key={feature} className="flex items-start gap-2.5 text-[13px] leading-snug">
                     <span
                       className={cn(
@@ -219,9 +139,16 @@ export function PricingSection() {
           ))}
         </div>
 
-        <motion.p {...reveal} className="mt-9 text-center text-sm text-ink-500">
-          Каждый тариф: <span className="font-semibold text-ink-800">3 дня бесплатно</span> · подключение за 15 минут · без привязки карты
-        </motion.p>
+        <div className="mt-8 grid gap-4 rounded-[22px] border border-ink-950/[0.08] bg-white p-5 text-sm leading-relaxed text-ink-600 sm:p-6 lg:grid-cols-3">
+          <p><strong className="block text-ink-950">Что считается подключением</strong>Один кабинет магазина на маркетплейсе, подключённый по API. Для нескольких кабинетов нужны отдельные подключения.</p>
+          <p><strong className="block text-ink-950">Как считается лимит товаров</strong>Лимит товарных позиций общий для рабочего пространства и его магазинов. Текущее использование видно в кабинете.</p>
+          <p><strong className="block text-ink-950">Что означает период SEO-квоты</strong>Количество доступных генераций и аудитов. Остаток и условия обновления проверьте в кабинете перед запуском; ежемесячное пополнение не заявлено.</p>
+        </div>
+        <div className="mt-5 rounded-[22px] border border-brand-700/15 bg-brand-50 p-5 text-sm leading-relaxed text-ink-700">
+          <p className="font-semibold text-ink-950">3 дня бесплатно с создания рабочего пространства — без карты</p>
+          <p className="mt-1">Загрузка истории входит в эти 3 дня. В пробном периоде: 1 подключение, 50 товаров, 3 пользователя; финансы, юнит-экономика, SEO, отзывы и задачи в пределах лимитов.</p>
+          <p className="mt-2 text-ink-600">Указаны базовые цены. Актуальная сумма подтверждается в кабинете до оплаты.</p>
+        </div>
       </Container>
       {enterpriseFormOpen && typeof document !== 'undefined'
         ? createPortal(

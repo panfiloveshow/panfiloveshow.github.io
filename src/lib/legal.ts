@@ -1,12 +1,33 @@
-export const PRIVACY_POLICY_UPDATED_AT = '2 сентября 2026 года';
-export const PRIVACY_POLICY_VERSION = '2026-09-02';
-export const PERSONAL_DATA_CONSENT_UPDATED_AT = '1 сентября 2026 года';
-export const PERSONAL_DATA_CONSENT_VERSION = '2026-09-01';
+const REGISTRATION_PREFILL_STORAGE_KEY = 'sellico:registration-prefill';
+const REGISTRATION_PREFILL_TTL_MS = 15 * 60 * 1000;
 
-export const PRIVACY_POLICY_PATH = '/privacy/';
-export const PERSONAL_DATA_CONSENT_PATH = '/personal-data-consent/';
+export const LEGAL_DOCUMENTS = {
+  privacy: {
+    path: '/privacy/',
+    version: '2026-09-02',
+    updatedAt: '2 сентября 2026 года',
+  },
+  consent: {
+    path: '/personal-data-consent/',
+    version: '2026-09-01',
+    updatedAt: '1 сентября 2026 года',
+  },
+} as const;
 
-export const PRIVACY_POLICY_URL = `https://sellico.ru${PRIVACY_POLICY_PATH}`;
-export const PERSONAL_DATA_CONSENT_URL = `https://sellico.ru${PERSONAL_DATA_CONSENT_PATH}`;
-
-export const REGISTRATION_PREFILL_STORAGE_KEY = 'sellico:registration-prefill';
+export function saveRegistrationPrefill(email: string): void {
+  if (typeof window === 'undefined') return;
+  try {
+    window.sessionStorage.setItem(
+      REGISTRATION_PREFILL_STORAGE_KEY,
+      JSON.stringify({
+        email,
+        consentAt: new Date().toISOString(),
+        consentVersion: LEGAL_DOCUMENTS.consent.version,
+        privacyPolicyVersion: LEGAL_DOCUMENTS.privacy.version,
+        expiresAt: Date.now() + REGISTRATION_PREFILL_TTL_MS,
+      }),
+    );
+  } catch {
+    // Регистрация останется доступна без автозаполнения.
+  }
+}

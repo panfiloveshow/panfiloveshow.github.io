@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useState } from 'react';
 import { AutomationCta } from '@/components/seo/AutomationCta';
 import { CalcHandoff } from '@/components/seo/CalcHandoff';
-import { buildCalcLink, readCalcParams, writeCalcParams } from '@/lib/calc-url';
-import { calcUnitEconomics, type UnitEconomicsInput } from '@/lib/unit-economics';
+import { buildCalcLink, readCalcParams, writeCalcParams } from '@/lib/calculators/url';
+import { calcUnitEconomics, type UnitEconomicsInput } from '@/lib/calculators/economics.mjs';
 
 const FIELDS: { key: keyof UnitEconomicsInput; label: string; hint?: string; suffix: string }[] = [
   { key: 'price', label: 'Цена продажи', suffix: '₽' },

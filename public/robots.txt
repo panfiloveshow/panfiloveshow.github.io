@@ -1,5 +1,6 @@
 User-agent: *
 Allow: /
+Content-Signal: search=yes, ai-input=yes, ai-train=no
 # CRM — приватное приложение за логином; в её index.html стоит noindex.
 Disallow: /crm/
 
@@ -27,5 +28,7 @@ User-agent: Google-Extended
 User-agent: bingbot
 Allow: /
 Disallow: /crm/
+Content-Signal: search=yes, ai-input=yes, ai-train=no
 
 Sitemap: https://sellico.ru/sitemap.xml
+Agentmap: https://sellico.ru/.well-known/ai-catalog.json

@@ -1,3 +1,5 @@
+import { LEGAL_DOCUMENTS } from './legal.ts';
+
 type YandexMetrika = ((id: number, action: string, ...args: unknown[]) => void) & {
   a?: unknown[][];
   l?: number;
@@ -10,29 +12,12 @@ declare global {
   }
 }
 
-export const ANALYTICS_CONSENT_KEY = 'sellico-cookie-consent';
-export const OPEN_ANALYTICS_CONSENT_EVENT = 'sellico:open-cookie-settings';
+const ANALYTICS_CONSENT_KEY = 'sellico-cookie-consent';
+const OPEN_ANALYTICS_CONSENT_EVENT = 'sellico:open-cookie-settings';
 
-export type AnalyticsConsentChoice = 'accepted' | 'declined';
+type AnalyticsConsentChoice = 'accepted' | 'declined';
 
-export function readAnalyticsConsent(): AnalyticsConsentChoice | null {
-  if (typeof window === 'undefined') return null;
-  try {
-    const stored = window.localStorage.getItem(ANALYTICS_CONSENT_KEY);
-    if (stored === 'accepted' || stored === 'declined') return stored;
-    if (!stored) return null;
-
-    const parsed = JSON.parse(stored) as { choice?: unknown };
-    return parsed.choice === 'accepted' || parsed.choice === 'declined' ? parsed.choice : null;
-  } catch {
-    return null;
-  }
-}
-
-const configuredCounterId = Number(import.meta.env.VITE_YM_COUNTER_ID ?? 0);
-export const YM_COUNTER_ID = Number.isFinite(configuredCounterId) ? configuredCounterId : 0;
-
-export type AnalyticsEvent =
+type AnalyticsEvent =
   | 'cta_click_hero'
   | 'cta_click_pricing'
   | 'cta_click_final'
@@ -51,10 +36,27 @@ export type AnalyticsEvent =
   | 'ai_referral'
   | 'js_error';
 
+const configuredCounterId = Number(import.meta.env.VITE_YM_COUNTER_ID ?? 0);
+const YM_COUNTER_ID = Number.isFinite(configuredCounterId) ? configuredCounterId : 0;
+
 let initialized = false;
 let webVitalsStarted = false;
 
-export function hasAnalyticsConsent(): boolean {
+function readAnalyticsConsent(): AnalyticsConsentChoice | null {
+  if (typeof window === 'undefined') return null;
+  try {
+    const stored = window.localStorage.getItem(ANALYTICS_CONSENT_KEY);
+    if (stored === 'accepted' || stored === 'declined') return stored;
+    if (!stored) return null;
+
+    const parsed = JSON.parse(stored) as { choice?: unknown };
+    return parsed.choice === 'accepted' || parsed.choice === 'declined' ? parsed.choice : null;
+  } catch {
+    return null;
+  }
+}
+
+function hasAnalyticsConsent(): boolean {
   return readAnalyticsConsent() === 'accepted';
 }
 
@@ -127,7 +129,7 @@ function startWebVitalsMonitoring(): void {
     });
 }
 
-export function initAnalytics(): void {
+function initAnalytics(): void {
   if (initialized || !YM_COUNTER_ID || !hasAnalyticsConsent() || typeof document === 'undefined') return;
   initialized = true;
 
@@ -150,6 +152,50 @@ export function initAnalytics(): void {
   const aiReferral = detectAiReferral();
   if (aiReferral) track('ai_referral', aiReferral);
   startWebVitalsMonitoring();
+}
+
+/** Инициализирует аналитику, если согласие уже дано. Возвращает true, если нужно показать баннер. */
+export function bootstrapAnalytics(): boolean {
+  try {
+    const consent = readAnalyticsConsent();
+    if (consent === 'accepted') {
+      initAnalytics();
+      return false;
+    }
+    return !consent;
+  } catch {
+    return true;
+  }
+}
+
+export function saveAnalyticsConsent(choice: AnalyticsConsentChoice): void {
+  if (typeof window === 'undefined') return;
+  const wasAccepted = hasAnalyticsConsent();
+  try {
+    window.localStorage.setItem(
+      ANALYTICS_CONSENT_KEY,
+      JSON.stringify({
+        choice,
+        documentVersion: LEGAL_DOCUMENTS.privacy.version,
+        decidedAt: new Date().toISOString(),
+      }),
+    );
+  } catch {
+    /* ignore */
+  }
+  if (choice === 'accepted') initAnalytics();
+  else if (wasAccepted) window.location.reload();
+}
+
+export function openAnalyticsConsentSettings(): void {
+  if (typeof window === 'undefined') return;
+  window.dispatchEvent(new Event(OPEN_ANALYTICS_CONSENT_EVENT));
+}
+
+export function subscribeAnalyticsConsentSettings(listener: () => void): () => void {
+  if (typeof window === 'undefined') return () => undefined;
+  window.addEventListener(OPEN_ANALYTICS_CONSENT_EVENT, listener);
+  return () => window.removeEventListener(OPEN_ANALYTICS_CONSENT_EVENT, listener);
 }
 
 export function track(event: AnalyticsEvent, payload?: Record<string, unknown>): void {

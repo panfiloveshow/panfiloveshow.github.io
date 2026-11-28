@@ -35,6 +35,7 @@ export function AiSection() {
           <img
             src={AI_PARTICLE_LAYERS.back}
             alt=""
+            aria-hidden="true"
             width={2400}
             height={720}
             className="h-full w-full object-cover object-left"
@@ -50,6 +51,7 @@ export function AiSection() {
           <img
             src={AI_PARTICLE_LAYERS.mid}
             alt=""
+            aria-hidden="true"
             width={2400}
             height={720}
             className="h-full w-full object-cover object-left"
@@ -65,6 +67,7 @@ export function AiSection() {
           <img
             src={AI_PARTICLE_LAYERS.front}
             alt=""
+            aria-hidden="true"
             width={2400}
             height={720}
             className="h-full w-full object-cover object-left"

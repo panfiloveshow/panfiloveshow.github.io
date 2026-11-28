@@ -52,6 +52,7 @@ export function MarketplaceBanners() {
               <img
                 src={ASSETS.wb.fallback}
                 alt=""
+                aria-hidden="true"
                 width={ASSETS.wb.width}
                 height={ASSETS.wb.height}
                 className="h-full w-auto object-contain"
@@ -67,6 +68,7 @@ export function MarketplaceBanners() {
               <img
                 src={ASSETS.wb.fallback}
                 alt=""
+                aria-hidden="true"
                 width={ASSETS.wb.width}
                 height={ASSETS.wb.height}
                 className="h-full w-auto object-contain"
@@ -98,6 +100,7 @@ export function MarketplaceBanners() {
               <img
                 src={ASSETS.ozon.fallback}
                 alt=""
+                aria-hidden="true"
                 width={ASSETS.ozon.width}
                 height={ASSETS.ozon.height}
                 className="h-full w-auto object-contain"
@@ -113,6 +116,7 @@ export function MarketplaceBanners() {
               <img
                 src={ASSETS.ozon.fallback}
                 alt=""
+                aria-hidden="true"
                 width={ASSETS.ozon.width}
                 height={ASSETS.ozon.height}
                 className="h-full w-auto object-contain"

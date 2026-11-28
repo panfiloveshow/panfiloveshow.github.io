@@ -34,7 +34,7 @@ export function AutomationCta({
       <div className="lg:justify-self-end">
         <p className="text-sm font-semibold text-white">3 дня бесплатно</p>
         <p className="mt-2 max-w-[280px] text-sm leading-relaxed text-white/60">
-          Без привязки банковской карты. Первый магазин подключается примерно за 15 минут — расчёты появятся на ваших
+          Без привязки банковской карты. Пробный период начинается с создания пространства и включает загрузку истории. Расчёты появятся на ваших
           данных, а не на введённых вручную.
         </p>
         <a

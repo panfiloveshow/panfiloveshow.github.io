@@ -1,7 +1,7 @@
 import { ArrowUpRight, Mail, Send } from 'lucide-react';
 import { Container } from '@/components/ui/Container';
 import { REGISTER_URL, LOGIN_URL } from '@/lib/anchors';
-import { OPEN_ANALYTICS_CONSENT_EVENT } from '@/lib/analytics';
+import { openAnalyticsConsentSettings } from '@/lib/analytics';
 
 const COLUMNS = [
   {
@@ -24,6 +24,7 @@ const COLUMNS = [
       { label: 'Ozon', href: '/ozon/' },
       { label: 'Яндекс Маркет', href: '/yandex-market/' },
       { label: 'Все площадки', href: '/marketplaces/' },
+      { label: 'Сравнения систем', href: '/compare/' },
       { label: 'Глоссарий', href: '/glossary/' },
       { label: 'Статьи', href: '/articles/' },
     ],
@@ -33,7 +34,7 @@ const COLUMNS = [
     items: [
       { label: 'О Sellico', href: '/about/' },
       { label: 'Разработчик Sellico', href: '/authors/danil-zubarev/' },
-      { label: 'Кейсы и результаты', href: '/cases/' },
+      { label: 'Сценарии использования', href: '/cases/' },
       { label: 'Методология', href: '/methodology/' },
       { label: 'Контакты', href: '/contacts/' },
       { label: 'Войти', href: LOGIN_URL },
@@ -79,7 +80,7 @@ export function Footer() {
               <div aria-hidden className="grid-bg-dark absolute inset-0 z-0 opacity-60" />
 
               <a href="/#hero" className="relative z-[1] inline-flex items-center gap-2.5 transition-opacity hover:opacity-90">
-                <img src="/logo.svg" alt="" width={32} height={32} className="h-8 w-8" />
+                <img src="/logo.svg" alt="" aria-hidden="true" width={32} height={32} className="h-8 w-8" />
                 <span className="text-[22px] font-bold tracking-tight">Sellico</span>
               </a>
 
@@ -120,6 +121,7 @@ export function Footer() {
                 <img
                   src="/logo.svg"
                   alt=""
+                  aria-hidden="true"
                   width={96}
                   height={96}
                   className="h-24 w-24 rotate-[-8deg] rounded-[22px] border border-white/10 bg-[#102c22] p-4 shadow-[8px_14px_28px_rgba(0,0,0,0.28)] transition-transform duration-200 hover:rotate-[-4deg] max-sm:h-[72px] max-sm:w-[72px]"
@@ -230,7 +232,7 @@ export function Footer() {
               </a>
               <button
                 type="button"
-                onClick={() => window.dispatchEvent(new Event(OPEN_ANALYTICS_CONSENT_EVENT))}
+                onClick={openAnalyticsConsentSettings}
                 className="transition-colors hover:text-white"
               >
                 Настройки аналитики

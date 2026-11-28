@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 import { Container } from '@/components/ui/Container';
 import { AutomationCta } from '@/components/seo/AutomationCta';
-import { abcXyzMatrix, analyzeAbcXyz, parseSales } from '@/lib/abc-xyz';
+import { abcXyzMatrix, analyzeAbcXyz, parseSales } from '@/lib/calculators/abc-xyz';
 
 // Полгода продаж восьми товаров в рублях, столбцы через табуляцию — как при копировании из таблицы.
 const EXAMPLE = [

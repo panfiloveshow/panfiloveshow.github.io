@@ -15,25 +15,8 @@ import { Button } from '@/components/ui/Button';
 import { useDialogFocus } from '@/hooks/useDialogFocus';
 import { track } from '@/lib/analytics';
 import { cn } from '@/lib/cn';
-import {
-  PERSONAL_DATA_CONSENT_VERSION,
-  PERSONAL_DATA_CONSENT_PATH,
-  PERSONAL_DATA_CONSENT_URL,
-  PRIVACY_POLICY_PATH,
-  PRIVACY_POLICY_URL,
-  PRIVACY_POLICY_VERSION,
-} from '@/lib/legal';
-
-type EnterpriseLead = {
-  name: string;
-  email: string;
-  contact: string;
-  company: string;
-  teamSize: string;
-  stores: string;
-  marketplaces: string[];
-  goal: string;
-};
+import { submitEnterpriseLead, type EnterpriseLead } from '@/lib/enterprise-lead';
+import { LEGAL_DOCUMENTS } from '@/lib/legal';
 
 const EMPTY_ENTERPRISE_LEAD: EnterpriseLead = {
   name: '',
@@ -50,16 +33,22 @@ export function EnterpriseImplementationForm({ onClose }: { onClose: () => void 
   const [lead, setLead] = useState<EnterpriseLead>(EMPTY_ENTERPRISE_LEAD);
   const [consent, setConsent] = useState(false);
   const [error, setError] = useState('');
+  const [pending, setPending] = useState(false);
+  const [saved, setSaved] = useState(false);
+  const requestId = useRef<string | null>(null);
+  const submitting = useRef(false);
   const dialogRef = useRef<HTMLDivElement>(null);
 
   useDialogFocus(true, dialogRef, onClose);
 
   const updateField = (field: keyof EnterpriseLead, value: string) => {
+    requestId.current = null;
     setLead((current) => ({ ...current, [field]: value }));
     setError('');
   };
 
   const toggleMarketplace = (marketplace: string) => {
+    requestId.current = null;
     setLead((current) => ({
       ...current,
       marketplaces: current.marketplaces.includes(marketplace)
@@ -68,8 +57,9 @@ export function EnterpriseImplementationForm({ onClose }: { onClose: () => void 
     }));
   };
 
-  const submit = (event: FormEvent<HTMLFormElement>) => {
+  const submit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if (submitting.current || saved) return;
     if (!lead.name.trim() || !lead.company.trim()) {
       setError('Укажите ваше имя и компанию.');
       return;
@@ -87,30 +77,22 @@ export function EnterpriseImplementationForm({ onClose }: { onClose: () => void 
       return;
     }
 
-    const message = [
-      'Запрос на внедрение Sellico Enterprise',
-      '',
-      `Имя: ${lead.name.trim()}`,
-      `Компания: ${lead.company.trim()}`,
-      `Рабочий email: ${lead.email.trim()}`,
-      `Телефон или Telegram: ${lead.contact.trim() || 'не указан'}`,
-      `Команда: ${lead.teamSize || 'не указано'}`,
-      `Магазины: ${lead.stores || 'не указано'}`,
-      `Маркетплейсы: ${lead.marketplaces.join(', ') || 'не указаны'}`,
-      '',
-      'Задача внедрения:',
-      lead.goal.trim(),
-      '',
-      'Согласие на обработку персональных данных: да',
-      `Дата согласия: ${new Date().toISOString()}`,
-      `Версия согласия: ${PERSONAL_DATA_CONSENT_VERSION}`,
-      `Версия политики: ${PRIVACY_POLICY_VERSION}`,
-      `Согласие: ${PERSONAL_DATA_CONSENT_URL}`,
-      `Политика: ${PRIVACY_POLICY_URL}`,
-    ].join('\n');
-
-    track('lead_submit', { source: 'enterprise_implementation' });
-    window.location.href = `mailto:hello@sellico.ru?subject=${encodeURIComponent('Внедрение Sellico Enterprise')}&body=${encodeURIComponent(message)}`;
+    submitting.current = true;
+    setPending(true);
+    setError('');
+    requestId.current ??= crypto.randomUUID();
+    try {
+      await submitEnterpriseLead(lead, requestId.current);
+      setSaved(true);
+      track('lead_submit', { source: 'enterprise_implementation' });
+    } catch (cause) {
+      setError(cause instanceof Error && cause.name !== 'TypeError' && cause.name !== 'TimeoutError'
+        ? cause.message
+        : 'Не удалось связаться с сервером. Повторите отправку — заполненные поля сохранены.');
+    } finally {
+      submitting.current = false;
+      setPending(false);
+    }
   };
 
   return (
@@ -173,7 +155,16 @@ export function EnterpriseImplementationForm({ onClose }: { onClose: () => void 
           </p>
         </aside>
 
-        <form onSubmit={submit} className="px-5 pb-7 pt-7 sm:px-9 sm:pb-9 sm:pt-9 lg:max-h-[calc(100dvh-3rem)] lg:overflow-y-auto lg:px-10 lg:pb-10 lg:pt-12">
+        {saved ? (
+          <div role="status" className="flex flex-col justify-center px-6 py-14 sm:px-10">
+            <Check aria-hidden size={36} className="text-brand-700" />
+            <h3 className="mt-5 text-3xl font-semibold tracking-[-0.035em] text-ink-950">Заявка сохранена</h3>
+            <p className="mt-4 text-sm leading-relaxed text-ink-600">Спасибо! Свяжемся с вами по указанному email в течение рабочего дня.</p>
+            <Button type="button" onClick={onClose} className="mt-7 w-fit">Готово</Button>
+          </div>
+        ) : (
+        <form onSubmit={submit} aria-busy={pending} className="px-5 pb-7 pt-7 sm:px-9 sm:pb-9 sm:pt-9 lg:max-h-[calc(100dvh-3rem)] lg:overflow-y-auto lg:px-10 lg:pb-10 lg:pt-12">
+          <fieldset disabled={pending} className="min-w-0">
           <div className="pr-12">
             <p className="text-xs font-bold uppercase tracking-[0.16em] text-brand-700">Запрос на консультацию</p>
             <h3 className="mt-2 text-2xl font-semibold tracking-[-0.035em] text-ink-950">Несколько деталей о проекте</h3>
@@ -187,6 +178,8 @@ export function EnterpriseImplementationForm({ onClose }: { onClose: () => void 
                 <input
                   autoFocus
                   required
+                  maxLength={255}
+                  autoComplete="name"
                   value={lead.name}
                   onChange={(event) => updateField('name', event.target.value)}
                   placeholder="Как к вам обращаться"
@@ -201,6 +194,8 @@ export function EnterpriseImplementationForm({ onClose }: { onClose: () => void 
                 <Building2 aria-hidden className="absolute left-3.5 top-1/2 -translate-y-1/2 text-ink-400" size={17} />
                 <input
                   required
+                  maxLength={255}
+                  autoComplete="organization"
                   value={lead.company}
                   onChange={(event) => updateField('company', event.target.value)}
                   placeholder="Название компании"
@@ -216,6 +211,8 @@ export function EnterpriseImplementationForm({ onClose }: { onClose: () => void 
                 <input
                   required
                   type="email"
+                  maxLength={255}
+                  autoComplete="email"
                   inputMode="email"
                   value={lead.email}
                   onChange={(event) => updateField('email', event.target.value)}
@@ -230,6 +227,7 @@ export function EnterpriseImplementationForm({ onClose }: { onClose: () => void 
               <span className="relative">
                 <Phone aria-hidden className="absolute left-3.5 top-1/2 -translate-y-1/2 text-ink-400" size={17} />
                 <input
+                  maxLength={255}
                   value={lead.contact}
                   onChange={(event) => updateField('contact', event.target.value)}
                   placeholder="+7 или @username"
@@ -299,6 +297,7 @@ export function EnterpriseImplementationForm({ onClose }: { onClose: () => void 
             Что нужно внедрить? <span className="sr-only">(обязательно)</span>
             <textarea
               required
+              maxLength={4000}
               rows={4}
               value={lead.goal}
               onChange={(event) => updateField('goal', event.target.value)}
@@ -320,7 +319,7 @@ export function EnterpriseImplementationForm({ onClose }: { onClose: () => void 
               className="mt-0.5 h-4 w-4 shrink-0 accent-[#16865d]"
             />
             <span>
-              Я даю <a href={PERSONAL_DATA_CONSENT_PATH} target="_blank" rel="noopener noreferrer" className="font-medium text-brand-700 underline-offset-2 hover:underline">согласие на обработку персональных данных</a> (версия {PERSONAL_DATA_CONSENT_VERSION}) и ознакомлен с <a href={PRIVACY_POLICY_PATH} target="_blank" rel="noopener noreferrer" className="font-medium text-brand-700 underline-offset-2 hover:underline">политикой</a> (версия {PRIVACY_POLICY_VERSION}).
+              Я даю <a href={LEGAL_DOCUMENTS.consent.path} target="_blank" rel="noopener noreferrer" className="font-medium text-brand-700 underline-offset-2 hover:underline">согласие на обработку персональных данных</a> (версия {LEGAL_DOCUMENTS.consent.version}) и ознакомлен с <a href={LEGAL_DOCUMENTS.privacy.path} target="_blank" rel="noopener noreferrer" className="font-medium text-brand-700 underline-offset-2 hover:underline">политикой</a> (версия {LEGAL_DOCUMENTS.privacy.version}).
             </span>
           </label>
 
@@ -331,14 +330,16 @@ export function EnterpriseImplementationForm({ onClose }: { onClose: () => void 
           )}
 
           <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:items-center">
-            <Button type="submit" size="lg" className="w-full rounded-xl sm:w-auto" iconRight={<ArrowRight size={17} />}>
-              Отправить запрос
+            <Button type="submit" disabled={pending} size="lg" className="w-full rounded-xl sm:w-auto" iconRight={<ArrowRight size={17} />}>
+              {pending ? 'Сохраняем заявку…' : 'Отправить запрос'}
             </Button>
             <p className="text-xs leading-relaxed text-ink-600">
-              Откроем почту с уже заполненной заявкой.
+              Ответим на указанный email.
             </p>
           </div>
+          </fieldset>
         </form>
+        )}
       </motion.div>
     </div>
   );

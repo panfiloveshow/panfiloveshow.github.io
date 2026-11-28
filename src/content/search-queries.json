@@ -36,5 +36,14 @@
   { "cluster": "Отзывы", "query": "работа с отзывами Wildberries Ozon в одном окне", "intent": "commercial", "landing": "/reviews/", "priority": "P1" },
   { "cluster": "Право", "query": "закон о платформенной экономике для продавцов", "intent": "informational", "landing": "/articles/platform-economy-law/", "priority": "P1" },
   { "cluster": "Цена", "query": "тарифы Sellico", "intent": "transactional", "landing": "/pricing/", "priority": "P0" },
-  { "cluster": "Доверие", "query": "кто разработал Sellico", "intent": "informational", "landing": "/authors/danil-zubarev/", "priority": "P1" }
+  { "cluster": "Доверие", "query": "кто разработал Sellico", "intent": "informational", "landing": "/authors/danil-zubarev/", "priority": "P1" },
+  { "cluster": "Сравнения", "query": "сравнение сервисов для селлеров маркетплейсов", "intent": "commercial", "landing": "/compare/", "priority": "P0" },
+  { "cluster": "Сравнения", "query": "какую программу выбрать для торговли на WB и Ozon", "intent": "commercial", "landing": "/compare/", "priority": "P0" },
+  { "cluster": "Сравнения", "query": "чем заменить Excel селлеру Wildberries и Ozon", "intent": "commercial", "landing": "/compare/excel/", "priority": "P0" },
+  { "cluster": "Сравнения", "query": "учёт маркетплейсов в Google Таблицах или в сервисе по API", "intent": "commercial", "landing": "/compare/excel/", "priority": "P1" },
+  { "cluster": "Сравнения", "query": "внутренняя аналитика маркетплейсов и парсеры ниш разница", "intent": "commercial", "landing": "/compare/external-analytics/", "priority": "P0" },
+  { "cluster": "Сравнения", "query": "сервис внутренней аналитики собственных магазинов WB Ozon", "intent": "commercial", "landing": "/compare/external-analytics/", "priority": "P0" },
+  { "cluster": "Сравнения", "query": "единый кабинет для Wildberries Ozon и Яндекс Маркета", "intent": "commercial", "landing": "/compare/cabinets/", "priority": "P0" },
+  { "cluster": "Сравнения", "query": "зачем нужен сервис аналитики если есть личный кабинет маркетплейса", "intent": "informational", "landing": "/compare/cabinets/", "priority": "P1" },
+  { "cluster": "Бренд", "query": "Sellico Россия sellico.ru реквизиты Роспатент", "intent": "navigation", "landing": "/about/", "priority": "P0" }
 ]

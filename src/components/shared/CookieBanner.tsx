@@ -2,14 +2,10 @@ import { useEffect, useState } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { X } from 'lucide-react';
 import {
-  ANALYTICS_CONSENT_KEY,
-  initAnalytics,
-  OPEN_ANALYTICS_CONSENT_EVENT,
-  readAnalyticsConsent,
+  bootstrapAnalytics,
+  saveAnalyticsConsent,
+  subscribeAnalyticsConsentSettings,
 } from '@/lib/analytics';
-import { PRIVACY_POLICY_VERSION } from '@/lib/legal';
-
-type CookieConsent = 'accepted' | 'declined';
 
 export function CookieBanner() {
   const [visible, setVisible] = useState(false);
@@ -17,37 +13,19 @@ export function CookieBanner() {
 
   useEffect(() => {
     const t = setTimeout(() => {
-      try {
-        const consent = readAnalyticsConsent();
-        if (consent === 'accepted') initAnalytics();
-        else if (!consent) setVisible(true);
-      } catch {
-        setVisible(true);
-      }
+      if (bootstrapAnalytics()) setVisible(true);
     }, 800);
-    const showSettings = () => setVisible(true);
-    window.addEventListener(OPEN_ANALYTICS_CONSENT_EVENT, showSettings);
+    const unsubscribe = subscribeAnalyticsConsentSettings(() => setVisible(true));
 
     return () => {
       clearTimeout(t);
-      window.removeEventListener(OPEN_ANALYTICS_CONSENT_EVENT, showSettings);
+      unsubscribe();
     };
   }, []);
 
-  const saveChoice = (choice: CookieConsent) => {
-    const wasAccepted = readAnalyticsConsent() === 'accepted';
-    try {
-      localStorage.setItem(ANALYTICS_CONSENT_KEY, JSON.stringify({
-        choice,
-        documentVersion: PRIVACY_POLICY_VERSION,
-        decidedAt: new Date().toISOString(),
-      }));
-    } catch {
-      /* ignore */
-    }
+  const saveChoice = (choice: 'accepted' | 'declined') => {
     setVisible(false);
-    if (choice === 'accepted') initAnalytics();
-    else if (wasAccepted) window.location.reload();
+    saveAnalyticsConsent(choice);
   };
 
   return (
@@ -56,13 +34,13 @@ export function CookieBanner() {
         <motion.div
           role="region"
           aria-label="Согласие на использование cookie"
-          initial={reducedMotion ? false : { y: 60, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
+          initial={reducedMotion ? false : { y: 24 }}
+          animate={{ y: 0 }}
           exit={reducedMotion ? { opacity: 0 } : { y: 60, opacity: 0 }}
-          transition={reducedMotion ? { duration: 0 } : { type: 'spring', damping: 22, stiffness: 240 }}
+          transition={reducedMotion ? { duration: 0 } : { type: 'spring', damping: 24, stiffness: 280 }}
           className="fixed bottom-3 right-3 z-50 w-[min(calc(100vw-1.5rem),252px)] sm:bottom-4 sm:right-4"
         >
-          <div className="glass-light rounded-xl border border-ink-950/[0.06] p-2 shadow-card">
+          <div className="rounded-xl border border-ink-950/[0.08] bg-white/95 p-2 shadow-card backdrop-blur-md">
             <div className="flex items-start gap-2">
               <p className="min-w-0 flex-1 text-[10px] leading-snug text-ink-700">
                 Cookies и аналитика.{' '}

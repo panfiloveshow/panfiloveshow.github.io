@@ -149,6 +149,15 @@
   }
 }
 
+.hero-story-progress {
+  animation: hero-story-fill 6s linear forwards;
+}
+
+@keyframes hero-story-fill {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
 @keyframes hero-orbit-flow-reverse {
   to {
     stroke-dashoffset: 24;

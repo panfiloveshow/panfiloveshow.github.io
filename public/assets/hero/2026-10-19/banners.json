@@ -1,0 +1,46 @@
+{
+  "version": 1,
+  "created": "2026-10-19",
+  "size": {
+    "width": 1254,
+    "height": 1254
+  },
+  "banners": [
+    {
+      "title": "Прибыль по SKU — все расходы рядом",
+      "format": "hero",
+      "image": "01-profit.webp",
+      "image_mobile": null,
+      "alt": "Прибыль по SKU. Все расходы рядом: комиссии, реклама и себестоимость.",
+      "link": "/unit-economics/",
+      "sort_order": 10,
+      "is_active": true,
+      "active_from": null,
+      "active_until": null
+    },
+    {
+      "title": "Остатки и поставки под контролем",
+      "format": "hero",
+      "image": "02-stock.webp",
+      "image_mobile": null,
+      "alt": "Остатки и поставки под контролем: остатки, темп продаж и пополнение.",
+      "link": "/supply-planning/",
+      "sort_order": 20,
+      "is_active": true,
+      "active_from": null,
+      "active_until": null
+    },
+    {
+      "title": "Задачи команды в одном месте",
+      "format": "hero",
+      "image": "03-team.webp",
+      "image_mobile": null,
+      "alt": "Задачи команды в одном месте: ответственные, сроки и статусы.",
+      "link": "/#demo",
+      "sort_order": 30,
+      "is_active": true,
+      "active_from": null,
+      "active_until": null
+    }
+  ]
+}

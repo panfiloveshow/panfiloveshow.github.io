@@ -11,6 +11,7 @@ export function ProductMark({ size = 'md' }: { size?: 'sm' | 'md' }) {
       <img
         src="/logo.svg"
         alt=""
+        aria-hidden="true"
         width={size === 'md' ? 30 : 24}
         height={size === 'md' ? 30 : 24}
         className={size === 'md' ? 'h-[30px] w-[30px]' : 'h-6 w-6'}

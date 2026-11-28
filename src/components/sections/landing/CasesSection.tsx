@@ -21,14 +21,14 @@ type SellerStory = {
 const caseStories: SellerStory[] = [
   {
     id: 'fashion',
-    number: 'Кейс 1',
+    number: 'Сценарий 1',
     tone: 'rose',
     eyebrow: 'Бренд одежды',
-    title: 'Продажи росли, а нужные размеры постоянно заканчивались',
+    title: 'Продажи растут, а нужные размеры заканчиваются',
     facts: [
-      '2 магазина на Wildberries',
-      '1 400 SKU с размерной сеткой',
-      'поставки планировались вручную раз в неделю',
+      'магазины на Wildberries',
+      'ассортимент с размерной сеткой',
+      'поставки планируются вручную раз в неделю',
     ],
     platforms: ['WILDBERRIES'],
     task: [
@@ -37,26 +37,26 @@ const caseStories: SellerStory[] = [
       'собирать план поставок без ручной сверки таблиц',
     ],
     solution: [
-      'объединили остатки, продажи и рекламу в одном контуре',
-      'настроили сигналы по критичным размерам',
-      'связали рекламные ставки с доступностью товара',
+      'объединить остатки, продажи и рекламу в одном контуре',
+      'проверять наличие критичных размеров',
+      'учитывать наличие товара при планировании рекламы',
     ],
     result: [
-      ['+38%', 'выручка за 8 недель'],
-      ['18 → 7%', 'товаров в дефиците'],
+      ['Наличие', 'доля товаров в дефиците'],
+      ['Продажи', 'выручка за выбранный период'],
     ],
-    timeline: '12 дней до запуска автоплана',
+    timeline: 'Подключить магазин, загрузить историю и проверить остатки по размерам.',
   },
   {
     id: 'home',
-    number: 'Кейс 2',
+    number: 'Сценарий 2',
     tone: 'dark',
     eyebrow: 'Товары для дома',
-    title: 'Оборот был большим, но часть ассортимента продавалась в минус',
+    title: 'Оборот большой, но часть ассортимента продаётся в минус',
     facts: [
       'собственное производство',
       'WB, Ozon и Яндекс Маркет',
-      'комиссии и логистика считались в разных отчётах',
+      'комиссии и логистика считаются в разных отчётах',
     ],
     platforms: ['WILDBERRIES', 'OZON', 'ЯНДЕКС МАРКЕТ'],
     task: [
@@ -65,26 +65,26 @@ const caseStories: SellerStory[] = [
       'сформировать понятный план цен и производства',
     ],
     solution: [
-      'пересчитали себестоимость с комиссиями и возвратами',
-      'разделили ассортимент по прибыли и оборачиваемости',
-      'скорректировали цены и производственный план',
+      'собрать себестоимость, комиссии и возвраты по SKU',
+      'сравнить товары по прибыли и оборачиваемости',
+      'подготовить изменения цен и производственного плана',
     ],
     result: [
-      ['+8,6 п.п.', 'к чистой марже'],
-      ['34 → 9', 'убыточных SKU'],
+      ['Маржа', 'с учётом расходов по SKU'],
+      ['Прибыль', 'число убыточных товаров'],
     ],
-    timeline: '21 день до первой полной модели прибыли',
+    timeline: 'Загрузить продажи и расходы, заполнить себестоимость и открыть юнит-экономику.',
   },
   {
     id: 'agency',
-    number: 'Кейс 3',
+    number: 'Сценарий 3',
     tone: 'mint',
     eyebrow: 'Marketplace-агентство',
-    title: 'Менеджеры тратили пятницу на сбор клиентских отчётов',
+    title: 'Менеджеры тратят пятницу на сбор клиентских отчётов',
     facts: [
-      '18 кабинетов у 7 клиентов',
-      'команда из 11 менеджеров',
-      'задачи, отчёты и переписка жили отдельно',
+      'несколько кабинетов клиентов',
+      'команда менеджеров',
+      'задачи, отчёты и переписка ведутся отдельно',
     ],
     platforms: ['WILDBERRIES', 'OZON'],
     task: [
@@ -93,15 +93,15 @@ const caseStories: SellerStory[] = [
       'давать клиенту понятный итог без десяти файлов',
     ],
     solution: [
-      'собрали кабинеты и роли команды в одном пространстве',
-      'создали единый шаблон еженедельного отчёта',
-      'настроили задачи из сигналов по рекламе и остаткам',
+      'собрать кабинеты и роли команды в одном пространстве',
+      'согласовать единый формат еженедельного отчёта',
+      'назначить задачи по рекламе и остаткам ответственным',
     ],
     result: [
-      ['6 ч → 40 мин', 'подготовка отчёта'],
-      ['×2,1', 'скорость обработки задач'],
+      ['Время', 'подготовка отчёта'],
+      ['Задачи', 'доля выполненных в срок'],
     ],
-    timeline: '9 дней до подключения всей команды',
+    timeline: 'Подключить кабинеты, пригласить команду и назначить роли.',
   },
 ];
 
@@ -123,7 +123,7 @@ export function CasesSection() {
             <span className="block text-brand-700">Понятное решение.</span>
           </h2>
           <p className="mt-6 max-w-2xl text-base leading-relaxed text-ink-500 sm:text-lg">
-            Три модельные истории о том, как разные команды могут использовать Sellico в ежедневной работе.
+            Три рабочих сценария: от задачи продавца до действий команды и показателей для контроля.
           </p>
         </motion.div>
 
@@ -156,14 +156,6 @@ export function CasesSection() {
                         )}
                       >
                         {item.number}
-                      </span>{' '}
-                      <span
-                        className={cn(
-                          'text-[10px] font-bold uppercase tracking-[0.15em]',
-                          isDark ? 'text-white/76' : 'text-current/70',
-                        )}
-                      >
-                        Модельная история
                       </span>
                     </div>
 
@@ -217,7 +209,7 @@ export function CasesSection() {
 
                   <div className="rounded-[18px] bg-white p-5 text-[#17132f] shadow-[0_18px_45px_-34px_rgba(28,22,54,.35)]">
                     <div className="flex items-start justify-between gap-5">
-                      <h4 className="text-xl font-semibold tracking-[-0.025em]">Что сделали</h4>
+                      <h4 className="text-xl font-semibold tracking-[-0.025em]">Действия в Sellico</h4>
                       <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-[#d8f7e7] text-lg text-[#1b8b61]">→</span>
                     </div>
                     <ul className="mt-4 space-y-1.5 text-[13px] leading-relaxed text-[#39334f]">
@@ -233,7 +225,7 @@ export function CasesSection() {
                   <div className="grid gap-3">
                     <div className="rounded-[18px] bg-white p-5 text-[#17132f] shadow-[0_18px_45px_-34px_rgba(28,22,54,.35)]">
                       <div className="flex items-start justify-between gap-5">
-                        <h4 className="text-xl font-semibold tracking-[-0.025em]">Возможный эффект</h4>
+                        <h4 className="text-xl font-semibold tracking-[-0.025em]">Что контролировать</h4>
                         <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-[#e2f1ff] text-sm font-bold text-[#3175ae]">✓</span>
                       </div>
                       <div className="mt-5 grid grid-cols-2 gap-4">
@@ -248,7 +240,7 @@ export function CasesSection() {
 
                     <div className="rounded-[18px] bg-white p-5 text-[#17132f] shadow-[0_18px_45px_-34px_rgba(28,22,54,.35)]">
                       <div className="flex items-start justify-between gap-5">
-                        <h4 className="text-xl font-semibold tracking-[-0.025em]">Срок</h4>
+                        <h4 className="text-xl font-semibold tracking-[-0.025em]">Как начать</h4>
                         <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-[#f1e5fb] text-sm font-bold text-[#8f51b9]">◷</span>
                       </div>
                       <p className="mt-5 text-sm font-medium leading-relaxed text-[#39334f]">{item.timeline}</p>
@@ -261,9 +253,9 @@ export function CasesSection() {
         </div>
 
         <p className="mt-8 max-w-3xl text-sm leading-relaxed text-ink-600">
-          Модельные истории не являются отзывами клиентов.{' '}
+          Выберите задачу своего магазина и посмотрите, какие данные и действия нужны для её решения.{' '}
           <a href="/cases/" className="font-semibold text-brand-800 underline-offset-4 hover:underline">
-            Посмотрите статус подтверждённых кейсов и методику проверки результатов
+            Подробнее о сценариях и проверке показателей
           </a>
           .
         </p>

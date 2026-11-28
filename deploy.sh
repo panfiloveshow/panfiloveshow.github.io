@@ -76,9 +76,9 @@ trap 'rm -f "$PREV_SITEMAP"; rm -rf "$STAGED_DIST"' EXIT
 curl -fsS --max-time 15 https://sellico.ru/sitemap.xml -o "$PREV_SITEMAP" || : > "$PREV_SITEMAP"
 
 echo "==> Deploying dist to $REMOTE:$REMOTE_DIST_PATH"
-# .well-known не трогаем: туда certbot (webroot) кладёт проверочные файлы от root,
-# и --delete падал бы на них с кодом 23.
-"${RSYNC_BASE[@]}" -az --delete --exclude='/.well-known/' -e "ssh $SSH_OPTS" "$STAGED_DIST/" "$REMOTE:$REMOTE_DIST_PATH/"
+# Сохраняем только ACME challenges certbot. Остальные .well-known ресурсы
+# (API/AI-каталоги и навыки) входят в релиз и должны обновляться вместе с HTML.
+"${RSYNC_BASE[@]}" -az --delete --exclude='/.well-known/acme-challenge/' -e "ssh $SSH_OPTS" "$STAGED_DIST/" "$REMOTE:$REMOTE_DIST_PATH/"
 
 if [ "${DEPLOY_SUBMIT_INDEXNOW:-1}" = "1" ]; then
   echo "==> Submitting changed sitemap URLs to IndexNow"

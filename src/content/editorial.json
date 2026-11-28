@@ -172,6 +172,10 @@
     "articles/wildberries-unit-economics": "wb-unit-economics",
     "articles/wildberries-supply": "wb-supply",
     "articles/reduce-drr": "advertising-drr",
-    "articles/platform-economy-law": "platform-law"
+    "articles/platform-economy-law": "platform-law",
+    "compare": "product",
+    "compare/excel": "economics",
+    "compare/external-analytics": "product",
+    "compare/cabinets": "product"
   }
 }

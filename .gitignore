@@ -38,6 +38,7 @@ deploy.local.sh
 .env.production
 .mcp.json
 .repowise/
+seomator.toml
 tmp/
 
 # Рабочие материалы дизайна и скриншоты — в репозиторий не нужны

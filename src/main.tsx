@@ -3,6 +3,10 @@ import { createRoot } from 'react-dom/client';
 import App from './App';
 import './styles/globals.css';
 import { track } from './lib/analytics';
+import { registerAgentTools } from './lib/agent-tools';
+
+const unregisterAgentTools = registerAgentTools();
+if (import.meta.hot) import.meta.hot.dispose(unregisterAgentTools);
 
 // В метрику уходит только тип ошибки. Тексты исключений могут содержать ПДн.
 window.addEventListener('error', (event) => {

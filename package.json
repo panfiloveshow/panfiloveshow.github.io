@@ -5,15 +5,17 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "node scripts/build-content-index.mjs && tsc -b && vite build && node scripts/prerender-routes.mjs && node scripts/check-seo.mjs && node scripts/check-query-map.mjs && node scripts/check-links.mjs",
+    "build": "node scripts/build/build-content-index.mjs && tsc -b && vite build && node scripts/build/prerender-routes.mjs && node scripts/agent/generate-agent-resources.mjs && node scripts/checks/check-seo.mjs && node scripts/checks/check-query-map.mjs && node scripts/checks/check-links.mjs && node scripts/checks/check-agent-resources.mjs",
     "preview": "vite preview --port 4173",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "typecheck": "tsc -b --noEmit",
-    "test": "node --experimental-strip-types src/lib/unit-economics.test.ts && node --experimental-strip-types src/lib/calculators.test.ts && node --experimental-strip-types src/lib/calc-url.test.ts && node --experimental-strip-types src/lib/abc-xyz.test.ts && node scripts/lastmod.test.mjs",
-    "check:links": "node scripts/check-links.mjs",
-    "check:seo": "node scripts/check-seo.mjs",
-    "check:queries": "node scripts/check-query-map.mjs",
-    "submit:indexnow": "node scripts/submit-indexnow.mjs"
+    "mcp:start": "node scripts/agent/server.mjs",
+    "test": "node --experimental-strip-types src/lib/calculators/unit-economics.test.ts && node --experimental-strip-types src/lib/calculators/calculators.test.ts && node --experimental-strip-types src/lib/calculators/url.test.ts && node --experimental-strip-types src/lib/calculators/abc-xyz.test.ts && node --experimental-strip-types src/lib/anchors.test.ts && node --experimental-strip-types src/lib/enterprise-lead.test.ts && node --experimental-strip-types src/lib/hero-banners.test.ts && node scripts/build/lastmod.test.mjs && node --experimental-strip-types src/lib/agent-tools.test.ts && node --experimental-strip-types scripts/agent/agent-discovery.test.ts && node --experimental-strip-types scripts/agent/mcp-server.test.ts && node scripts/build/structured-data.test.mjs",
+    "check:links": "node scripts/checks/check-links.mjs",
+    "check:seo": "node scripts/checks/check-seo.mjs",
+    "check:queries": "node scripts/checks/check-query-map.mjs",
+    "submit:indexnow": "node scripts/submit-indexnow.mjs",
+    "check:agents": "node scripts/checks/check-agent-resources.mjs"
   },
   "dependencies": {
     "@fontsource-variable/inter": "^5.0.20",
@@ -37,6 +39,8 @@
     "eslint-plugin-react-refresh": "^0.4.12",
     "postcss": "^8.4.47",
     "tailwindcss": "^3.4.13",
+    "turndown": "^7.2.4",
+    "turndown-plugin-gfm": "^1.0.2",
     "typescript": "^5.6.2",
     "vite": "^8.0.13"
   }

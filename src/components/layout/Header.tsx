@@ -39,6 +39,7 @@ const MOBILE_PAGES = [
   { label: 'Остатки и поставки', href: '/supply-planning/' },
   { label: 'SEO карточек', href: '/seo-cards/' },
   { label: 'Маркетплейсы', href: '/marketplaces/' },
+  { label: 'Сравнения систем', href: '/compare/' },
   { label: 'Калькуляторы', href: '/calculators/' },
   { label: 'Глоссарий', href: '/glossary/' },
   { label: 'Статьи', href: '/articles/' },
@@ -146,34 +147,17 @@ export function Header() {
 
   const navItemClass = (isActive: boolean) =>
     cn(
-      // На 1024–1279 px шесть пунктов и кнопка входят в капсулу только с узкими отступами
+      // Компактные отступы сохраняют все пункты на ширине 1024–1279 px.
       'flex items-center gap-1 whitespace-nowrap rounded-full px-2.5 py-1.5 text-[13.5px] font-medium transition-colors duration-200 xl:px-3.5',
       isActive
-        ? 'bg-white/[0.12] text-white'
-        : 'text-white/78 hover:bg-white/[0.06] hover:text-white',
+        ? 'bg-[#eaf6f0] text-[#144f40]'
+        : 'text-[#475569] hover:bg-[#f1f8f4] hover:text-[#144f40]',
     );
 
   return (
-    <header
-      className={cn(
-        'fixed inset-x-0 top-0 z-50 transition-all duration-300',
-        scrolled
-          ? 'py-2 max-lg:border-b max-lg:border-ink-950/[0.06] max-lg:bg-white/70 max-lg:backdrop-blur-xl lg:py-2.5'
-          : 'py-3 max-lg:border-b max-lg:border-transparent lg:py-4',
-      )}
-    >
-      <Container className="lg:max-w-none lg:px-16">
-        {/* На десктопе весь бар — тёмная стеклянная капсула */}
-        <div
-          className={cn(
-            'flex h-11 items-center justify-between gap-3 transition-all duration-300',
-            'max-lg:rounded-full max-lg:border max-lg:border-white/[0.09] max-lg:bg-[#0b1512]/95 max-lg:px-3 max-lg:shadow-[0_14px_38px_-24px_rgba(4,20,14,.75)] max-lg:backdrop-blur-xl',
-            'lg:h-14 lg:rounded-full lg:border lg:pl-5 lg:pr-2 lg:backdrop-blur-xl',
-            scrolled
-              ? 'lg:border-white/[0.09] lg:bg-[#0b1512]/95 lg:shadow-[0_1px_0_rgba(255,255,255,0.07)_inset,0_24px_60px_-24px_rgba(9,14,23,0.6)]'
-              : 'lg:border-white/[0.07] lg:bg-[#0b1512]/85 lg:shadow-[0_1px_0_rgba(255,255,255,0.06)_inset,0_18px_48px_-26px_rgba(9,14,23,0.45)]',
-          )}
-        >
+    <header className={cn('fixed inset-x-0 top-0 z-50 border-b border-[#e8eeeb] bg-white transition-shadow duration-200', scrolled && 'shadow-[0_3px_14px_rgba(20,50,35,0.04)]')}>
+      <Container className="lg:max-w-[1600px] lg:px-[clamp(40px,4.1vw,64px)]">
+        <div className="flex h-[72px] items-center justify-between gap-3 lg:h-[clamp(66px,5.2vw,82px)]">
           <a
             href="#hero"
             onClick={(e) => {
@@ -183,8 +167,8 @@ export function Header() {
             className="flex shrink-0 items-center gap-2.5 transition-opacity hover:opacity-90"
             aria-label="Sellico — главная"
           >
-            <img src="/logo.svg" alt="" className="h-7 w-7" />
-            <span className="text-[1.08rem] font-bold tracking-[-0.02em] text-white">
+            <img src="/logo.svg" alt="" aria-hidden="true" width={32} height={32} className="h-8 w-8 lg:h-[clamp(32px,2.5vw,40px)] lg:w-[clamp(32px,2.5vw,40px)]" />
+            <span className="text-[26px] font-bold tracking-[-0.05em] text-[#19282e] lg:text-[clamp(24px,1.9vw,30px)]">
               sellico
             </span>
           </a>
@@ -206,34 +190,42 @@ export function Header() {
               </button>
 
               {productOpen && (
-                <div className="absolute left-1/2 top-[calc(100%+14px)] w-[640px] -translate-x-1/2 animate-rise-fade rounded-3xl border border-white/10 bg-[#0b1512]/95 p-2.5 shadow-[0_1px_0_rgba(255,255,255,0.06)_inset,0_32px_80px_-24px_rgba(9,14,23,0.7)] backdrop-blur-xl">
+                <div className="absolute left-1/2 top-[calc(100%+14px)] w-[640px] -translate-x-1/2 animate-rise-fade rounded-3xl border border-[#e3ece6] bg-white p-2.5 shadow-[0_18px_48px_rgba(20,50,35,0.12)]">
                   <div className="grid grid-cols-2 gap-1">
                     {PRODUCT_ITEMS.map(({ icon: Icon, title, desc, href }) => (
                       <a
                         key={title}
                         href={href}
-                        className="group flex items-start gap-3 rounded-2xl p-3 text-left transition-colors duration-200 hover:bg-white/[0.06]"
+                        className="group flex items-start gap-3 rounded-2xl p-3 text-left transition-colors duration-200 hover:bg-[#eff8f3]"
                       >
-                        <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl border border-brand-300/20 bg-brand-400/10 text-brand-300 transition-colors duration-200 group-hover:bg-brand-400/20">
+                        <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl border border-[#d5eee2] bg-[#e9f7ef] text-[#198569] transition-colors duration-200 group-hover:bg-[#dff2e8]">
                           <Icon size={16} />
                         </span>
                         <span>
-                          <span className="block text-[13.5px] font-semibold text-white">{title}</span>{' '}
-                          <span className="mt-0.5 block text-xs leading-snug text-white/72">{desc}</span>
+                          <span className="block text-[13.5px] font-semibold text-[#233b31]">{title}</span>{' '}
+                          <span className="mt-0.5 block text-xs leading-snug text-[#475569]">{desc}</span>
                         </span>
                       </a>
                     ))}
                   </div>
-                  <div className="mt-1.5 flex items-center justify-between border-t border-white/10 px-3 py-2.5">
-                    <a
-                      href="/features/"
-                      className="text-[13px] font-medium text-white/75 transition-colors hover:text-white"
-                    >
-                      Все возможности
-                    </a>
+                  <div className="mt-1.5 flex items-center justify-between border-t border-[#e3ece6] px-3 py-2.5">
+                    <div className="flex items-center gap-4">
+                      <a
+                        href="/features/"
+                        className="text-[13px] font-medium text-[#475569] transition-colors hover:text-[#144f40]"
+                      >
+                        Все возможности
+                      </a>
+                      <a
+                        href="/compare/"
+                        className="text-[13px] font-medium text-[#475569] transition-colors hover:text-[#144f40]"
+                      >
+                        Сравнения
+                      </a>
+                    </div>
                     <button
                       onClick={() => handleNav('demo')}
-                      className="flex items-center gap-1 text-[13px] font-semibold text-brand-300 transition-colors hover:text-brand-200"
+                      className="flex items-center gap-1 text-[13px] font-semibold text-[#144f40] transition-colors hover:text-[#0d3b2f]"
                     >
                       Смотреть интерфейс
                       <ArrowUpRight size={14} />
@@ -268,7 +260,7 @@ export function Header() {
               href={LOGIN_URL}
               variant="ghost"
               size="sm"
-              className="hidden rounded-full px-4 text-[13px] text-white/75 hover:bg-white/[0.07] hover:text-white xl:inline-flex"
+              className="hidden rounded-xl px-4 text-[14px] !text-[#475569] hover:bg-[#f1f8f4] xl:inline-flex"
               onClick={() => track('cta_click_header_login', { target: 'login' })}
             >
               Войти
@@ -276,15 +268,9 @@ export function Header() {
             <Button
               as="a"
               href={REGISTER_URL}
-              variant="primary"
+              variant="ghost"
               size="sm"
-              className="hidden gap-1.5 whitespace-nowrap rounded-full px-[18px] text-[13px] sm:inline-flex"
-              iconRight={
-                <ArrowUpRight
-                  size={14}
-                  className="transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
-                />
-              }
+              className="hidden !h-[clamp(40px,3.2vw,50px)] gap-1.5 whitespace-nowrap rounded-xl !bg-[#eaf7f1] px-[22px] text-[14px] !text-[#144f40] hover:!bg-[#dcefe5] sm:inline-flex"
               onClick={() => track('cta_click_header_register', { target: 'register' })}
             >
               Подключить магазин
@@ -292,7 +278,7 @@ export function Header() {
             <button
               type="button"
               onClick={() => setOpen(true)}
-              className="grid h-10 w-10 place-items-center rounded-full border border-white/15 bg-white/[0.08] text-white backdrop-blur lg:hidden"
+              className="grid h-10 w-10 place-items-center rounded-full border border-[#deebe3] bg-[#f2f8f4] text-[#144f40] lg:hidden"
               aria-label="Открыть меню"
               aria-expanded={open}
             >
@@ -314,25 +300,25 @@ export function Header() {
           tabIndex={-1}
         >
           <div
-            className="absolute inset-0 bg-[#07110f]/95 backdrop-blur-xl"
+            className="absolute inset-0 bg-white"
             onClick={() => setOpen(false)}
           />
           <div
             aria-hidden
             className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_80%_0%,rgba(45,187,144,0.18),transparent_45%)]"
           />
-          <div className="relative flex h-full flex-col px-6 pb-8 pt-4">
+          <div className="relative flex h-full flex-col overflow-y-auto px-6 pb-8 pt-4">
             <h2 id="mobile-menu-title" className="sr-only">Меню Sellico</h2>
             <div className="flex h-12 items-center justify-between">
               <a href="#hero" onClick={(e) => { e.preventDefault(); handleNav('hero'); }} className="flex items-center gap-2.5">
-                <img src="/logo.svg" alt="" className="h-7 w-7 brightness-0 invert" />
-                <span className="text-[1.08rem] font-bold tracking-[-0.02em] text-white">sellico</span>
+                <img src="/logo.svg" alt="" aria-hidden="true" width={32} height={32} className="h-8 w-8" />
+                <span className="text-[26px] font-bold tracking-[-0.05em] text-[#19282e] lg:text-[clamp(24px,1.9vw,30px)]">sellico</span>
               </a>
               <button
                 ref={mobileCloseRef}
                 type="button"
                 onClick={() => setOpen(false)}
-                className="grid h-10 w-10 place-items-center rounded-full border border-white/15 bg-white/[0.06] text-white"
+                className="grid h-10 w-10 place-items-center rounded-full border border-[#deebe3] bg-[#f2f8f4] text-[#216b58]"
                 aria-label="Закрыть меню"
               >
                 <X size={18} />
@@ -344,20 +330,20 @@ export function Header() {
                 <button
                   key={item.id}
                   onClick={() => handleNav(item.id)}
-                  className="animate-rise-fade rounded-2xl px-3 py-3 text-left text-[28px] font-semibold tracking-tight text-white/85 transition-colors hover:text-brand-300"
+                  className="animate-rise-fade rounded-2xl px-3 py-3 text-left text-[28px] font-semibold tracking-tight text-[#233b31] transition-colors hover:text-[#198569]"
                   style={{ animationDelay: `${i * 45}ms` }}
                 >
                   {item.label}
                 </button>
               ))}
-              <span className="mx-3 mt-5 border-t border-white/10 pt-5 text-xs font-bold uppercase tracking-[0.16em] text-white/45">
+              <span className="mx-3 mt-5 border-t border-[#e3ece6] pt-5 text-xs font-bold uppercase tracking-[0.16em] text-[#475569]">
                 Разделы
               </span>
               {MOBILE_PAGES.map((page) => (
                 <a
                   key={page.href}
                   href={page.href}
-                  className="rounded-2xl px-3 py-2 text-left text-lg font-semibold text-white/75 transition-colors hover:text-brand-300"
+                  className="rounded-2xl px-3 py-2 text-left text-lg font-semibold text-[#475569] transition-colors hover:text-[#144f40]"
                 >
                   {page.label}
                 </a>
@@ -368,9 +354,9 @@ export function Header() {
               <Button
                 as="a"
                 href={REGISTER_URL}
-                variant="primary"
+                variant="ghost"
                 size="md"
-                className="w-full rounded-full"
+                className="w-full rounded-xl !bg-[#087f5e] !text-white hover:!bg-[#076d50]"
                 iconRight={<ArrowUpRight size={16} />}
                 onClick={() => track('cta_click_header_register', { target: 'register' })}
               >
@@ -379,9 +365,9 @@ export function Header() {
               <Button
                 as="a"
                 href={LOGIN_URL}
-                variant="dark"
+                variant="ghost"
                 size="md"
-                className="w-full rounded-full border-white/15"
+                className="w-full rounded-xl !bg-[#eaf7f1] !text-[#144f40]"
                 onClick={() => track('cta_click_header_login', { target: 'login' })}
               >
                 Войти

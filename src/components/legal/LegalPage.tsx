@@ -1,11 +1,6 @@
 import { useEffect } from 'react';
 import { Container } from '@/components/ui/Container';
-import {
-  PERSONAL_DATA_CONSENT_UPDATED_AT,
-  PERSONAL_DATA_CONSENT_VERSION,
-  PRIVACY_POLICY_UPDATED_AT,
-  PRIVACY_POLICY_VERSION,
-} from '@/lib/legal';
+import { LEGAL_DOCUMENTS } from '@/lib/legal';
 
 const OPERATOR = {
   shortName: 'ИП ЗУБАРЕВ ДАНИЛ ВИКТОРОВИЧ',
@@ -85,8 +80,8 @@ function PrivacyPolicy() {
       <LegalHero
         title="Политика обработки персональных данных"
         lead="Политика распространяется на сайт sellico.ru и сервис Sellico, включая личный кабинет, рабочие пространства, интеграции, поддержку и публичные формы."
-        updatedAt={PRIVACY_POLICY_UPDATED_AT}
-        version={PRIVACY_POLICY_VERSION}
+        updatedAt={LEGAL_DOCUMENTS.privacy.updatedAt}
+        version={LEGAL_DOCUMENTS.privacy.version}
       />
 
       <div className="space-y-6">
@@ -222,8 +217,8 @@ function PersonalDataConsent() {
       <LegalHero
         title="Согласие на обработку персональных данных"
         lead="Согласие применяется к регистрации, прямым заявкам и обращениям в Sellico. Данные, которые клиент размещает в рабочем пространстве о третьих лицах, обрабатываются на основании клиента и условий договора."
-        updatedAt={PERSONAL_DATA_CONSENT_UPDATED_AT}
-        version={PERSONAL_DATA_CONSENT_VERSION}
+        updatedAt={LEGAL_DOCUMENTS.consent.updatedAt}
+        version={LEGAL_DOCUMENTS.consent.version}
       />
 
       <div className="space-y-6">

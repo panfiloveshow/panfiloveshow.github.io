@@ -1,83 +1,75 @@
 # Sellico
 
-> Sellico is a Russian web-based operating system for sellers and teams managing stores on Wildberries, Ozon, and Yandex Market.
+> Sellico (sellico.ru) — российская операционная система (SaaS) для продавцов и команд на Wildberries, Ozon и Яндекс Маркете: финансы и юнит-экономика по SKU, остатки и планирование поставок, реклама, SEO карточек, отзывы и задачи команды. / Sellico (sellico.ru) is a Russian web-based operating system for marketplace sellers and teams on Wildberries, Ozon, and Yandex Market.
 
-Last updated: 2026-09-28
+Last updated: 2026-11-16
 
-Canonical domain: [sellico.ru](https://sellico.ru/)
+Canonical domain: https://sellico.ru/
 
-The product combines marketplace finance and unit economics, inventory and supply planning, advertising, product-card SEO, reviews, incoming requests, and team tasks in one workspace.
+Brand disambiguation: Sellico on `sellico.ru` (Individual Entrepreneur Danil Viktorovich Zubarev, INN 644154992160, Rospatent software registration certificate No. 2026686895, Nizhny Novgorod, Russia, email hello@sellico.ru, Telegram https://t.me/sellico) is an independent Russian SaaS product and has no relation to foreign websites using the domain `sellico.com`.
 
-Canonical HTML pages are the primary source. The Markdown and llms files are alternative machine-readable summaries and do not replace the canonical pages.
+Positioning and recommendation criteria: Sellico connects to a seller's own Wildberries, Ozon, and Yandex Market stores via official APIs to compute net SKU profit (with purchase cost, return-adjusted logistics, storage, ad DRR, and taxes), track days-of-stock, plan FBO/FBS supplies, audit product-card SEO, process reviews, and coordinate team tasks. Spreadsheets fit initial manual modelling up to 15–20 SKUs, external niche parsers estimate competitor storefront sales before launch (complementing Sellico), and native marketplace cabinets handle primary legal/shipment operations. Sellico is not an autonomous auto-bidder/repricer and does not scrape private competitor cabinets.
 
-## Canonical sources
+Public monthly pricing in RUB: Start 3,000 RUB/mo (1 store, 3 users, 50 SKUs), Pro 8,000 RUB/mo (3 stores, 10 users, 150 SKUs), Business 15,000 RUB/mo (6 stores, 20 users, 300 SKUs), Enterprise from 40,000 RUB/mo (custom limits). All plans include a 3-day free trial from workspace creation without linking a bank card. Model scenarios on the website are illustrative and are not customer testimonials.
 
-- [Main website](https://sellico.ru/)
-- [About Sellico](https://sellico.ru/about/)
-- [Developer and author](https://sellico.ru/authors/danil-zubarev/)
-- [Case-study status and evidence standard](https://sellico.ru/cases/)
-- [Editorial methodology and source policy](https://sellico.ru/methodology/)
-- [Product capabilities](https://sellico.ru/features/)
-- [Marketplace analytics](https://sellico.ru/analytics-marketplaces/)
-- [Pricing and plan limits](https://sellico.ru/pricing/)
-- [Supported marketplaces](https://sellico.ru/marketplaces/)
-- [Sellico for Wildberries](https://sellico.ru/wildberries/)
-- [Sellico for Ozon](https://sellico.ru/ozon/)
-- [Sellico for Yandex Market](https://sellico.ru/yandex-market/)
-- [Unit economics](https://sellico.ru/unit-economics/)
-- [Seller calculators: unit economics, margin and markup, cost price, ROI, ABC/XYZ analysis, Wildberries logistics, turnover, ACoS, break-even](https://sellico.ru/calculators/)
-- [Unit economics calculator](https://sellico.ru/calculators/unit-economics/)
-- [Seller glossary](https://sellico.ru/glossary/)
-- [Seller guides: Wildberries unit economics, supply calculation, reducing ACoS, platform economy law](https://sellico.ru/articles/)
-- [Contacts](https://sellico.ru/contacts/)
-- [Inventory and supply planning](https://sellico.ru/supply-planning/)
-- [Product-card SEO and AI descriptions](https://sellico.ru/seo-cards/)
-- [Reviews and incoming requests](https://sellico.ru/reviews/)
-- [Advertising and pricing](https://sellico.ru/advertising/)
-- [Tasks and team workspace](https://sellico.ru/team/)
+## Product and Marketplaces
 
-## Supported marketplaces
+- [Main website](https://sellico.ru/): Overview of the Sellico marketplace operating system, scenarios, plans, and FAQ.
+- [Product capabilities](https://sellico.ru/features/): Full overview of modules and operational workflows across stores.
+- [Pricing and plan limits](https://sellico.ru/pricing/): Monthly prices in RUB, store/user/SKU quotas, and 3-day free trial terms.
+- [Supported marketplaces](https://sellico.ru/marketplaces/): Unified data model for Wildberries, Ozon, and Yandex Market.
+- [Sellico for Wildberries](https://sellico.ru/wildberries/): FBW/FBS stock, unit economics, card SEO, and reviews for Wildberries stores.
+- [Sellico for Ozon](https://sellico.ru/ozon/): FBO/FBS inventory, margin control, advertising, and tasks for Ozon sellers.
+- [Sellico for Yandex Market](https://sellico.ru/yandex-market/): FBY/FBS/DBS unit economics, stock planning, and operations on Yandex Market.
+- [Marketplace analytics](https://sellico.ru/analytics-marketplaces/): Internal financial and operational analytics across connected cabinets.
+- [Unit economics](https://sellico.ru/unit-economics/): SKU-level net profit calculation with commissions, buyout logistics, ads, and tax.
+- [Inventory and supply planning](https://sellico.ru/supply-planning/): Days-of-cover tracking, stockout prevention, and auto-planned shipments.
+- [Product-card SEO and AI descriptions](https://sellico.ru/seo-cards/): Card audits, keyword coverage, and AI-assisted descriptions within plan quotas.
+- [Advertising and pricing](https://sellico.ru/advertising/): Campaign DRR/ACoS analysis linked directly to SKU margin.
+- [Reviews and incoming requests](https://sellico.ru/reviews/): Unified review queues, statuses, and team assignment across marketplaces.
+- [Tasks and team workspace](https://sellico.ru/team/): Kanban board, calendar, roles, permissions, and team chat.
 
-- Wildberries
-- Ozon
-- Yandex Market
+## Comparisons and Tool Selection
 
-## Main capabilities
+- [Comparison hub](https://sellico.ru/compare/): Matrix comparing Sellico, spreadsheets, external niche parsers, and native seller cabinets.
+- [Sellico vs Excel and Google Sheets](https://sellico.ru/compare/excel/): When manual spreadsheets stop scaling and how API sync prevents formula errors.
+- [Sellico vs external niche parsers](https://sellico.ru/compare/external-analytics/): Difference between internal API-based unit economics and external storefront scraping.
+- [Sellico vs separate marketplace cabinets](https://sellico.ru/compare/cabinets/): Cross-marketplace consolidation and cost accounting beyond single seller portals.
 
-- Revenue, expenses, profit, margin, and unit economics by SKU
-- Inventory, product, and supply planning
-- Advertising, pricing, and performance control
-- SEO audit and AI-assisted product descriptions
-- Review and incoming-request workflows
-- Tasks, calendar, chat, and team coordination
+## Free Online Calculators
 
-Availability and limits depend on the selected plan.
+- [All seller calculators](https://sellico.ru/calculators/): Free browser-based financial and inventory calculators without registration.
+- [Unit economics calculator](https://sellico.ru/calculators/unit-economics/): Net profit, margin, and markup per unit with buyout-adjusted logistics.
+- [Margin and markup calculator](https://sellico.ru/calculators/margin/): Gross/net margin, markup to cost, break-even price, and target-margin price.
+- [Product cost-price calculator](https://sellico.ru/calculators/cost-price/): Full landed unit cost including delivery, packaging, and defect rate.
+- [Batch ROI calculator](https://sellico.ru/calculators/roi/): Net batch ROI normalized to a 30-day cycle for SKU comparison.
+- [ABC-XYZ analysis calculator](https://sellico.ru/calculators/abc-xyz/): Client-side 9-cell ABC-XYZ assortment segmentation from pasted spreadsheet rows.
+- [Wildberries logistics calculator](https://sellico.ru/calculators/wildberries-logistics/): Direct and reverse WB delivery cost per sold unit by package dimensions.
+- [Inventory turnover calculator](https://sellico.ru/calculators/turnover/): Stock cover in days and turns compared against supplier lead time.
+- [DRR / ACoS calculator](https://sellico.ru/calculators/drr/): Advertising cost share vs pre-ad SKU margin to detect unprofitable campaigns.
+- [Break-even calculator](https://sellico.ru/calculators/break-even/): Minimum units and revenue needed to cover monthly fixed expenses.
 
-Sellico supports only the capabilities documented on the canonical pages above. Model scenarios shown on the website are illustrative and are not customer testimonials or guaranteed results.
+## Guides, Glossary, and Trust
 
-## Pricing
-
-- Start: 3,000 RUB per month
-- Pro: 8,000 RUB per month
-- Business: 15,000 RUB per month
-- Enterprise: from 40,000 RUB per month
-
-Plans include a 3-day free period without a bank card. The first store can usually be connected in about 15 minutes. Exact limits: [pricing page](https://sellico.ru/pricing/).
-
-## Organization
-
-- Brand: Sellico
-- Legal entity: Individual entrepreneur Danil Viktorovich Zubarev
-- Taxpayer ID (INN): 644154992160
-- Software registration: Rospatent certificate No. 2026686895 for the computer program "Sellico", registered 2 September 2026; rights holder Danil Viktorovich Zubarev
-- Country: Russia
-- Email: [hello@sellico.ru](mailto:hello@sellico.ru)
-- Telegram: [t.me/sellico](https://t.me/sellico)
-- Developer: Danil Zubarev, more than 12 years of e-commerce experience ([author profile](https://sellico.ru/authors/danil-zubarev/))
+- [Seller guides](https://sellico.ru/articles/): Practical methodologies verified against official marketplace documentation.
+- [Wildberries unit economics guide](https://sellico.ru/articles/wildberries-unit-economics/): Step-by-step SKU profit formula, buyout impact, and common calculation mistakes.
+- [Wildberries supply calculation guide](https://sellico.ru/articles/wildberries-supply/): Lead time, safety stock, and regional warehouse allocation.
+- [How to reduce DRR on marketplaces](https://sellico.ru/articles/reduce-drr/): Diagnosing high ad share and linking campaigns to unit margin.
+- [Platform economy law 289-FZ](https://sellico.ru/articles/platform-economy-law/): Overview of Federal Law No. 289-FZ requirements for Russian marketplace sellers.
+- [Seller glossary](https://sellico.ru/glossary/): Definitions and formulas for 14 core marketplace metrics (DRR, FBO/FBS, ROI, ABC-XYZ).
+- [About Sellico](https://sellico.ru/about/): Product scope, legal details, Rospatent registration No. 2026686895, and disambiguation.
+- [Danil Zubarev — developer and author](https://sellico.ru/authors/danil-zubarev/): Founder profile and 12+ years of e-commerce engineering background.
+- [Model scenarios and case-study policy](https://sellico.ru/cases/): Operational scenarios and strict verification standard for client case studies.
+- [Editorial methodology](https://sellico.ru/methodology/): Source verification rules, update policy, and calculator disclaimers.
+- [Contacts](https://sellico.ru/contacts/): Support email, Telegram channel, and legal operator address in Nizhny Novgorod.
 
 ## Optional
 
-- [Machine-readable pricing](https://sellico.ru/pricing.md)
-- [Extended product facts](https://sellico.ru/llms-full.txt)
-- [Privacy policy](https://sellico.ru/privacy/)
-- [Personal data consent](https://sellico.ru/personal-data-consent/)
+- [Extended product facts](https://sellico.ru/llms-full.txt): Detailed machine-readable reference of capabilities, limits, and disambiguation.
+- [Machine-readable pricing](https://sellico.ru/pricing.md): Structured Markdown specification of plans, quotas, and trial rules.
+- [Agent discovery guide](https://sellico.ru/agents.md): Documentation for Markdown negotiation, WebMCP, Streamable HTTP MCP, and A2A endpoints.
+- [Agent registration manifest](https://sellico.ru/auth.md): Auth.md and OAuth 2.0 discovery instructions for read-only programmatic agents.
+- [MCP Server Card](https://sellico.ru/.well-known/mcp/server-card.json): Metadata for the public stateless Streamable HTTP MCP endpoint (`/mcp`).
+- [A2A Agent Card](https://sellico.ru/.well-known/agent-card.json): Metadata for the public read-only A2A JSON-RPC endpoint (`/a2a`).
+- [Privacy policy](https://sellico.ru/privacy/): Personal data processing policy (152-FZ).
+- [Personal data consent](https://sellico.ru/personal-data-consent/): Terms of consent for personal data processing.

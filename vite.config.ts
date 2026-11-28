@@ -1,9 +1,14 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import path from 'node:path';
+import { agentDiscoveryPlugin } from './scripts/agent/agent-discovery-plugin';
+import { synchronizeHomeStructuredData } from './scripts/build/structured-data.mjs';
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), agentDiscoveryPlugin(), {
+    name: 'sellico-structured-data',
+    transformIndexHtml: synchronizeHomeStructuredData,
+  }],
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
@@ -37,8 +42,8 @@ export default defineConfig({
     strictPort: true,
     // dev-only: баннеры и их картинки берём с прода, чтобы слайдер работал на локалке
     proxy: {
-      '/api': { target: 'https://sellico.ru', changeOrigin: true },
-      '/storage': { target: 'https://sellico.ru', changeOrigin: true },
+      '/api': { target: process.env.SELLICO_DEV_API_TARGET || 'https://sellico.ru', changeOrigin: true },
+      '/storage': { target: process.env.SELLICO_DEV_API_TARGET || 'https://sellico.ru', changeOrigin: true },
     },
   },
 });

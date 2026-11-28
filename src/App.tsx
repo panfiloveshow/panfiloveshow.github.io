@@ -1,5 +1,6 @@
 import { lazy, Suspense, useEffect } from 'react';
-import type { SeoPageType } from '@/components/seo/SeoContentPage';
+import type { DetailPageType, SeoPageType } from '@/components/seo/SeoContentPage';
+import pagesIndex from '@/content/pages-index.json';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { scrollToHashOnReady } from '@/lib/anchors';
@@ -58,55 +59,17 @@ const LEGAL_ROUTES: Record<string, 'privacy' | 'consent'> = {
   '/personal-data-consent': 'consent',
 };
 
-const SEO_ROUTES: Record<string, SeoPageType> = {
-  '/about': 'about',
-  '/authors/danil-zubarev': 'authors/danil-zubarev',
-  '/cases': 'cases',
-  '/methodology': 'methodology',
-  '/analytics-marketplaces': 'analytics-marketplaces',
+const HUB_SEO_ROUTES: Record<string, SeoPageType> = {
   '/features': 'features',
   '/pricing': 'pricing',
   '/marketplaces': 'marketplaces',
-  '/wildberries': 'wildberries',
-  '/ozon': 'ozon',
-  '/yandex-market': 'yandex-market',
-  '/unit-economics': 'unit-economics',
-  '/supply-planning': 'supply-planning',
-  '/seo-cards': 'seo-cards',
-  '/reviews': 'reviews',
-  '/advertising': 'advertising',
-  '/team': 'team',
-  '/calculators': 'calculators',
-  '/calculators/unit-economics': 'calculators/unit-economics',
-  '/calculators/margin': 'calculators/margin',
-  '/calculators/cost-price': 'calculators/cost-price',
-  '/calculators/roi': 'calculators/roi',
-  '/calculators/abc-xyz': 'calculators/abc-xyz',
-  '/calculators/wildberries-logistics': 'calculators/wildberries-logistics',
-  '/calculators/turnover': 'calculators/turnover',
-  '/calculators/drr': 'calculators/drr',
-  '/calculators/break-even': 'calculators/break-even',
-  '/contacts': 'contacts',
-  '/glossary': 'glossary',
-  '/glossary/drr': 'glossary/drr',
-  '/glossary/turnover': 'glossary/turnover',
-  '/glossary/margin': 'glossary/margin',
-  '/glossary/abc-analysis': 'glossary/abc-analysis',
-  '/glossary/fbo-fbs': 'glossary/fbo-fbs',
-  '/glossary/buyout-rate': 'glossary/buyout-rate',
-  '/glossary/roi': 'glossary/roi',
-  '/glossary/conversion': 'glossary/conversion',
-  '/glossary/cost-price': 'glossary/cost-price',
-  '/glossary/xyz-analysis': 'glossary/xyz-analysis',
-  '/glossary/safety-stock': 'glossary/safety-stock',
-  '/glossary/break-even': 'glossary/break-even',
-  '/glossary/cpm-cpc-cpo': 'glossary/cpm-cpc-cpo',
-  '/glossary/lost-sales': 'glossary/lost-sales',
-  '/articles': 'articles',
-  '/articles/wildberries-unit-economics': 'articles/wildberries-unit-economics',
-  '/articles/wildberries-supply': 'articles/wildberries-supply',
-  '/articles/reduce-drr': 'articles/reduce-drr',
-  '/articles/platform-economy-law': 'articles/platform-economy-law',
+};
+
+const SEO_ROUTES: Record<string, SeoPageType> = {
+  ...HUB_SEO_ROUTES,
+  ...Object.fromEntries(
+    (Object.keys(pagesIndex) as DetailPageType[]).map((slug) => [`/${slug}`, slug]),
+  ),
 };
 
 export default function App() {
@@ -125,7 +88,7 @@ export default function App() {
     <div className="relative min-h-screen overflow-x-hidden bg-surface-light text-ink-50">
       <a
         href="#main-content"
-        className="fixed left-4 top-3 z-[200] -translate-y-24 rounded-xl bg-white px-4 py-3 text-sm font-semibold text-ink-950 shadow-xl transition-transform focus:translate-y-0"
+        className="skip-link fixed left-4 top-3 z-[200] -translate-y-24 rounded-xl bg-white px-4 py-3 text-sm font-semibold text-ink-950 shadow-xl transition-transform focus:translate-y-0"
       >
         Перейти к основному содержанию
       </a>

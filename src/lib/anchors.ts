@@ -9,22 +9,28 @@ export const SECTION_IDS = {
   cta: 'cta',
 } as const;
 
-export const APP_URL = 'https://sellico.ru';
+const APP_URL = 'https://sellico.ru';
 export const LOGIN_URL = `${APP_URL}/login`;
 export const REGISTER_URL = `${APP_URL}/register`;
 
+let stopActiveScroll = () => {};
+
 export function scrollToSection(id: string): void {
-  const el = document.getElementById(id);
-  if (!el) {
+  if (!document.getElementById(id)) {
     window.location.href = `/#${id}`;
     return;
   }
-  el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  scrollToStableSection(id, 'smooth');
 }
 
 export function scrollToHashOnReady(): () => void {
   const hash = window.location.hash.replace('#', '');
   if (!hash) return () => undefined;
+  return scrollToStableSection(hash, 'instant');
+}
+
+function scrollToStableSection(hash: string, behavior: ScrollBehavior): () => void {
+  stopActiveScroll();
 
   let frame = 0;
   let attempts = 0;
@@ -47,15 +53,16 @@ export function scrollToHashOnReady(): () => void {
   const alignTarget = (el: HTMLElement) => {
     if (stopped) return;
     const scrollMargin = Number.parseFloat(window.getComputedStyle(el).scrollMarginTop) || 0;
-    if (Math.abs(el.getBoundingClientRect().top - scrollMargin) > 4) {
-      el.scrollIntoView({ behavior: 'auto', block: 'start' });
+    const scrollPadding = Number.parseFloat(window.getComputedStyle(document.documentElement).scrollPaddingTop) || 0;
+    if (Math.abs(el.getBoundingClientRect().top - scrollMargin - scrollPadding) > 4) {
+      el.scrollIntoView({ behavior: 'instant', block: 'start' });
     }
   };
 
   const findAndScroll = () => {
     const el = document.getElementById(hash);
     if (el) {
-      alignTarget(el);
+      el.scrollIntoView({ behavior, block: 'start' });
       observer = new ResizeObserver(() => {
         window.requestAnimationFrame(() => alignTarget(el));
       });
@@ -75,5 +82,6 @@ export function scrollToHashOnReady(): () => void {
   };
 
   frame = window.requestAnimationFrame(findAndScroll);
+  stopActiveScroll = stop;
   return stop;
 }

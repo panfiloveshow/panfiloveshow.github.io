@@ -51,7 +51,7 @@ function FinanceAbcBar({
 }) {
   return (
     <div>
-      <p className="text-[9px] font-bold text-[#1f2937]">{title}</p>
+      <p className="text-[12px] font-bold text-[#1f2937]">{title}</p>
       <div className="mt-3 flex h-3 overflow-hidden rounded-full bg-[#f1f5f9]">
         {segments.map((segment) => (
           <span key={segment.label} style={{ width: `${segment.value}%`, backgroundColor: abcColors[segment.label] }} />
@@ -59,7 +59,7 @@ function FinanceAbcBar({
       </div>
       <div className="mt-3 flex flex-wrap gap-x-3 gap-y-1.5">
         {segments.map((segment) => (
-          <span key={segment.label} className="inline-flex items-center gap-1 text-[7px] text-[#64748b]">
+          <span key={segment.label} className="inline-flex items-center gap-1 text-[12px] text-[#64748b]">
             <span className="h-2 w-2 rounded-full" style={{ backgroundColor: abcColors[segment.label] }} />
             <strong className="text-[#334155]">{segment.label}</strong>
             {segment.value}% · {segment.count}
@@ -86,21 +86,21 @@ export function FinanceView() {
       <div className="flex flex-col gap-3 rounded-[15px] border border-[#e5e7eb] bg-white p-3 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex flex-wrap gap-1">
           {['Сегодня', 'Вчера', 'Неделя', '30 дней', '90 дней'].map((label) => (
-            <button key={label} type="button" onClick={() => setPeriod(label)} className={cn('h-8 rounded-[8px] px-3 text-[8px] font-semibold', period === label ? 'bg-[#111827] text-white' : 'text-[#64748b] hover:bg-[#f1f5f9]')}>
+            <button key={label} type="button" onClick={() => setPeriod(label)} className={cn('h-8 rounded-[8px] px-3 text-[12px] font-semibold', period === label ? 'bg-[#111827] text-white' : 'text-[#64748b] hover:bg-[#f1f5f9]')}>
               {label}
             </button>
           ))}
-          <button type="button" className="inline-flex h-8 items-center gap-2 rounded-[8px] border border-[#e5e7eb] px-3 text-[8px] text-[#64748b]">24 июн. – 24 июл. <ChevronDown size={11} /></button>
+          <button type="button" className="inline-flex h-8 items-center gap-2 rounded-[8px] border border-[#e5e7eb] px-3 text-[12px] text-[#64748b]">24 июн. – 24 июл. <ChevronDown size={11} /></button>
         </div>
-        <button type="button" className="inline-flex h-8 items-center gap-2 self-start rounded-full border border-[#93c5fd] bg-[#eff6ff] px-3 text-[8px] font-bold text-[#2563eb] sm:self-auto">
-          <span className="grid h-5 w-5 place-items-center rounded-full bg-[#2563eb] text-[7px] text-white">MS</span>
+        <button type="button" className="inline-flex h-8 shrink-0 items-center gap-2 self-start rounded-full border border-[#93c5fd] bg-[#eff6ff] px-3 text-[12px] font-bold text-[#2563eb] sm:self-auto">
+          <span className="grid h-5 w-5 place-items-center rounded-full bg-[#2563eb] text-[12px] text-white">MS</span>
           Магазин Север
           <ChevronDown size={11} />
         </button>
       </div>
 
       <section className="mt-3 rounded-[16px] border border-[#e5e7eb] bg-white p-4">
-        <p className="text-[9px] font-bold text-[#1f2937]">Выручка и прибыль — Магазин Север</p>
+        <p className="text-[12px] font-bold text-[#1f2937]">Выручка и прибыль — Магазин Север</p>
         <div className="mt-5 flex h-[150px] items-end gap-[3px] border-b border-[#eef2f7] px-1">
           {financeBars.map((bar, index) => (
             <div key={index} className="flex h-full min-w-0 flex-1 items-end gap-[1px]">
@@ -109,33 +109,35 @@ export function FinanceView() {
             </div>
           ))}
         </div>
-        <div className="mt-2 flex justify-between text-[6px] text-[#64748b]">
+        <div className="mt-2 flex justify-between text-[12px] text-[#64748b]">
           {['24', '28', '2', '6', '10', '14', '18', '22'].map((day) => <span key={day}>{day}</span>)}
         </div>
       </section>
 
-      <div className="mt-3 grid gap-2.5 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="mt-3 grid gap-2.5 sm:grid-cols-2 xl:grid-cols-4">
         {[
           { label: 'Выручка', value: '1 284 630 ₽', detail: '+12,6%', color: '#047857' },
-          { label: 'Все расходы', value: '726 840 ₽', detail: '56,6% от выручки', color: '#dc2626' },
+          { label: 'Расходы без себестоимости', value: '726 840 ₽', detail: '56,6% от выручки', color: '#dc2626' },
           { label: 'Себестоимость', value: '238 120 ₽', detail: '18,5% от выручки', color: '#b45309' },
           { label: 'Прибыль', value: '319 670 ₽', detail: '24,8%', color: '#2563eb' },
         ].map((metric) => (
           <section key={metric.label} className="relative overflow-hidden rounded-[15px] border border-[#e5e7eb] bg-white p-4">
             <span className="absolute inset-x-0 top-0 h-0.5" style={{ backgroundColor: metric.color }} />
-            <p className="text-[7px] font-bold uppercase tracking-[0.05em] text-[#64748b]">{metric.label}</p>
+            <p className="text-[12px] font-bold uppercase tracking-[0.05em] text-[#64748b]">{metric.label}</p>
             <p className="mt-2 text-[17px] font-extrabold tracking-[-0.03em]" style={{ color: metric.color }}>{metric.value}</p>
-            <p className="mt-1 text-[7px] text-[#64748b]">{metric.detail}</p>
+            <p className="mt-1 text-[12px] text-[#64748b]">{metric.detail}</p>
           </section>
         ))}
       </div>
 
+      <p className="mt-3 text-[12px] leading-relaxed text-[#475569]">Чистая прибыль = выручка − расходы без себестоимости − себестоимость.</p>
+
       <div className="mt-2.5 grid grid-cols-2 gap-2.5 md:grid-cols-3 xl:grid-cols-6">
         {financeMetrics.map((metric) => (
           <section key={metric.label} className="min-h-[82px] rounded-[14px] border border-[#e5e7eb] bg-white p-3">
-            <p className="text-[7px] font-semibold uppercase tracking-[0.04em] text-[#64748b]">{metric.label}</p>
+            <p className="text-[12px] font-semibold uppercase tracking-[0.04em] text-[#64748b]">{metric.label}</p>
             <p className="mt-2 text-[13px] font-extrabold text-[#1f2937]">{metric.value}</p>
-            <p className={cn('mt-1 text-[7px]', metric.detail.startsWith('−') ? 'text-[#dc2626]' : 'text-[#047857]')}>{metric.detail}</p>
+            <p className={cn('mt-1 text-[12px]', metric.detail.startsWith('−') ? 'text-[#dc2626]' : 'text-[#047857]')}>{metric.detail}</p>
           </section>
         ))}
       </div>
@@ -143,14 +145,14 @@ export function FinanceView() {
       <section className="mt-3 rounded-[16px] border border-[#e5e7eb] bg-white p-4">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <p className="flex items-center gap-2 text-[10px] font-bold text-[#1f2937]"><Clock3 size={13} className="text-[#047857]" />Тепловая карта заказов</p>
-            <p className="mt-1 text-[7px] text-[#64748b]">Пн–Вс по 24 часам · интенсивность заказов</p>
+            <p className="flex items-center gap-2 text-[12px] font-bold text-[#1f2937]"><Clock3 size={13} className="text-[#047857]" />Тепловая карта заказов</p>
+            <p className="mt-1 text-[12px] text-[#64748b]">Пн–Вс по 24 часам · интенсивность заказов</p>
           </div>
-          <div className="flex gap-2 text-[7px] text-[#64748b]"><span className="rounded-[7px] bg-[#f1f5f9] px-2 py-1.5 text-[#475569]">Штуки</span><span className="rounded-[7px] border border-[#e5e7eb] px-2 py-1.5">24 июн. – 24 июл.</span></div>
+          <div className="flex gap-2 text-[12px] text-[#64748b]"><span className="rounded-[7px] bg-[#f1f5f9] px-2 py-1.5 text-[#475569]">Штуки</span><span className="rounded-[7px] border border-[#e5e7eb] px-2 py-1.5">24 июн. – 24 июл.</span></div>
         </div>
         <div className="mt-4 grid grid-cols-[20px_repeat(24,minmax(8px,1fr))] gap-1 overflow-x-auto">
           {['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'].flatMap((day, dayIndex) => [
-            <span key={`${day}-label`} className="grid h-4 place-items-center text-[6px] text-[#64748b]">{day}</span>,
+            <span key={`${day}-label`} className="grid h-4 place-items-center text-[12px] text-[#64748b]">{day}</span>,
             ...Array.from({ length: 24 }, (_, hour) => {
               const value = heatmap[dayIndex * 24 + hour];
               const color = value > 82 ? '#008f5b' : value > 62 ? '#36bd84' : value > 40 ? '#74d4aa' : value > 20 ? '#b9ead5' : '#edf7f2';
@@ -158,7 +160,7 @@ export function FinanceView() {
             }),
           ])}
         </div>
-        <div className="mt-3 flex items-center gap-1 text-[6px] text-[#64748b]">
+        <div className="mt-3 flex items-center gap-1 text-[12px] text-[#64748b]">
           Меньше
           {['#edf7f2', '#b9ead5', '#74d4aa', '#36bd84', '#008f5b'].map((color) => <span key={color} className="h-2 w-4 rounded-full" style={{ backgroundColor: color }} />)}
           Больше
@@ -166,8 +168,8 @@ export function FinanceView() {
       </section>
 
       <section className="mt-3 rounded-[16px] border border-[#e5e7eb] bg-white p-4">
-        <p className="text-[10px] font-bold text-[#1f2937]">Расходы</p>
-        <p className="mt-1 text-[7px] text-[#64748b]">Распределение расходов и история за период</p>
+        <p className="text-[12px] font-bold text-[#1f2937]">Расходы</p>
+        <p className="mt-1 text-[12px] text-[#64748b]">Распределение расходов и история за период</p>
         <div className="mt-4 grid gap-5 lg:grid-cols-[1fr_1.35fr]">
           <div>
             <div className="flex h-7 overflow-hidden rounded-full">
@@ -179,7 +181,7 @@ export function FinanceView() {
                 ['#8b5cf6', '8%'],
               ].map(([color, width]) => <span key={color} style={{ backgroundColor: color, width }} />)}
             </div>
-            <div className="mt-3 flex flex-wrap gap-3 text-[7px] text-[#64748b]">
+            <div className="mt-3 flex flex-wrap gap-3 text-[12px] text-[#64748b]">
               {['Комиссия', 'Реклама', 'Доставка', 'Прочее', 'Хранение'].map((label) => <span key={label}>{label}</span>)}
             </div>
           </div>
@@ -191,19 +193,19 @@ export function FinanceView() {
         </div>
       </section>
 
-      <div className="mt-3 grid gap-3 lg:grid-cols-2">
+      <div className="mt-3 grid gap-3 xl:grid-cols-2">
         <section className="rounded-[16px] border border-[#e5e7eb] bg-white p-4">
-          <p className="text-[10px] font-bold text-[#1f2937]">Остатки и товары в доставке</p>
-          <div className="mt-3 grid grid-cols-3 gap-2">
+          <p className="text-[12px] font-bold text-[#1f2937]">Остатки и товары в доставке</p>
+          <div className="mt-3 grid gap-2 sm:grid-cols-3">
             {[
               { label: 'Все товары', value: '4 820 000 ₽', detail: '1 842 шт.' },
               { label: 'На складе для продажи', value: '4 126 400 ₽', detail: '85,6% · 1 576 шт.' },
               { label: 'В доставке', value: '693 600 ₽', detail: '14,4% · 266 шт.' },
             ].map((item) => (
               <div key={item.label} className="min-w-0 rounded-[12px] border border-[#e5e7eb] p-3">
-                <p className="line-clamp-2 min-h-[20px] text-[6px] font-semibold uppercase tracking-[0.04em] text-[#64748b]">{item.label}</p>
-                <p className="mt-2 truncate text-[11px] font-extrabold text-[#1f2937] sm:text-[13px]">{item.value}</p>
-                <p className="mt-1 text-[6px] text-[#64748b] sm:text-[7px]">{item.detail}</p>
+                <p className="text-[12px] font-semibold uppercase tracking-[0.04em] text-[#64748b]">{item.label}</p>
+                <p className="mt-2 text-[13px] font-extrabold text-[#1f2937]">{item.value}</p>
+                <p className="mt-1 text-[12px] text-[#64748b]">{item.detail}</p>
               </div>
             ))}
           </div>
@@ -237,20 +239,20 @@ export function FinanceView() {
           <div className="flex items-start gap-2">
             <Info size={15} className="mt-0.5 shrink-0 text-[#2563eb]" />
             <div>
-              <p className="text-[9px] font-extrabold text-[#1f2937]">Часть расходов не распределена по товарам</p>
-              <p className="mt-1 text-[7px] leading-relaxed text-[#64748b]">По товарам распределено 689 200 ₽, не распределено 37 640 ₽. Прибыль по товарам не включает эти общие списания.</p>
+              <p className="text-[12px] font-extrabold text-[#1f2937]">Часть расходов не распределена по товарам</p>
+              <p className="mt-1 text-[12px] leading-relaxed text-[#64748b]">По товарам распределено 689 200 ₽, не распределено 37 640 ₽. Прибыль по товарам не включает эти общие списания.</p>
             </div>
           </div>
           <div className="flex items-start gap-2">
             <TriangleAlert size={15} className="mt-0.5 shrink-0 text-[#b45309]" />
             <div>
-              <p className="text-[9px] font-extrabold text-[#1f2937]">Себестоимость заполнена не у всех товаров</p>
-              <p className="mt-1 text-[7px] leading-relaxed text-[#64748b]">5 товаров с выручкой 18 420 ₽ имеют нулевую себестоимость. Прибыль по ним предварительная.</p>
+              <p className="text-[12px] font-extrabold text-[#1f2937]">Себестоимость заполнена не у всех товаров</p>
+              <p className="mt-1 text-[12px] leading-relaxed text-[#64748b]">5 товаров с выручкой 18 420 ₽ имеют нулевую себестоимость. Прибыль по ним предварительная.</p>
             </div>
           </div>
         </div>
 
-        <div className="flex flex-col gap-3 border-b border-[#eef2f7] p-3 sm:flex-row sm:items-center">
+        <div className="flex flex-col gap-3 border-b border-[#eef2f7] p-3 sm:flex-row sm:flex-wrap sm:items-center">
           <label className="relative shrink-0">
             <Search size={12} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#64748b]" />
             <input
@@ -258,7 +260,7 @@ export function FinanceView() {
               onChange={(event) => setProductSearch(event.target.value)}
               aria-label="Поиск финансов по товару"
               placeholder="Артикул или имя"
-              className="h-8 w-full rounded-[8px] border border-[#e5e7eb] pl-8 pr-3 text-[8px] outline-none focus:border-[#111827] sm:w-[190px]"
+              className="h-8 w-full rounded-[8px] border border-[#e5e7eb] pl-8 pr-3 text-[12px] outline-none focus:border-[#111827] sm:w-[190px]"
             />
           </label>
           <div className="flex overflow-x-auto">
@@ -270,7 +272,7 @@ export function FinanceView() {
                   type="button"
                   onClick={() => setAbcFilter(filter)}
                   className={cn(
-                    'h-8 shrink-0 border border-r-0 border-[#e5e7eb] px-2.5 text-[7px] font-semibold first:rounded-l-[8px] last:rounded-r-[8px] last:border-r',
+                    'h-8 shrink-0 border border-r-0 border-[#e5e7eb] px-2.5 text-[12px] font-semibold first:rounded-l-[8px] last:rounded-r-[8px] last:border-r',
                     abcFilter === filter ? 'border-[#111827] bg-[#111827] text-white' : 'bg-white text-[#64748b]',
                   )}
                 >
@@ -280,34 +282,34 @@ export function FinanceView() {
               );
             })}
           </div>
-          <p className="text-[7px] text-[#64748b] sm:ml-auto">Сортировать по <strong className="text-[#64748b]">выручке</strong>, сначала <strong className="text-[#64748b]">высокая</strong></p>
+          <p className="text-[12px] text-[#64748b] sm:ml-auto">Сортировать по <strong className="text-[#64748b]">выручке</strong>, сначала <strong className="text-[#64748b]">высокая</strong></p>
         </div>
 
         <div className="overflow-x-auto">
           <table className="w-full min-w-[840px] text-left">
-            <thead className="bg-[#f8fafc] text-[7px] uppercase tracking-[0.04em] text-[#64748b]">
+            <thead className="bg-[#f8fafc] text-[12px] uppercase tracking-[0.04em] text-[#64748b]">
               <tr>
                 {['Товар', 'Выкупы', 'ABC', 'Расходы', 'Прибыль', 'Процент выкупа', 'Маржинальность'].map((label) => <th key={label} className="px-4 py-2.5 font-semibold">{label}</th>)}
               </tr>
             </thead>
             <tbody>
               {visibleFinanceProducts.length ? visibleFinanceProducts.map((product) => (
-                <tr key={product.name} className="border-t border-[#eef2f7] text-[8px] text-[#475569] hover:bg-[#f8fbff]">
+                <tr key={product.name} className="border-t border-[#eef2f7] text-[12px] text-[#475569] hover:bg-[#f8fbff]">
                   <td className="px-4 py-3">
                     <div className="flex items-center gap-2.5">
-                      <span className="grid h-9 w-9 shrink-0 place-items-center rounded-[9px] bg-gradient-to-br from-[#dcfce7] to-[#dbeafe] text-[8px] font-extrabold text-[#087b57]">MS</span>
+                      <span className="grid h-9 w-9 shrink-0 place-items-center rounded-[9px] bg-gradient-to-br from-[#dcfce7] to-[#dbeafe] text-[12px] font-extrabold text-[#087b57]">MS</span>
                       <span>
                         <span className="block font-semibold text-[#1f2937]">{product.name}</span>
-                        <span className="mt-1 block text-[6px] text-[#64748b]">Артикул: {product.sku}</span>
+                        <span className="mt-1 block text-[12px] text-[#64748b]">Артикул: {product.sku}</span>
                       </span>
                     </div>
                   </td>
                   <td className="px-4 py-3">
                     <span className="block font-bold text-[#1f2937]">{product.revenue}</span>
-                    <span className="mt-1 block text-[6px] text-[#64748b]">{product.sales}</span>
+                    <span className="mt-1 block text-[12px] text-[#64748b]">{product.sales}</span>
                   </td>
                   <td className="px-4 py-3">
-                    <span className="grid h-6 w-6 place-items-center rounded-full border text-[7px] font-extrabold" style={{ borderColor: `${abcColors[product.abc]}55`, backgroundColor: `${abcColors[product.abc]}18`, color: abcTextColors[product.abc] }}>{product.abc}</span>
+                    <span className="grid h-6 w-6 place-items-center rounded-full border text-[12px] font-extrabold" style={{ borderColor: `${abcColors[product.abc]}55`, backgroundColor: `${abcColors[product.abc]}18`, color: abcTextColors[product.abc] }}>{product.abc}</span>
                   </td>
                   <td className="px-4 py-3 font-semibold">{product.expenses}</td>
                   <td className="px-4 py-3 font-bold text-[#047857]">{product.profit}</td>
@@ -316,7 +318,7 @@ export function FinanceView() {
                 </tr>
               )) : (
                 <tr>
-                  <td colSpan={7} className="px-4 py-10 text-center text-[8px] text-[#64748b]">Нет товаров по выбранному фильтру</td>
+                  <td colSpan={7} className="px-4 py-10 text-center text-[12px] text-[#64748b]">Нет товаров по выбранному фильтру</td>
                 </tr>
               )}
             </tbody>

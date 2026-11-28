@@ -2,6 +2,13 @@
 <html lang="ru">
   <head>
     <meta charset="UTF-8" />
+    <link rel="api-catalog" href="/.well-known/api-catalog" />
+    <link rel="service-desc" type="application/vnd.oai.openapi+json" href="/openapi.json" />
+    <link rel="service-doc" type="text/markdown" href="/agents.md" />
+    <link rel="llms" type="text/plain" href="/llms.txt" />
+    <link rel="ai-catalog" type="application/json" href="/.well-known/ai-catalog.json" />
+    <link rel="mcp-server-card" type="application/json" href="/.well-known/mcp/server-card.json" />
+    <link rel="agent-card" type="application/json" href="/.well-known/agent-card.json" />
     <link rel="icon" type="image/x-icon" sizes="48x48" href="/favicon.ico?v=20260724-2" />
     <link rel="icon" type="image/svg+xml" sizes="any" href="/logo.svg?v=20260724-2" />
     <link rel="apple-touch-icon" sizes="192x192" href="/apple-touch-icon.png?v=20260724-2" />
@@ -12,9 +19,9 @@
     <title>Sellico — операционная система для продавцов маркетплейсов</title>
     <meta
       name="description"
-      content="Sellico объединяет финансы, юнит-экономику, остатки, поставки, рекламу, SEO, отзывы и задачи команды для Wildberries, Ozon и Яндекс Маркета."
+      content="Sellico: финансы, юнит-экономика, остатки, поставки, реклама, SEO, отзывы и задачи команды для WB, Ozon и Яндекс Маркета."
     />
-    <meta name="keywords" content="Sellico, маркетплейсы, Wildberries, Ozon, Яндекс Маркет, аналитика продаж, юнит-экономика, автобиддер" />
+    <meta name="keywords" content="Sellico, маркетплейсы, Wildberries, Ozon, Яндекс Маркет, аналитика продаж, юнит-экономика, планирование поставок, SEO карточек, управление остатками" />
     <meta name="author" content="Данил Зубарев" />
     <meta name="robots" content="index, follow, max-image-preview:large" />
     <meta name="google-site-verification" content="4yDy4WRXqhh5gGJ3R5Z3hZYdcHggOGySa7UnyT2J-mI" />
@@ -41,19 +48,7 @@
     <meta name="twitter:image" content="https://sellico.ru/og-image-v2.jpg" />
 
     <link rel="canonical" href="https://sellico.ru/" />
-    <script>
-      (() => {
-        const normalizedPath = window.location.pathname.length > 1
-          ? window.location.pathname.replace(/\/+$/, '')
-          : window.location.pathname;
-        // Список пересобирается пререндером из scripts/site-routes.mjs; здесь — значение для dev.
-        const publicPages = new Set(['/', '/privacy', '/personal-data-consent', '/pricing', '/features', '/marketplaces', '/wildberries', '/ozon', '/yandex-market']);
-        if (!publicPages.has(normalizedPath)) {
-          const robots = document.querySelector('meta[name="robots"]');
-          if (robots) robots.setAttribute('content', 'noindex, nofollow');
-        }
-      })();
-    </script>
+    <script src="/robots-guard.js" defer></script>
 
     <script type="application/ld+json">
       {
@@ -65,8 +60,8 @@
             "name": "Sellico",
             "legalName": "ИП ЗУБАРЕВ ДАНИЛ ВИКТОРОВИЧ",
             "alternateName": "Sellico — операционная система для продавцов маркетплейсов",
-            "url": "https://sellico.ru",
-            "disambiguatingDescription": "Sellico на домене sellico.ru — российский SaaS для управления магазинами на Wildberries, Ozon и Яндекс Маркете.",
+            "url": "https://sellico.ru/",
+            "disambiguatingDescription": "Sellico на домене sellico.ru — российская операционная система (SaaS) для продавцов на Wildberries, Ozon и Яндекс Маркете (ИП Зубарев Д. В., ИНН 644154992160, свидетельство Роспатента № 2026686895). Не связана с одноимёнными зарубежными сервисами на домене sellico.com.",
             "logo": "https://sellico.ru/logo.svg",
             "email": "hello@sellico.ru",
             "description": "Российская операционная система для продавцов и команд, управляющих магазинами на Wildberries, Ozon и Яндекс Маркете.",
@@ -102,16 +97,24 @@
               "SEO карточек товаров",
               "реклама на маркетплейсах",
               "координация команды продавца"
-            ]
+            ],
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "ул. Светлоярская, 38, 73",
+              "addressLocality": "Нижний Новгород",
+              "addressRegion": "Нижегородская область",
+              "postalCode": "603096",
+              "addressCountry": "RU"
+            }
           },
           {
             "@type": "WebSite",
             "@id": "https://sellico.ru/#website",
-            "url": "https://sellico.ru",
+            "url": "https://sellico.ru/",
             "name": "Sellico",
             "alternateName": "Sellico для продавцов маркетплейсов",
             "inLanguage": "ru-RU",
-            "dateModified": "2026-09-28T00:00:00+03:00",
+            "dateModified": "2026-11-16T00:00:00+03:00",
             "publisher": {
               "@id": "https://sellico.ru/#organization"
             }
@@ -123,9 +126,12 @@
             "givenName": "Данил",
             "familyName": "Зубарев",
             "url": "https://sellico.ru/authors/danil-zubarev/",
+            "image": "https://sellico.ru/assets/authors/danil-zubarev.jpg",
             "jobTitle": "Разработчик Sellico",
-            "description": "Разработчик Sellico с опытом работы в e-commerce более 12 лет.",
             "email": "hello@sellico.ru",
+            "sameAs": [
+              "https://t.me/sellico"
+            ],
             "worksFor": {
               "@id": "https://sellico.ru/#organization"
             }
@@ -137,6 +143,7 @@
             "description": "Короткий видеообзор Sellico: канбан задач, юнит-экономика с разбором прибыли по товару и финансовая сводка с тепловой картой заказов. Данные в ролике демонстрационные.",
             "thumbnailUrl": "https://sellico.ru/assets/video/sellico-overview-poster.jpg",
             "contentUrl": "https://sellico.ru/assets/video/sellico-overview.mp4",
+            "embedUrl": "https://sellico.ru/#video",
             "uploadDate": "2026-09-28T00:00:00+03:00",
             "duration": "PT25S",
             "inLanguage": "ru-RU",
@@ -145,89 +152,91 @@
             }
           },
           {
-            "@type": "SoftwareApplication",
+            "@type": "Service",
             "@id": "https://sellico.ru/#software",
             "name": "Sellico",
-            "url": "https://sellico.ru",
-            "image": "https://sellico.ru/og-image-v2.jpg",
-            "applicationCategory": "BusinessApplication",
-            "applicationSubCategory": "Marketplace analytics and operations",
-            "operatingSystem": "Web",
-            "inLanguage": "ru-RU",
+            "url": "https://sellico.ru/",
             "description": "Операционная система для продавцов на Wildberries, Ozon и Яндекс Маркет: финансы, юнит-экономика, SEO, реклама, поставки, CRM и задачи команды.",
-            "featureList": [
-              "Финансы и юнит-экономика по SKU",
-              "CRM и задачи команды",
-              "SEO-инструменты и AI-генерация карточек",
-              "Автоматизация рекламы и ставок",
-              "Планирование поставок и контроль остатков",
-              "Отзывы, почта и коммуникации"
-            ],
-            "publisher": {
+            "image": "https://sellico.ru/og-image-v2.jpg",
+            "serviceType": "SaaS для управления магазинами на маркетплейсах",
+            "provider": {
               "@id": "https://sellico.ru/#organization"
             },
-            "offers": {
-              "@type": "AggregateOffer",
-              "priceCurrency": "RUB",
-              "lowPrice": "3000",
-              "highPrice": "40000",
-              "offerCount": "4",
+            "areaServed": {
+              "@type": "Country",
+              "name": "Россия"
+            },
+            "hasOfferCatalog": {
+              "@type": "OfferCatalog",
+              "@id": "https://sellico.ru/pricing/#plans",
+              "name": "Тарифы Sellico",
               "url": "https://sellico.ru/pricing/",
-              "availability": "https://schema.org/InStock",
-              "offers": [
+              "itemListElement": [
                 {
                   "@type": "Offer",
                   "name": "Старт",
-                  "price": "3000",
-                  "priceCurrency": "RUB",
                   "url": "https://sellico.ru/pricing/",
+                  "priceCurrency": "RUB",
+                  "price": 3000,
                   "priceSpecification": {
-                    "@type": "UnitPriceSpecification",
-                    "price": "3000",
+                    "@type": [
+                      "PriceSpecification",
+                      "UnitPriceSpecification"
+                    ],
                     "priceCurrency": "RUB",
-                    "unitText": "MONTH",
+                    "price": 3000,
+                    "unitText": "месяц",
                     "billingDuration": "P1M"
                   }
                 },
                 {
                   "@type": "Offer",
                   "name": "Про",
-                  "price": "8000",
-                  "priceCurrency": "RUB",
                   "url": "https://sellico.ru/pricing/",
+                  "priceCurrency": "RUB",
+                  "price": 8000,
                   "priceSpecification": {
-                    "@type": "UnitPriceSpecification",
-                    "price": "8000",
+                    "@type": [
+                      "PriceSpecification",
+                      "UnitPriceSpecification"
+                    ],
                     "priceCurrency": "RUB",
-                    "unitText": "MONTH",
+                    "price": 8000,
+                    "unitText": "месяц",
                     "billingDuration": "P1M"
                   }
                 },
                 {
                   "@type": "Offer",
                   "name": "Бизнес",
-                  "price": "15000",
-                  "priceCurrency": "RUB",
                   "url": "https://sellico.ru/pricing/",
+                  "priceCurrency": "RUB",
+                  "price": 15000,
                   "priceSpecification": {
-                    "@type": "UnitPriceSpecification",
-                    "price": "15000",
+                    "@type": [
+                      "PriceSpecification",
+                      "UnitPriceSpecification"
+                    ],
                     "priceCurrency": "RUB",
-                    "unitText": "MONTH",
+                    "price": 15000,
+                    "unitText": "месяц",
                     "billingDuration": "P1M"
                   }
                 },
                 {
                   "@type": "Offer",
-                  "name": "Enterprise — от 40 000 ₽",
-                  "price": "40000",
-                  "priceCurrency": "RUB",
+                  "name": "Enterprise",
                   "url": "https://sellico.ru/pricing/",
+                  "priceCurrency": "RUB",
+                  "description": "От 40 000 ₽ в месяц. Итоговая стоимость определяется индивидуальными условиями.",
                   "priceSpecification": {
-                    "@type": "UnitPriceSpecification",
-                    "price": "40000",
+                    "@type": [
+                      "PriceSpecification",
+                      "UnitPriceSpecification"
+                    ],
                     "priceCurrency": "RUB",
-                    "unitText": "MONTH",
+                    "minPrice": 40000,
+                    "unitText": "месяц",
                     "billingDuration": "P1M"
                   }
                 }
@@ -252,7 +261,7 @@
                 "name": "С какими маркетплейсами работает Sellico?",
                 "acceptedAnswer": {
                   "@type": "Answer",
-                  "text": "Sellico поддерживает Wildberries, Ozon и Яндекс Маркет. Данные подключённых магазинов собираются в одном кабинете для сравнения показателей и управления ежедневными процессами."
+                  "text": "Sellico поддерживает Wildberries, Ozon и Яндекс Маркет. Данные подключённых магазинов собираются в одном кабинете, чтобы команда могла сравнивать показатели и управлять ежедневными процессами без отдельных таблиц для каждой площадки."
                 }
               },
               {
@@ -268,7 +277,7 @@
                 "name": "Сколько времени занимает подключение магазина?",
                 "acceptedAnswer": {
                   "@type": "Answer",
-                  "text": "Первый магазин можно подключить примерно за 15 минут. Для старта не требуется переносить рабочие таблицы или привязывать банковскую карту."
+                  "text": "Магазин подключается по API. Первая загрузка зависит от объёма истории и доступности данных площадки; статус и время обновления видны в кабинете. Для старта не требуется переносить рабочие таблицы или привязывать банковскую карту: достаточно выбрать тариф, подключить кабинет маркетплейса и дождаться синхронизации доступных данных."
                 }
               },
               {
@@ -276,7 +285,7 @@
                 "name": "Есть ли бесплатный период?",
                 "acceptedAnswer": {
                   "@type": "Answer",
-                  "text": "Да. Для тарифов Sellico предусмотрено 3 дня бесплатного доступа без привязки банковской карты."
+                  "text": "Да. Пробный период длится 3 дня с создания рабочего пространства, включая загрузку истории, без банковской карты. Доступны финансы, юнит-экономика, SEO, отзывы, задачи и координация: 1 API, 50 товаров, 3 пользователя. Заявки, лиды, Meet и Roadmap в пробный период не входят."
                 }
               },
               {
@@ -284,7 +293,7 @@
                 "name": "Сколько стоит Sellico?",
                 "acceptedAnswer": {
                   "@type": "Answer",
-                  "text": "Тариф «Старт» стоит 3 000 ₽ в месяц, «Про» — 8 000 ₽, «Бизнес» — 15 000 ₽. Enterprise начинается от 40 000 ₽ в месяц."
+                  "text": "Тариф «Старт» стоит 3 000 ₽ в месяц, «Про» — 8 000 ₽, «Бизнес» — 15 000 ₽. Enterprise начинается от 40 000 ₽ в месяц и рассчитывается с учётом количества интеграций, пользователей, товаров и задач внедрения."
                 }
               },
               {
@@ -302,6 +311,27 @@
                   "@type": "Answer",
                   "text": "Enterprise предназначен для крупного бизнеса, агентств и команд со сложным контуром данных. В него входят договорные лимиты, индивидуальные условия SEO и автопланирования, настройка ролей и интеграций, а также согласованный сценарий внедрения."
                 }
+              }
+            ]
+          },
+          {
+            "@type": "WebPage",
+            "@id": "https://sellico.ru/#webpage",
+            "url": "https://sellico.ru/",
+            "name": "Sellico — операционная система для продавцов маркетплейсов",
+            "inLanguage": "ru-RU",
+            "isPartOf": {
+              "@id": "https://sellico.ru/#website"
+            },
+            "mainEntity": {
+              "@id": "https://sellico.ru/#software"
+            },
+            "hasPart": [
+              {
+                "@id": "https://sellico.ru/#faq"
+              },
+              {
+                "@id": "https://sellico.ru/#overview-video"
               }
             ]
           }

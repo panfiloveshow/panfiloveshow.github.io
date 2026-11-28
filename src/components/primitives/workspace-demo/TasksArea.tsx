@@ -12,15 +12,37 @@ import {
 } from 'lucide-react';
 import { cn } from '@/lib/cn';
 import {
-  calendarEvents,
-  calendarWeeks,
   statusMeta,
-  statusOrder,
   type DemoTask,
   type TaskStatus,
   type ViewMode,
 } from './data';
 import { Avatar } from './shared';
+
+const statusOrder: TaskStatus[] = ['pending', 'in_progress', 'review', 'completed', 'overdue'];
+
+const calendarWeeks = [
+  ['29', '30', '1', '2', '3', '4', '5'],
+  ['6', '7', '8', '9', '10', '11', '12'],
+  ['13', '14', '15', '16', '17', '18', '19'],
+];
+
+const calendarEvents: Record<string, string[]> = {
+  '29': ['Проверить остатки', 'Обновить цены'],
+  '30': ['Подготовить карточки'],
+  '1': ['Еженедельный отчёт'],
+  '3': ['Обновить остатки', 'Согласовать поставку'],
+  '4': ['Аудит карточек'],
+  '7': ['Рассчитать себестоимость'],
+  '8': ['Войти в акцию'],
+  '9': ['Загрузить документы'],
+  '10': ['Запросить остатки'],
+  '11': ['Проверить изображения'],
+  '12': ['Ответить покупателям'],
+  '16': ['Поднять цены'],
+  '17': ['Поставки на склады'],
+  '18': ['Обновить показатели'],
+};
 
 function TaskCard({
   task,

@@ -22,15 +22,13 @@ export type DemoTask = {
   wasOverdue?: boolean;
 };
 
-export type StatusMeta = {
+type StatusMeta = {
   label: string;
   color: string;
   soft: string;
   border: string;
   icon: LucideIcon;
 };
-
-export const statusOrder: TaskStatus[] = ['pending', 'in_progress', 'review', 'completed', 'overdue'];
 
 export const statusMeta: Record<TaskStatus, StatusMeta> = {
   pending: {
@@ -163,35 +161,4 @@ export const initialTasks: DemoTask[] = [
     wasOverdue: true,
   },
 ];
-
-export const chatRooms = [
-  { id: 'selya', name: 'Селя', subtitle: 'Остатки, экономика, дефициты', initials: 'AI', bot: true },
-  { id: 'marina', name: 'Марина', subtitle: 'Личный диалог', initials: 'М', time: '13:00' },
-  { id: 'alexey', name: 'Алексей', subtitle: 'Личный диалог', initials: 'А', time: '13:16' },
-  { id: 'team', name: 'Команда магазина', subtitle: 'Групповой чат', initials: 'К', time: '16:18' },
-  { id: 'content', name: 'Контент и реклама', subtitle: 'Групповой чат', initials: 'К', time: '12:35' },
-];
-
-export const calendarWeeks = [
-  ['29', '30', '1', '2', '3', '4', '5'],
-  ['6', '7', '8', '9', '10', '11', '12'],
-  ['13', '14', '15', '16', '17', '18', '19'],
-];
-
-export const calendarEvents: Record<string, string[]> = {
-  '29': ['Проверить остатки', 'Обновить цены'],
-  '30': ['Подготовить карточки'],
-  '1': ['Еженедельный отчёт'],
-  '3': ['Обновить остатки', 'Согласовать поставку'],
-  '4': ['Аудит карточек'],
-  '7': ['Рассчитать себестоимость'],
-  '8': ['Войти в акцию'],
-  '9': ['Загрузить документы'],
-  '10': ['Запросить остатки'],
-  '11': ['Проверить изображения'],
-  '12': ['Ответить покупателям'],
-  '16': ['Поднять цены'],
-  '17': ['Поставки на склады'],
-  '18': ['Обновить показатели'],
-};
 

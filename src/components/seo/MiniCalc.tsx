@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { Container } from '@/components/ui/Container';
-import { MINI_CALCS } from '@/lib/mini-calcs';
+import { MINI_CALCS } from '@/lib/calculators/mini';
 
 /** Короткий расчёт прямо в статье термина: одно число и переход к полному калькулятору. */
 export function MiniCalc({ slug }: { slug: string }) {
